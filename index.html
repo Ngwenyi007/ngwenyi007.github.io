@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adept Orchestrate - Ngwenyi007</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f8;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #263238;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 1.2rem;
+    }
+
+    section, .product-card, .interactive-form, .contact-section {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      margin-top: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    h3, h2, h4 {
+      color: #2e7d32;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    .buy-button {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 0.6rem 1.2rem;
+      background-color: #2e7d32;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    .buy-button:hover {
+      background-color: #1b5e20;
+    }
+
+    form {
+      margin-top: 1rem;
+    }
+
+    input[type="text"] {
+      padding: 0.5rem;
+      width: 60%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-right: 0.5rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1b5e20;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #eeeeee;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #2e7d32;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    img {
+      border-radius: 8px;
+      margin-top: 1rem;
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Adept Orchestrate - Ngwenyi007</h1>
+    <p>Crafting Space-Saving Furniture for Urban Living</p>
+  </header>
+
+  <section class="about-section">
+    <h3>👨‍🔧 About Me</h3>
+    <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>
+  </section>
+
+  <section>
+    <h3>🛠️ Services Offered</h3>
+    <ul>
+      <li>Workshop Planning</li>
+      <li>Project Planning</li>
+      <li>Project Costing</li>
+      <li>Timber Sectioning and Seasoning</li>
+      <li>Woodwork Joints</li>
+      <li>Writing Bills of Quantity</li>
+    </ul>
+  </section>
+
+  <section class="product-card">
+    <h2>🛏️ Loft Bed Plan for Bedsitters</h2>
+    <img src="loft_bed.jpg" alt="Loft Bed Design"/>
+    <p><b>What You Get:</b></p>
+    <ul>
+      <li>📐 Technical drawings (Top, Side, Front)</li>
+      <li>🧰 Timber cut list + joinery instructions</li>
+      <li>📝 Step-by-step assembly process</li>
+      <li>✨ Designed for small rooms</li>
+    </ul>
+    <p><b>💲Price: $8 (USD)</b></p>
+    <a class="buy-button" href="https://francismatu.gumroad.com/l/ttcuj" target="_blank">Buy on Gumroad</a>
+    <a class="buy-button" href="https://wa.me/254786390308">Chat on WhatsApp</a>
+  </section>
+
+  <div class="interactive-form">
+    <h3>👋 Say Hello!</h3>
+    <form onsubmit="showGreeting(event)">
+      <input type="text" id="username" placeholder="Your name" required />
+      <button type="submit">Submit</button>
+    </form>
+    <p id="greeting"></p>
+  </div>
+
+  <div class="contact-section">
+    <h4>📬 Email Contact</h4>
+    <p>If you have any questions, send me an email at:</p>
+    <b><a href="mailto:francismatu8@gmail.com">francismatu8@gmail.com</a></b>
+  </div>
+
+  <footer>
+    <p>#makingkenyaindustrialhub</p>
+    <p>Follow me:
+      <a href="https://github.com/ngwenyi007" target="_blank">GitHub</a> |
+      <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+    </p>
+  </footer>
+
+  <script>
+    function showGreeting(event) {
+      event.preventDefault();
+      const name = document.getElementById('username').value;
+      const greeting = `👋 Hi ${name}, thanks for visiting Adept Orchestrate!`;
+      document.getElementById('greeting').innerText = greeting;
+    }
+  </script>
+
+</body>
+</html>
