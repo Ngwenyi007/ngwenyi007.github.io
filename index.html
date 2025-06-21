@@ -105,35 +105,35 @@
     footer a:hover {
       text-decoration: underline;
     }
-<style>
-  /* Gold Frame Image Styles */
-  .profile-image-container {
-    text-align: center;
+  .image-container {
+    display: flex;
+    justify-content: center;
     margin: 2rem 0;
   }
   
-  .gold-oval-frame {
-    display: inline-block;
+  .silver-outer-frame {
+    padding: 10px;
+    background: linear-gradient(135deg, #e6e6e6 0%, #c0c0c0 50%, #e6e6e6 100%);
+    border-radius: 25% 75% 25% 75% / 60% 40% 60% 40%; /* Oval shape */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .gold-inner-frame {
     padding: 8px;
     background: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #FFD700 100%);
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    border-radius: 20% 80% 20% 80% / 60% 40% 60% 40%; /* Matching oval */
   }
   
-  .gold-oval-frame:hover {
-    transform: scale(1.05);
-  }
-  
-  .profile-image {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    object-position: top center; /* THIS FIXES THE CROPPING */
-    border-radius: 50%;
+  .enhanced-profile-image {
+    width: 280px;
+    height: 380px; /* More oval-friendly proportions */
+    object-fit: contain; /* Shows full image without cropping */
+    object-position: center;
+    border-radius: 15% 85% 15% 85% / 60% 40% 60% 40%; /* Subtle oval */
     border: 4px solid white;
     display: block;
   }
+
 </style>
   </style>
 </head>
@@ -148,13 +148,16 @@
     <h3>👨‍🔧 About Me</h3>
     <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>
   </section>
-<div class="profile-image-container">
-  <div class="gold-oval-frame">
-    <img src="IMG_20250504_113932_MP~2.jpg" 
-         alt="Francis Kabue Matu at work"
-         class="profile-image">
+<div class="image-container">
+  <div class="silver-outer-frame">
+    <div class="gold-inner-frame">
+      <img src="IMG_20250504_113932_MP~2.jpg" 
+           alt="Francis Kabue Matu at work"
+           class="enhanced-profile-image">
+    </div>
   </div>
 </div>
+
   <section>
     <h3>🛠️ Services Offered</h3>
     <ul>
