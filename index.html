@@ -105,32 +105,29 @@
     footer a:hover {
       text-decoration: underline;
     }
-  .portrait-container {
+
+.profile-display {
     display: flex;
     justify-content: center;
-    margin: 2rem 0;
+    margin: 2rem auto;
+    max-width: 800px;
   }
 
-  .silver-oval-frame {
-    padding: 12px;
-    background: linear-gradient(145deg, #e6e6e6, #c0c0c0, #e6e6e6);
-    border-radius: 40% 40% 60% 60% / 60% 60% 40% 40%; /* Vertical oval */
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  }
-
-  .gold-oval-inset {
+  .gold-frame {
     padding: 10px;
-    background: linear-gradient(145deg, #FFD700, #D4AF37, #FFD700);
-    border-radius: 38% 38% 58% 58% / 58% 58% 38% 38%; /* Matching inner oval */
+    background: linear-gradient(145deg, #FFD700, #D4AF37, >
+    border-radius: 30% 70% 30% 70% / 60% 40% 60% 40%; /* O>
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   }
 
-  .vertical-portrait {
-    width: 220px;
-    height: 300px; /* Taller aspect ratio */
-    object-fit: cover;
-    object-position: center top; /* Focus on upper body */
-    border-radius: 35% 35% 55% 55% / 55% 55% 35% 35%; /* Subtle vertical oval */
+  .full-body-portrait {
+    width: 250px;
+    height: 350px; /* Taller aspect ratio for full body */
+    object-fit: contain; /* Ensures full body visibility */
+    object-position: center;
+    border-radius: 25% 75% 25% 75% / 55% 45% 55% 45%; /* M>
     border: 4px solid white;
+    background: #f5f5f5; /* Neutral background for any emp>
     display: block;
   }
 </style>
@@ -146,15 +143,14 @@
     <h3>👨‍🔧 About Me</h3>
     <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>
   </section>
-<div class="portrait-container">
-  <div class="silver-oval-frame">
-    <div class="gold-oval-inset">
-      <img src="IMG_20250504_113932_MP~2.jpg" 
-           alt="Francis Kabue Matu" 
-           class="vertical-portrait">
-    </div>
+<div class="profile-display">
+  <div class="gold-frame">
+    <img src="IMG_20250504_113932_MP~2.jpg" 
+         alt="Francis Kabue Matu" 
+         class="full-body-portrait">
   </div>
 </div>
+
   <section>
     <h3>🛠️ Services Offered</h3>
     <ul>
@@ -169,7 +165,11 @@
 
   <section class="product-card">
     <h2>🛏️ Loft Bed Plan for Bedsitters</h2>
-    <img src="1746869325217.jpg" alt="Loft Bed Design"/>
+<div class="product-display">
+  <img src="1746869325217.jpg" 
+       alt="Loft Bed Design"
+       style="width: 100%; max-width: 500px; border-radius: 8px; margin: 1rem auto; display: block;">
+</div>
     <p><b>What You Get:</b></p>
     <ul>
       <li>📐 Technical drawings (Top, Side, Front)</li>
