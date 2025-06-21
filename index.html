@@ -105,15 +105,20 @@
     footer a:hover {
       text-decoration: underline;
     }
-
     img {
-      border-radius: 8px;
-      margin-top: 1rem;
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-    }
+  border-radius: 8px;
+  margin-top: 1rem;
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  /* Add these for smoother transitions */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
     .profile-wrapper {
       display: flex;
       justify-content: center;
@@ -171,17 +176,28 @@
     <h3>👨‍🔧 About Me</h3>
     <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>
   </section>
-
-  <div class="profile-wrapper">
-    <div class="profile-container">
-      <img src="IMG_20250504_113932_MP~2.jpg" alt="Francis Kabue Matu" class="profile-photo">
-      <div class="profile-info">
-        <h3>Francis Kabue Matu</h3>
-        <p>Crafting smart, space-saving furniture for compact living. Based in Kenya 🇰🇪</p>
-      </div>
-    </div>
+<div style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
+  <!-- Image (Top Center) - Uses YOUR existing CSS -->
+  <div style="text-align: center;">
+    <img src="IMG_20250504_113932_MP~2.jpg" alt="Francis Kabue Matu" 
+         style="border-radius: 8px; margin-top: 1rem; width: 100%; max-height: 400px; object-fit: cover;">
   </div>
 
+  <!-- Name & Tagline (Centered) -->
+  <h1 style="text-align: center; color: #333; margin-top: 2rem;">Francis Kabue Matu</h1>
+  <p style="text-align: center; color: #555; font-size: 1.1em; margin-bottom: 2rem;">
+    Crafting smart, space-saving furniture for Kenya
+  </p>
+
+  <!-- About Me Section (Card-like design) -->
+  <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <h2 style="margin-top: 0; color: #222;">About Me</h2>
+    <p style="line-height: 1.6;">
+      I'm a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. 
+      My goal is to promote DIY solutions and local manufacturing.
+    </p>
+  </div>
+</div>
   <section>
     <h3>🛠️ Services Offered</h3>
     <ul>
