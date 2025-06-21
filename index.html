@@ -113,6 +113,51 @@
       max-height: 400px;
       object-fit: cover;
     }
+
+    .profile-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+    }
+
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 300px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      background: #fff;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-container:hover {
+      transform: scale(1.03);
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .profile-info {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .profile-info h3 {
+      margin: 10px 0 5px;
+      font-size: 1.4em;
+      color: #333;
+    }
+
+    .profile-info p {
+      font-size: 0.95em;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -124,10 +169,9 @@
 
   <section class="about-section">
     <h3>👨‍🔧 About Me</h3>
-    <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>  </section>
-<body>
-  <h1>Adept Orchestrate - Ngwenyi007</h1>
-  
+    <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>
+  </section>
+
   <div class="profile-wrapper">
     <div class="profile-container">
       <img src="IMG_20250504_113932_MP~2.jpg" alt="Francis Kabue Matu" class="profile-photo">
@@ -138,7 +182,6 @@
     </div>
   </div>
 
-  
   <section>
     <h3>🛠️ Services Offered</h3>
     <ul>
