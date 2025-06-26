@@ -82,56 +82,106 @@
       display: block;
     }
 }
-   :root{
-  --drawer-width:260px;
-  --primary:#2e7d32;
+:root {
+  --drawer-width: 260px;
+  --primary: #2e7d32;
 }
 
 /* base */
-body{margin:0;font-family:sans-serif;transition:.3s background,color;}
-body.dark{background:#121212;color:#eee;}
-main{padding:4rem 1.5rem;}
+body {
+  margin: 0;
+  font-family: sans-serif;
+  transition: 0.3s background;
+}
+body.dark {
+  background: #121212;
+  color: #eee;
+}
+main {
+  padding: 4rem 1.5rem;
+}
 
 /* hamburger */
-#burger{
-  position:fixed;top:16px;left:16px;
-  font-size:2rem;color:#fff;background:var(--primary);
-  border:none;border-radius:8px;padding:.4rem .8rem;cursor:pointer;
-  z-index:1002;transition:transform .3s,opacity .3s;
+#burger {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  font-size: 2rem;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  z-index: 1002;
+  transition: transform 0.3s, opacity 0.3s;
 }
-body.drawer-open #burger{transform:translateX(-120%);opacity:0;pointer-events:none}
+body.drawer-open #burger {
+  transform: translateX(-120%);
+  opacity: 0;
+}
 
 /* drawer */
-#drawer{
-  position:fixed;top:0;left:calc(-1*var(--drawer-width));
-  width:var(--drawer-width);height:100vh;
-  background:#37474f;color:#fff;padding:1rem;
-  box-shadow:2px 0 8px rgba(0,0,0,.4);
-  transition:left .3s ease;z-index:1001;overflow-y:auto;
+#drawer {
+  position: fixed;
+  top: 0;
+  left: calc(-1 * var(--drawer-width));
+  width: var(--drawer-width);
+  height: 100vh;
+  background: #37474f;
+  color: #fff;
+  padding: 1rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);
+  transition: left 0.3s ease;
+  z-index: 1001;
+  overflow-y: auto;
 }
-body.drawer-open #drawer{left:0}
+body.drawer-open #drawer {
+  left: 0;
+}
 
 /* close btn */
-#close{
-  font-size:2rem;background:none;border:none;color:#fff;
-  float:right;cursor:pointer;margin-bottom:1rem;
+#close {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #fff;
+  float: right;
+  cursor: pointer;
+  margin-bottom: 1rem;
 }
 
 /* links */
-#drawer a{color:#80cbc4;text-decoration:none;display:block;margin:.8rem 0}
+#drawer a {
+  color: #80cbc4;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.5rem;
+}
 
 /* overlay */
-#overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.5);
-  display:none;z-index:1000;
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 1000;
 }
-body.drawer-open #overlay{display:block}
+body.drawer-open #overlay {
+  display: block;
+}
 
 /* theme switch */
-.theme-switch{display:block;margin-top:2rem;cursor:pointer}
+.theme-switch {
+  display: block;
+  margin-top: 2rem;
+  cursor: pointer;
+}
 
-/* dark theme extras */
-body.dark #drawer{background:#263238}
+/* dark theme drawer */
+body.dark #drawer {
+  background: #263238;
+}
      .gold-oval-container {
       display: inline-block;
       padding: 8px;
@@ -165,40 +215,27 @@ body.dark #drawer{background:#263238}
 </head>
 <body>
 
-<!-- HAMBURGER ICON -->
-<button id="burger">☰</button>
+  <!-- Hamburger -->
+  <button id="burger">☰</button>
 
-<!-- SIDE DRAWER -->
-<aside id="drawer">
-  <button id="close">×</button>
-  <h2>Menu</h2>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Projects</a>
-    <a href="#">Contact</a>
-  </nav>
+  <!-- Side Drawer -->
+  <aside id="drawer">
+    <button id="close">&times;</button>
+    <h2>Menu</h2>
+    <a href="#about">About</a>
+    <a href="#products">Products</a>
+    <a href="#contact">Contact</a>
+    <a href="#support">Buy Me Tea</a>
+    <a href="#socials">Socials</a>
+    <label class="theme-switch">
+      <input type="checkbox" id="themeToggle"> 🌞 / 🌙
+    </label>
+  </aside>
 
-  <!-- Buy-Me-Tea accordion -->
-  <details>
-    <summary>🍵 Buy Me Tea</summary>
-    <a href="https://github.com/sponsors/ngwenyi007" target="_blank">❤️ GitHub Sponsor</a><br>
-    <a href="https://www.buymeacoffee.com/ngwenyi007" target="_blank">☕ Buy Me Coffee</a>
-  </details>
+  <!-- Overlay -->
+  <div id="overlay"></div>
 
-  <!-- Social links -->
-  <div class="socials">
-    <a href="https://github.com/ngwenyi007" target="_blank">GitHub</a>
-    <a href="https://wa.me/2547XXXXXXX" target="_blank">WhatsApp</a>
-  </div>
-
-  <!-- Theme toggle -->
-  <label class="theme-switch">
-    <input type="checkbox" id="themeToggle"> 🌞/🌙
-  </label>
-</aside>
-
-<!-- CLICK-OFF OVERLAY -->
-<div id="overlay"></div>
+  <!-- Main content -->
   <!-- Header -->
   <header>
     <h1>Adept Orchestrate - Ngwenyi007</h1>
@@ -375,25 +412,29 @@ body.dark #drawer{background:#263238}
   <!-- JavaScript -->
 <script src="script.js"></script>
   <script>
-const body        = document.body;
-const burger      = document.getElementById('burger');
-const closeBtn    = document.getElementById('close');
-const overlay     = document.getElementById('overlay');
+const body = document.body;
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+const closeBtn = document.getElementById('close');
+const overlay = document.getElementById('overlay');
 const themeToggle = document.getElementById('themeToggle');
 
-/* open drawer */
-burger.addEventListener('click', () => body.classList.add('drawer-open'));
+// Open drawer
+burger.addEventListener('click', () => {
+  body.classList.add('drawer-open');
+});
 
-/* close drawer */
-function closeDrawer(){
+// Close drawer
+function closeDrawer() {
   body.classList.remove('drawer-open');
 }
+
 closeBtn.addEventListener('click', closeDrawer);
 overlay.addEventListener('click', closeDrawer);
 
-/* theme switch */
+// Theme toggle
 themeToggle.addEventListener('change', () => {
-  body.classList.toggle('dark', themeToggle.checked);
+  body.classList.toggle('dark');
 });
  </script>
 </body>
