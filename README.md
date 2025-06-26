@@ -1,7 +1,7 @@
 👋 Hi, I’m Ngwenyi
 
 I’m a Kenyan woodworker, maker, and aspiring mechatronic engineer.  
-I'm the founder of **Adept Wood Worker**, a digital workshop creating:
+I'm the founder of **Adept Orchestrate**, a digital workshop creating:
 
 - 📐 DIY Furniture Blueprints with 3D guides
 - ⚡ Domestic Electricity Production Systems
@@ -41,5 +41,5 @@ If you believe in open-source, practical skills, and DIY empowerment, consider s
 ---
 
 ## 📬 Contact
-- 📧 Email: [Mail Me](francismatu8@gmail.com)
+- 📧 Email: [Mail Me](https://francismatu8@gmail.com)
 - 🛠️ WhatsApp: [Message Me](https://wa.me/254786390308)
