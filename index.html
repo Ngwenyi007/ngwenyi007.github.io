@@ -82,114 +82,6 @@
       display: block;
     }
 }
-:root {
-  --drawer-width: 260px;
-  --primary: #2e7d32;
-}
-
-/* base */
-body {
-  margin: 0;
-  font-family: sans-serif;
-  transition: 0.3s background;
-}
-body.dark {
-  background: #121212;
-  color: #eee;
-}
-main {
-  padding: 4rem 1.5rem;
-}
-
-/* hamburger */
-#burger {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  font-size: 2rem;
-  color: #fff;
-  background: var(--primary);
-  border: none;
-  border-radius: 8px;
-  padding: 0.4rem 0.8rem;
-  cursor: pointer;
-  z-index: 1002;
-  transition: transform 0.3s, opacity 0.3s;
-}
-body.drawer-open #burger {
-  transform: translateX(-120%);
-  opacity: 0;
-}
-
-/* drawer */
-#drawer {
-  position: fixed;
-  top: 0;
-  left: calc(-1 * var(--drawer-width));
-  width: var(--drawer-width);
-  height: 100vh;
-  background: #37474f;
-  color: #fff;
-  padding: 1rem;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);
-  transition: left 0.3s ease;
-  z-index: 1001;
-  overflow-y: auto;
-}
-body.drawer-open #drawer {
-  left: 0;
-}
-
-/* close btn */
-#close {
-  font-size: 2rem;
-  background: none;
-  border: none;
-  color: #fff;
-  float: right;
-  cursor: pointer;
-  margin-bottom: 1rem;
-}
-
-/* links */
-#drawer a {
-  color: #80cbc4;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-/* overlay */
-#overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: none;
-  z-index: 1000;
-}
-body.drawer-open #overlay {
-  display: block;
-}
-
-/* theme switch */
-.theme-switch {
-  display: block;
-  margin-top: 2rem;
-  cursor: pointer;
-}
-
-/* dark theme drawer */
-body.dark #drawer {
-  background: #263238;
-}
-     .gold-oval-container {
-      display: inline-block;
-      padding: 8px;
-      background: linear-gradient(145deg, #FFD700, #D4AF37, #FFD700);
-      border-radius: 25% 25% 75% 75% / 40% 40% 60% 60%;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
     .gold-oval-container img {
       width: 180px;
       height: 320px;
@@ -214,27 +106,6 @@ body.dark #drawer {
   </style>
 </head>
 <body>
-
-  <!-- Hamburger -->
-  <button id="burger">☰</button>
-
-  <!-- Side Drawer -->
-  <aside id="drawer">
-    <button id="close">&times;</button>
-    <h2>Menu</h2>
-    <a href="#about">About</a>
-    <a href="#products">Products</a>
-    <a href="#contact">Contact</a>
-    <a href="#support">Buy Me Tea</a>
-    <a href="#socials">Socials</a>
-    <label class="theme-switch">
-      <input type="checkbox" id="themeToggle"> 🌞 / 🌙
-    </label>
-  </aside>
-
-  <!-- Overlay -->
-  <div id="overlay"></div>
-
   <!-- Main content -->
   <!-- Header -->
   <header>
@@ -404,38 +275,12 @@ body.dark #drawer {
     <p><b>— Daniel, Nairobi</b></p>  
   </div>  
 </section>  
+
   <!-- Footer -->
   <footer id="contact">
     <p>📩 Contact: <a href="mailto:adeptwoodworker@gmail.com">adeptwoodworker@gmail.com</a></p>
   </footer>
 
-  <!-- JavaScript -->
-<script src="script.js"></script>
-  <script>
-const body = document.body;
-const burger = document.getElementById('burger');
-const drawer = document.getElementById('drawer');
-const closeBtn = document.getElementById('close');
-const overlay = document.getElementById('overlay');
-const themeToggle = document.getElementById('themeToggle');
 
-// Open drawer
-burger.addEventListener('click', () => {
-  body.classList.add('drawer-open');
-});
-
-// Close drawer
-function closeDrawer() {
-  body.classList.remove('drawer-open');
-}
-
-closeBtn.addEventListener('click', closeDrawer);
-overlay.addEventListener('click', closeDrawer);
-
-// Theme toggle
-themeToggle.addEventListener('change', () => {
-  body.classList.toggle('dark');
-});
- </script>
 </body>
 </html>
