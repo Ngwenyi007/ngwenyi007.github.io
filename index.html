@@ -116,19 +116,19 @@
     max-width: 800px;
   }
 
-  .gold-frame {
-    padding: 10px;
-    background: linear-gradient(145deg, #FFD700, #D4AF37, >
-    border-radius: 30% 70% 30% 70% / 60% 40% 60% 40%; /* O>
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  }
-
+.gold-frame {
+  padding: 10px;
+  background: linear-gradient(145deg, #FFD700, #D4AF37);
+  border-radius: 30% 70% 30% 70% / 60% 40% 60% 40%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
   .full-body-portrait {
     width: 250px;
     height: 350px; /* Taller aspect ratio for full body */
     object-fit: contain; /* Ensures full body visibility */
     object-position: center;
-    border-radius: 25% 75% 25% 75% / 55% 45% 55% 45%; /* M>
+border-radius: 25% 75% 25% 75% / 55% 45% 55% 45%; /* M>
+background: #f5f5f5; /* Neutral background for any emp>
     border: 4px solid white;
     background: #f5f5f5; /* Neutral background for any emp>
     display: block;
@@ -136,6 +136,24 @@
 #drawer-toggle:checked + #menu-icon + #drawer {
   transform: translateX(0%);
 }
+.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+
+  .dark-theme header {
+    background-color: #1e1e1e;
+  }
+
+  .dark-theme section,
+  .dark-theme .product-card {
+    background-color: #1c1c1c;
+    color: #f0f0f0;
+  }
+
+  .dark-theme a {
+    color: #90caf9;
+  }
 </style>
 </head>
 <body>
@@ -311,8 +329,8 @@
   <h2>📦 Multipurpose DIY Shelf Plan</h2>
   <!-- Shoe Rack Image with Caption and Hover Zoom -->
   <figure style="text-align: center;">
-    <img src="file_000000004f3061f7b2cedcbe323cc9d5.png" alt="Shoe Rack Design"
-         style="width: 100%; height: auto; transition: transform 0.3s ease;"
+<img src="file_000000004f3061f7b2cedcbe323cc9d5.png" alt="Shoe Rack Design"
+     style="width: 100%; height: auto; transition: transform 0.3s ease;" 
          onmouseover="this.style.transform='scale(1.05)'"
          onmouseout="this.style.transform='scale(1)'"/>
     <figcaption style="font-style: italic; color: gray; margin-top: 10px;">
@@ -435,6 +453,16 @@
     const content = document.getElementById('accordion-content');
     content.style.display = content.style.display === 'none' ? 'block' : 'none';
   }
+
+  document.getElementById('theme-toggle').addEventListener('change', function () {
+    document.body.classList.toggle('dark-theme', this.checked);
+  });
+  function toggleAccordion() {
+    const content = document.getElementById('accordion-content');
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+  }
+
+</style>
 </script>
 </body>
 </html>
