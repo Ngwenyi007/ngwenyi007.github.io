@@ -79,16 +79,28 @@
       display: block;
     }
 }
-    .gold-oval-container img {
-      width: 70px;
-      height: 120px;
-      object-fit: contain;
-      object-position: center;
-      border-radius: 20% 20% 70% 70% / 40% 40% 60% 60%;
-      border: 3px solid white;
-      background: #f8f8f8;
-    }
+.full-body-portrait-frame {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
 
+.gold-oval-container {
+  padding: 0.5rem;
+  border: 3px solid gold;
+  border-radius: 60% / 50%;
+  background: #fff8e1; /* soft gold background */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.gold-oval-container img {
+  width: 100px;
+  height: 140px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 60% / 50%;
+  display: block;
+}
       .buy-button {
         width: 100%;
         text-align: center;
@@ -113,12 +125,11 @@
   </section>
 
   <!-- Portrait -->
-  <div class="full-body-portrait-frame">
-    <div class="gold-oval-container">
-      <img src="IMG_20250504_113932_MP~2.jpg" alt="Francis Kabue Matu - Full Body">
-    </div>
+ <div class="full-body-portrait-frame">
+  <div class="gold-oval-container">
+    <img src="IMG_20250504_113932_MP~2.jpg" alt="Francis">
   </div>
-
+</div>
   <!-- Services -->
   <section id="services">
     <h3>🛠️ Services Offered</h3>
