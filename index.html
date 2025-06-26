@@ -81,129 +81,140 @@
       margin: 1rem auto;
       display: block;
     }
-/* Reset + base styles */
-body, html {
+}
+    
+     :root {
+  --bg: #ffffff;
+  --text: #111;
+  --primary: #2e7d32;
+  --drawer-bg: #263238;
+  --link: #80cbc4;
+}
+body {
   margin: 0;
   font-family: sans-serif;
-  transition: background 0.3s, color 0.3s;
+  background: var(--bg);
+  color: var(--text);
+  transition: background .3s, color .3s;
+}
+body.dark {
+  --bg: #121212;
+  --text: #eee;
+  --primary: #81c784;
+  --drawer-bg: #37474f;
+  --link: #4dd0e1;
 }
 
-.theme-light {
-  background: #f9f9f9;
-  color: #222;
-}
-
-.theme-dark {
-  background: #1c1c1c;
-  color: #f0f0f0;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: #4a90e2;
-  color: white;
-}
-
-.logo {
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-.hamburger {
+/* BURGER */
+#burger {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
   font-size: 2rem;
+  background: var(--primary);
+  color: white;
+  padding: .5rem .8rem;
+  border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 1002;
-  position: relative;
+  transition: transform .3s ease, opacity .3s ease;
 }
-
-.hamburger.hide {
-  transform: translateX(-100px);
+#burger.hide {
+  transform: translateX(-120%);
   opacity: 0;
   pointer-events: none;
 }
-}
 
-/* Side Drawer */
-.side-drawer {
+/* DRAWER */
+#drawer {
   position: fixed;
   top: 0;
   left: -260px;
-  width: 250px;
+  width: 260px;
   height: 100%;
-  background: #333;
+  background: var(--drawer-bg);
   color: white;
   padding: 1rem;
-  transition: left 0.3s ease;
   z-index: 1001;
+  transition: left .3s ease;
 }
-
-.side-drawer.open {
+#navToggle:checked ~ #drawer {
   left: 0;
 }
-
-.side-drawer .close-btn {
-  font-size: 1.5rem;
-  text-align: right;
-  cursor: pointer;
-  margin-bottom: 1rem;
-}
-
-.side-drawer ul {
-  list-style: none;
-  padding: 0;
-}
-
-.side-drawer li {
-  margin: 1rem 0;
-}
-
-.side-drawer a {
+#close {
+  font-size: 2rem;
+  background: none;
+  border: none;
   color: white;
+  float: right;
+  cursor: pointer;
+}
+#drawer h2 {
+  margin-top: 1rem;
+}
+#drawer nav ul {
+  list-style: none;
+  padding: 1rem 0;
+}
+#drawer nav a {
+  color: var(--link);
+  text-decoration: none;
+  display: block;
+  margin: .8rem 0;
+}
+
+/* ACCORDION */
+.accordion-title {
+  cursor: pointer;
+  display: block;
+  margin-top: 1.5rem;
+  font-weight: bold;
+}
+.accordion-content {
+  display: none;
+  margin-top: .5rem;
+}
+.accordion input:checked ~ .accordion-content {
+  display: block;
+}
+.accordion-content a {
+  color: var(--link);
   text-decoration: none;
 }
 
-.overlay {
+/* SOCIALS */
+.socials a {
+  display: inline-block;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  color: var(--link);
+}
+
+/* OVERLAY */
+#overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.4);
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
   z-index: 1000;
-  display: none;
 }
-
-.overlay.show {
+#navToggle:checked ~ #overlay {
   display: block;
 }
 
-/* Accordion */
-.accordion .accordion-toggle {
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.accordion-content {
-  display: none;
-  padding-left: 1rem;
-  margin-top: 0.5rem;
-}
-
-.accordion.open .accordion-content {
-  display: block;
-}
-
-/* Theme switch */
+/* THEME SWITCH */
 .theme-switch {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
+  margin-top: 2rem;
 }
-    .gold-oval-container {
+.theme-switch input {
+  transform: scale(1.2);
+}
+
+/* MAIN */
+main {
+  padding: 5rem 2rem;
+}
+     .gold-oval-container {
       display: inline-block;
       padding: 8px;
       background: linear-gradient(145deg, #FFD700, #D4AF37, #FFD700);
@@ -236,46 +247,55 @@ header {
 </head>
 <body>
 
-  <!-- Menu Toggle -->
-  <input type="checkbox" id="drawer-toggle" hidden />
-  <label for="drawer-toggle" id="menu-icon">☰</label>
+<!-- HAMBURGER + NAV TOGGLE -->
+<input type="checkbox" id="navToggle" hidden />
+<label for="navToggle" id="burger">☰</label>
 
-  <!-- Side Drawer -->
-  <aside id="drawer">
-    <h2>Menu</h2>
-    <nav>
-      <ul>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#products">Products</a></li>
-        <li><a href="https://wa.me/2540786390308">Say Hello</a></li>
-      </ul>
-    </nav>
+<!-- SIDE DRAWER -->
+<aside id="drawer">
+  <button id="close">×</button>
+  <div class="profile">
+    <h2>Adept Orchestrate</h2>
+    <p>Creative Woodworking & Automation</p>
+  </div>
 
-    <!-- Theme Toggle -->
-    <div style="margin-top: 2rem;">
-      <label style="display: flex; align-items: center;">
-        <input type="checkbox" id="theme-toggle" style="margin-right: 0.5rem;" />
-        Dark Theme
-      </label>
+  <nav>
+    <ul>
+      <li><a href="#projects">📦 Projects</a></li>
+      <li><a href="#services">🛠 Services</a></li>
+      <li><a href="#contact">📞 Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="accordion">
+    <input type="checkbox" id="teaToggle" hidden />
+    <label for="teaToggle" class="accordion-title">🍵 Buy Me Tea</label>
+    <div class="accordion-content">
+      <a href="https://www.buymeacoffee.com/ngwenyi007" target="_blank">Support my work</a>
     </div>
+  </div>
 
-    <!-- Accordion Buy Me Tea -->
-    <div style="margin-top: 2rem;">
-      <button onclick="toggleAccordion()" style="background: #2e7d32; border: none; color: white; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
-        💚 Buy Me Tea
-      </button>
-      <div id="accordion-content" style="display: none; margin-top: 1rem; background-color: #546e7a; padding: 1rem; border-radius: 6px;">
-        <p>Support my work with a small token:</p>
-        <a href="https://github.com/sponsors/ngwenyi007" target="_blank" style="color: #ffd600;">🍵 Buy via GitHub sponsors</a>
-      </div>
-    </div>
-  </aside>
+  <div class="socials">
+    <a href="https://github.com/ngwenyi007" target="_blank">🐱 GitHub</a>
+    <a href="https://github.com/sponsors/ngwenyi007" target="_blank">❤️ Sponsor</a>
+    <a href="https://wa.me/2547XXXXXXX" target="_blank">💬 WhatsApp</a>
+  </div>
 
+  <div class="theme-switch">
+    <label>
+      <input type="checkbox" id="themeToggle" />
+      🌞 / 🌙
+    </label>
+  </div>
+</aside>
+
+<!-- OVERLAY -->
+<div id="overlay"></div>
   <!-- Header -->
   <header>
     <h1>Adept Orchestrate - Ngwenyi007</h1>
     <p>Crafting Space-Saving Furniture for Urban Living</p>
+    <p>Designs | Automation | Innovation</p>
   </header>
 
   <!-- About -->
@@ -446,40 +466,31 @@ header {
 
   <!-- JavaScript -->
   <script>
-const hamburger = document.getElementById("hamburger");
-const sideDrawer = document.getElementById("sideDrawer");
-const overlay = document.getElementById("overlay");
-const closeBtn = document.getElementById("closeBtn");
-const themeToggle = document.getElementById("themeToggle");
-const accordionToggle = document.querySelector(".accordion-toggle");
-const accordion = document.querySelector(".accordion");
+ 
+const burger = document.getElementById('burger');
+const drawerToggle = document.getElementById('navToggle');
+const overlay = document.getElementById('overlay');
+const closeBtn = document.getElementById('close');
+const themeToggle = document.getElementById('themeToggle');
 
-// Open menu
-hamburger.onclick = () => {
-  sideDrawer.classList.add("open");
-  overlay.classList.add("show");
-  hamburger.classList.add("hide"); // Hide hamburger
+// Open drawer
+burger.onclick = () => {
+  drawerToggle.checked = true;
+  burger.classList.add('hide');
 };
 
-// Close menu
-function closeMenu() {
-  sideDrawer.classList.remove("open");
-  overlay.classList.remove("show");
-  hamburger.classList.remove("hide"); // Show hamburger
+// Close drawer
+function closeDrawer() {
+  drawerToggle.checked = false;
+  burger.classList.remove('hide');
 }
-
-overlay.onclick = closeBtn.onclick = closeMenu;
-
-// Accordion toggle
-accordionToggle.onclick = () => {
-  accordion.classList.toggle("open");
-};
+overlay.onclick = closeDrawer;
+closeBtn.onclick = closeDrawer;
 
 // Theme toggle
-themeToggle.onclick = () => {
-  const isDark = document.documentElement.classList.toggle("theme-dark");
-  document.documentElement.classList.toggle("theme-light", !isDark);
+themeToggle.onchange = () => {
+  document.body.classList.toggle('dark', themeToggle.checked);
 };
-  </script>
+ </script>
 </body>
 </html>
