@@ -19,6 +19,14 @@ Design tailored for small spaces with step-by-step 3D animation, cutting list PD
 
 ---
 
+## 🛠️ Other Projects
+
+- 🔌 **DIY Electricity Production System** – ESP32-based sine wave inverter prototype  
+- 💧 **Smart Water Token System** – Arduino Nano + SIM800L with auto shutoff  
+- 📱 **Catholic Youth App** – Event alerts and leadership structure dashboard  
+- 📘 **Adept Woodwork Joints Guide** – Interactive PDF with 3D joint visuals *(Coming Soon)*
+- 💥 **Metallic Resin Floor** - Interactive pdf containing bills of materials and quantity and a procedure to make the floor
+- [👉 **visit the link to view more DIY**](https://ngwenyi007.github.io/)
 ## 🌱 Current Focus
 - Preparing to study Mechatronic Engineering at Dedan Kimathi University
 - Building a compact ESP32-based electricity system
@@ -33,5 +41,5 @@ If you believe in open-source, practical skills, and DIY empowerment, consider s
 ---
 
 ## 📬 Contact
-- 📧 Email: ngwenyi007@gmail.com  
+- 📧 Email: [Mail Me](francismatu8@gmail.com)
 - 🛠️ WhatsApp: [Message Me](https://wa.me/254786390308)
