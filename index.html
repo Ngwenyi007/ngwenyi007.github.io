@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Loft bed blueprint and woodworking plans by Adept Wood Worker. Step-by-step assembly guide, cut list, and 3D video tutorial.">
-<meta name="keywords" content="loft bed, woodworking, blueprint, Adept Wood Worker, GitHub Pages, gumroad woodworking plan">
-<meta name="author" content="Adept Wood Worker">
+  <meta name="description" content="Loft bed blueprint and woodworking plans by Adept Wood Worker. Step-by-step assembly guide, cut list, and 3D video tutorial.">
+  <meta name="keywords" content="loft bed, woodworking, blueprint, Adept Wood Worker, GitHub Pages, gumroad woodworking plan">
+  <meta name="author" content="Adept Wood Worker">
   <title>Adept Orchestrate - Ngwenyi007</title>
   <style>
     body {
@@ -15,6 +15,7 @@
       background-color: #f4f6f8;
       color: #333;
       line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     header {
@@ -24,27 +25,16 @@
       text-align: center;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-
-    header p {
-      margin: 0.5rem 0 0;
-      font-size: 1.2rem;
-    }
-
-    section, .product-card, .interactive-form, .contact-section {
+    section, .product-card {
       padding: 2rem;
       max-width: 800px;
-      margin: auto;
+      margin: 1rem auto;
       background: white;
-      margin-top: 1rem;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
-    h3, h2, h4 {
+    h2, h3 {
       color: #2e7d32;
     }
 
@@ -68,31 +58,6 @@
       background-color: #1b5e20;
     }
 
-    form {
-      margin-top: 1rem;
-    }
-
-    input[type="text"] {
-      padding: 0.5rem;
-      width: 60%;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      margin-right: 0.5rem;
-    }
-
-    button {
-      padding: 0.5rem 1rem;
-      background-color: #2e7d32;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #1b5e20;
-    }
-
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -109,156 +74,173 @@
       text-decoration: underline;
     }
 
-.profile-display {
-    display: flex;
-    justify-content: center;
-    margin: 2rem auto;
-    max-width: 800px;
-  }
+    .product-display img {
+      width: 70%;
+      max-width: 500px;
+      border-radius: 6px;
+      margin: 1rem auto;
+      display: block;
+    }
 
-.gold-frame {
-  padding: 10px;
-  background: linear-gradient(145deg, #FFD700, #D4AF37);
-  border-radius: 30% 70% 30% 70% / 60% 40% 60% 40%;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-  .full-body-portrait {
-    width: 250px;
-    height: 350px; /* Taller aspect ratio for full body */
-    object-fit: contain; /* Ensures full body visibility */
-    object-position: center;
-border-radius: 25% 75% 25% 75% / 55% 45% 55% 45%; /* M>
-background: #f5f5f5; /* Neutral background for any emp>
-    border: 4px solid white;
-    background: #f5f5f5; /* Neutral background for any emp>
-    display: block;
-  }
-#drawer {
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-}
+    /* Drawer Styles */
+    #drawer-toggle:checked ~ #drawer {
+      transform: translateX(0);
+    }
 
-#drawer-toggle:checked ~ #drawer {
-  transform: translateX(0%);
-}
-  .dark-theme header {
-    background-color: #1e1e1e;
-  }
+    #drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 100%;
+      background-color: #37474f;
+      color: white;
+      padding: 2rem 1rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+    }
 
-  .dark-theme section,
-  .dark-theme .product-card {
-    background-color: #1c1c1c;
-    color: #f0f0f0;
-  }
+    #menu-icon {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: #2e7d32;
+      color: white;
+      padding: 10px 14px;
+      font-size: 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      z-index: 1001;
+    }
 
-  .dark-theme a {
-    color: #90caf9;
-  }
-</style>
+    #drawer ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #drawer a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      margin: 0.5rem 0;
+    }
+
+    /* Theme */
+    .dark-theme {
+      background-color: #121212;
+      color: #eee;
+    }
+
+    .dark-theme header {
+      background-color: #1e1e1e;
+    }
+
+    .dark-theme section,
+    .dark-theme .product-card {
+      background-color: #1c1c1c;
+    }
+
+    .dark-theme a {
+      color: #90caf9;
+    }
+
+    /* Portrait Frame */
+    .full-body-portrait-frame {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .gold-oval-container {
+      display: inline-block;
+      padding: 8px;
+      background: linear-gradient(145deg, #FFD700, #D4AF37, #FFD700);
+      border-radius: 25% 25% 75% 75% / 40% 40% 60% 60%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .gold-oval-container img {
+      width: 180px;
+      height: 320px;
+      object-fit: contain;
+      object-position: center;
+      border-radius: 20% 20% 70% 70% / 40% 40% 60% 60%;
+      border: 3px solid white;
+      background: #f8f8f8;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      .buy-button {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- Menu Toggle -->
+  <input type="checkbox" id="drawer-toggle" hidden />
+  <label for="drawer-toggle" id="menu-icon">☰</label>
+
+  <!-- Side Drawer -->
+  <aside id="drawer">
+    <h2>Menu</h2>
+    <nav>
+      <ul>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#contact">Say Hello</a></li>
+      </ul>
+    </nav>
+
+    <!-- Theme Toggle -->
+    <div style="margin-top: 2rem;">
+      <label style="display: flex; align-items: center;">
+        <input type="checkbox" id="theme-toggle" style="margin-right: 0.5rem;" />
+        Dark Theme
+      </label>
+    </div>
+
+    <!-- Accordion Buy Me Tea -->
+    <div style="margin-top: 2rem;">
+      <button onclick="toggleAccordion()" style="background: #2e7d32; border: none; color: white; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+        💚 Buy Me Tea
+      </button>
+      <div id="accordion-content" style="display: none; margin-top: 1rem; background-color: #546e7a; padding: 1rem; border-radius: 6px;">
+        <p>Support my work with a small token:</p>
+        <a href="https://buy.stripe.com/test_00g8y41JAc3Z6Rq3cc" target="_blank" style="color: #ffd600;">🍵 Buy via Stripe</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
   <header>
     <h1>Adept Orchestrate - Ngwenyi007</h1>
     <p>Crafting Space-Saving Furniture for Urban Living</p>
   </header>
-<!-- ────────────── Side Drawer Navigation ────────────── -->
-<input type="checkbox" id="drawer-toggle" hidden />
-<label for="drawer-toggle" id="menu-icon" style="
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  background: #2e7d32;
-  color: white;
-  padding: 10px 14px;
-  font-size: 1.2rem;
-  border-radius: 6px;
-  cursor: pointer;
-  z-index: 1001;
-">☰ </label>
 
-<aside id="drawer" style="
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 260px;
-  background-color: #37474f;
-  color: white;
-  padding: 2rem 1rem;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  z-index: 1000;
-  overflow-y: auto;
-">
-  <h2 style="margin-top: 0;">Menu</h2>
-  <nav>
-    <ul style="list-style: none; padding-left: 0;">
-      <li><a href="#about" style="color: white; text-decoration: none;">About Me</a></li>
-      <li><a href="#services" style="color: white; text-decoration: none;">Services</a></li>
-      <li><a href="#products" style="color: white; text-decoration: none;">Products</a></li>
-      <li><a href="#contact" style="color: white; text-decoration: none;">Say Hello</a></li>
-    </ul>
-  </nav>
-
-  <!-- Theme Switch -->
-  <div style="margin-top: 2rem;">
-    <label style="display: flex; align-items: center;">
-      <input type="checkbox" id="theme-toggle" style="margin-right: 0.5rem;" />
-      Dark Theme
-    </label>
-  </div>
-
-  <!-- Accordion -->
-  <div style="margin-top: 2rem;">
-    <button onclick="toggleAccordion()" style="
-      background: #2e7d32;
-      border: none;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-    ">💚 Buy Me Tea</button>
-    <div id="accordion-content" style="
-      display: none;
-      margin-top: 1rem;
-      background-color: #546e7a;
-      padding: 1rem;
-      border-radius: 6px;
-    ">
-      <p style="margin: 0;">Support my work with a small token:</p>
-      <a href="https://buy.stripe.com/test_00g8y41JAc3Z6Rq3cc" target="_blank" style="color: #ffd600;">🍵 Buy via Stripe</a>
-    </div>
-  </div>
-</aside>
-  <section class="about-section">
+  <!-- About -->
+  <section id="about">
     <h3>👨‍🔧 About Me</h3>
     <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>
   </section>
 
-<div class="full-body-portrait-frame" style="text-align: center; margin: 20px 0;">
-  <div class="gold-oval-container" style="
-    display: inline-block;
-    padding: 8px;
-    background: linear-gradient(145deg, #FFD700, #D4AF37, #FFD700);
-    border-radius: 25% 25% 75% 75% / 40% 40% 60% 60%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  ">
-    <img src="IMG_20250504_113932_MP~2.jpg" 
-         alt="Francis Kabue Matu - Full Body"
-         style="
-           width: 180px;
-           height: 320px; /* Taller frame for full body */
-           object-fit: contain; /* Shows complete person */
-           object-position: center;
-           border-radius: 20% 20% 70% 70% / 40% 40% 60% 60%;
-           border: 3px solid white;
-           background: #f8f8f8; /* Neutral background for any space */
-           display: block;
-         ">
+  <!-- Portrait -->
+  <div class="full-body-portrait-frame">
+    <div class="gold-oval-container">
+      <img src="IMG_20250504_113932_MP~2.jpg" alt="Francis Kabue Matu - Full Body">
+    </div>
   </div>
-</div>
-  <section>
+
+  <!-- Services -->
+  <section id="services">
     <h3>🛠️ Services Offered</h3>
     <ul>
       <li>Workshop Planning</li>
@@ -269,200 +251,55 @@ background: #f5f5f5; /* Neutral background for any emp>
       <li>Writing Bills of Quantity</li>
     </ul>
   </section>
-<section class="product-card">
-  <h2>🪚 DIY Shoe Rack Plan</h2>
-  <p><b>What You Get:</b></p>
-  <ul>
-    <li>📐 Top + Side + Front drawings</li>
-    <li>🧰 Cut list and joint details</li>
-    <li>📝 Step-by-step assembly guide</li>
-    <li>✨ Compact design for small homes</li>
-  </ul>
-  <p><b>💲Price: $5 (USD)</b></p>
-  <a class="buy-button" href="https://your-gumroad-link.com" target="_blank">Buy on Gumroad</a>
-  <a class="buy-button" href="https://wa.me/254786390308">Chat on WhatsApp</a>
-</section>
-  <section class="product-card">
-    <h2>🛏️ Loft Bed Plan for Bedsitters</h2>
-<div class="product-display">
-  <img src="1746869325217.jpg" 
-       alt="Loft Bed Design"
-       style="width: 70%; max-width: 500px; border-radius: 6px; margin: 1rem auto; display: block;">
-</div>
-    <p><b>What You Get:</b></p>
+
+  <!-- Products -->
+  <section class="product-card" id="products">
+    <h2>🪚 DIY Shoe Rack Plan</h2>
     <ul>
-      <li>📐 Technical drawings (Top, Side, Front)</li>
-      <li>🧰 Timber cut list + joinery instructions</li>
-      <li>📝 Step-by-step assembly process</li>
+      <li>📐 Top + Side + Front drawings</li>
+      <li>🧰 Cut list and joint details</li>
+      <li>📝 Step-by-step assembly guide</li>
+      <li>✨ Compact design for small homes</li>
+    </ul>
+    <p><b>💲Price: $5</b></p>
+    <a class="buy-button" href="https://your-gumroad-link.com" target="_blank">Buy on Gumroad</a>
+    <a class="buy-button" href="https://wa.me/254786390308">Chat on WhatsApp</a>
+  </section>
+
+  <section class="product-card">
+    <h2>🛏️ Loft Bed Plan</h2>
+    <div class="product-display">
+      <img src="1746869325217.jpg" alt="Loft Bed Design">
+    </div>
+    <ul>
+      <li>📐 Technical drawings</li>
+      <li>🧰 Timber cut list</li>
+      <li>📝 Step-by-step assembly</li>
       <li>✨ Designed for small rooms</li>
     </ul>
-    <p><b>💲Price: $8 (USD)</b></p>
+    <p><b>💲Price: $8</b></p>
     <a class="buy-button" href="https://francismatu.gumroad.com/l/ttcuj" target="_blank">Buy on Gumroad</a>
     <a class="buy-button" href="https://wa.me/254786390308">Chat on WhatsApp</a>
   </section>
 
-<!-- ──────────────────────────────────────────────── -->
-<!-- Metallic Resin Floor – product card            -->
-<!-- ──────────────────────────────────────────────── -->
-<section class="product-card">
-  <h2>🪄 Metallic Resin Floor Plan</h2>
-
-  <div class="product-display">
-    <img src="1746682766031.jpg"
-         alt="Metallic resin floor with glossy mirror-like finish"
-         style="width:70%;max-width:500px;border-radius:6px;margin:1rem auto;display:block;">
-  </div>
-
-  <p><b>What You Get:</b></p>
-  <ul>
-    <li>🎨 Resin mixing &amp; colouring instructions</li>
-    <li>🧪 Exact chemical ratios + safety checklist</li>
-    <li>📏 Sub-floor prep and finishing guide</li>
-    <li>✨ High-gloss metallic look for modern interiors</li>
-  </ul>
-
-  <p><b>💲Price: $10 (USD)</b></p>
-  <a class="buy-button" href="https://francismatu.gumroad.com/l/kwdoo" target="_blank">Buy on Gumroad</a>
-  <a class="buy-button" href="https://wa.me/254786390308"   target="_blank">Chat on WhatsApp</a>
-</section>
-<section class="product-card">
-  <h2>📦 Multipurpose DIY Shelf Plan</h2>
-  <!-- Shoe Rack Image with Caption and Hover Zoom -->
-  <figure style="text-align: center;">
-<img src="file_000000004f3061f7b2cedcbe323cc9d5.png" alt="Shoe Rack Design"
-     style="width: 100%; height: auto; transition: transform 0.3s ease;" 
-         onmouseover="this.style.transform='scale(1.05)'"
-         onmouseout="this.style.transform='scale(1)'"/>
-    <figcaption style="font-style: italic; color: gray; margin-top: 10px;">
-      A stylish and compact shelf intergreted with drower and shoue rack
-    </figcaption>
-  </figure>
-  
-
-  <p><b>What You Get:</b></p>
-  <ul>
-    <li>📐 Detailed blueprints (3 views)</li>
-    <li>📏 Exact timber dimensions</li>
-    <li>🔩 Joinery and fixings guide</li>
-    <li>💡 Adaptable for books, kitchenware, or décor</li>
-  </ul>
-  <p><b>💲Price: $6 (USD)</b></p>
-  <a class="buy-button" href="https://your-gumroad-link.com" target="_blank">Buy on Gumroad</a>
-  <a class="buy-button" href="https://wa.me/254786390308">Chat on WhatsApp</a>
-</section>
-
-  <div class="interactive-form">
-    <h3>👋 Say Hello!</h3>
-    <form onsubmit="showGreeting(event)">
-      <input type="text" id="username" placeholder="Your name" required />
-      <button type="submit">Submit</button>
-    </form>
-    <p id="greeting"></p>
-  </div>
-<section class="product-card">
-  <h2>💰 Pricing Overview</h2>
-  <table style="width: 100%; border-collapse: collapse; text-align: left;">
-    <tr style="background-color: #e0e0e0;">
-      <th style="padding: 10px;">Product</th>
-      <th style="padding: 10px;">Details</th>
-      <th style="padding: 10px;">Price</th>
-    </tr>
-    <tr>
-      <td style="padding: 10px;">🛏️ Loft Bed Plan</td>
-      <td style="padding: 10px;">Full blueprint, cut list, assembly</td>
-      <td style="padding: 10px;"><b>$8</b></td>
-    </tr>
-    <tr style="background-color: #f9f9f9;">
-      <td style="padding: 10px;">📦 Shelf Plan</td>
-      <td style="padding: 10px;">Compact shelf blueprint + fixings guide</td>
-      <td style="padding: 10px;"><b>$6</b></td>
-    </tr>
-<tr style="background-color:#f9f9f9;">
-  <td>🪄 Metallic Resin Floor Plan</td>
-  <td>Detailed resin-floor blueprint &amp; safety guide</td>
-  <td><b>$10</b></td>
-</tr>
-    <tr>
-      <td style="padding: 10px;">🧑‍🏫 1-on-1 Consultation</td>
-      <td style="padding: 10px;">30-minute custom planning session via WhatsApp</td>
-      <td style="padding: 10px;"><b>$4 / Ksh 500</b></td>
-    </tr>
-  </table>
-</section>
-  <div class="contact-section">
-    <h4>📬 Email Contact</h4>
-    <p>If you have any questions, send me an email at:</p>
-    <b><a href="mailto:francismatu8@gmail.com">francismatu8@gmail.com</a></b>
-  </div>
-<section class="product-card">
-  <h2>📩 Get Free Tips & Product Updates</h2>
-  <p>Join my mailing list to get woodworking tips, blueprints, and offers.</p>
-  <form action="https://formspree.io/f/your_form_id" method="POST">
-    <input type="email" name="email" placeholder="Enter your email" required style="padding:10px; width: 70%; max-width:300px; border:1px solid #ccc; border-radius:5px; margin:10px 0;" />
-    <br>
-    <button type="submit" class="buy-button">Subscribe</button>
-  </form>
-</section>
-<section class="product-card">
-  <h2>🗣️ What Customers Say</h2>
-  <div style="margin-bottom: 20px;">
-    <p>⭐️⭐️⭐️⭐️⭐️</p>
-    <p><i>"The Loft Bed Plan helped me build my own bed in a weekend! Very clear instructions."</i></p>
-    <p><b>— Joseph, Nakuru</b></p>
-  </div>
-  <div style="margin-bottom: 20px;">
-    <p>⭐️⭐️⭐️⭐️</p>
-    <p><i>"I had no idea timber cutting needed this much planning. Francis' guide saved me money and time."</i></p>
-    <p><b>— Achieng, Kisumu</b></p>
-  </div>
-  <div>
-    <p>⭐️⭐️⭐️⭐️⭐️</p>
-    <p><i>"Professional layouts. I used the shelf plan in my apartment and it fits perfectly."</i></p>
-    <p><b>— Daniel, Nairobi</b></p>
-  </div>
-</section>
-
-  <footer>
-    <p>#makingkenyaindustrialhub</p>
-    <p>Follow me:
-      <a href="https://github.com/ngwenyi007" target="_blank">GitHub</a> |
-      <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
-    </p>
+  <!-- Footer -->
+  <footer id="contact">
+    <p>📩 Contact: <a href="mailto:adeptwoodworker@gmail.com">adeptwoodworker@gmail.com</a></p>
   </footer>
 
+  <!-- JavaScript -->
   <script>
-    function showGreeting(event) {
-      event.preventDefault();
-      const name = document.getElementById('username').value;
-      const greeting = `👋 Hi ${name}, thanks for visiting Adept Orchestrate!`;
-      document.getElementById('greeting').innerText = greeting;
+    // Dark Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-theme');
+    });
+
+    // Accordion Toggle
+    function toggleAccordion() {
+      const content = document.getElementById('accordion-content');
+      content.style.display = content.style.display === 'block' ? 'none' : 'block';
     }
- 
-  const toggle = document.getElementById('theme-toggle');
-  toggle.addEventListener('change', function () {
-    if (this.checked) {
-      document.body.style.backgroundColor = '#121212';
-      document.body.style.color = '#eee';
-    } else {
-      document.body.style.backgroundColor = '#f4f6f8';
-      document.body.style.color = '#333';
-    }
-  });
-
-  function toggleAccordion() {
-    const content = document.getElementById('accordion-content');
-    content.style.display = content.style.display === 'none' ? 'block' : 'none';
-  }
-
-  document.getElementById('theme-toggle').addEventListener('change', function () {
-    document.body.classList.toggle('dark-theme', this.checked);
-  });
-  function toggleAccordion() {
-    const content = document.getElementById('accordion-content');
-    content.style.display = content.style.display === 'block' ? 'none' : 'block';
-  }
-
-</style>
-</script>
+  </script>
 </body>
 </html>
