@@ -133,6 +133,9 @@
     background: #f5f5f5; /* Neutral background for any emp>
     display: block;
   }
+#drawer-toggle:checked + #menu-icon + #drawer {
+  transform: translateX(0%);
+}
 </style>
 </head>
 <body>
@@ -141,7 +144,75 @@
     <h1>Adept Orchestrate - Ngwenyi007</h1>
     <p>Crafting Space-Saving Furniture for Urban Living</p>
   </header>
+<!-- ────────────── Side Drawer Navigation ────────────── -->
+<input type="checkbox" id="drawer-toggle" hidden />
+<label for="drawer-toggle" id="menu-icon" style="
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #2e7d32;
+  color: white;
+  padding: 10px 14px;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1001;
+">☰ Menu</label>
 
+<aside id="drawer" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  background-color: #37474f;
+  color: white;
+  padding: 2rem 1rem;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  overflow-y: auto;
+">
+  <h2 style="margin-top: 0;">Menu</h2>
+  <nav>
+    <ul style="list-style: none; padding-left: 0;">
+      <li><a href="#about" style="color: white; text-decoration: none;">About Me</a></li>
+      <li><a href="#services" style="color: white; text-decoration: none;">Services</a></li>
+      <li><a href="#products" style="color: white; text-decoration: none;">Products</a></li>
+      <li><a href="#contact" style="color: white; text-decoration: none;">Say Hello</a></li>
+    </ul>
+  </nav>
+
+  <!-- Theme Switch -->
+  <div style="margin-top: 2rem;">
+    <label style="display: flex; align-items: center;">
+      <input type="checkbox" id="theme-toggle" style="margin-right: 0.5rem;" />
+      Dark Theme
+    </label>
+  </div>
+
+  <!-- Accordion -->
+  <div style="margin-top: 2rem;">
+    <button onclick="toggleAccordion()" style="
+      background: #2e7d32;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    ">💚 Buy Me Tea</button>
+    <div id="accordion-content" style="
+      display: none;
+      margin-top: 1rem;
+      background-color: #546e7a;
+      padding: 1rem;
+      border-radius: 6px;
+    ">
+      <p style="margin: 0;">Support my work with a small token:</p>
+      <a href="https://buy.stripe.com/test_00g8y41JAc3Z6Rq3cc" target="_blank" style="color: #ffd600;">🍵 Buy via Stripe</a>
+    </div>
+  </div>
+</aside>
   <section class="about-section">
     <h3>👨‍🔧 About Me</h3>
     <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>
@@ -348,7 +419,22 @@
       const greeting = `👋 Hi ${name}, thanks for visiting Adept Orchestrate!`;
       document.getElementById('greeting').innerText = greeting;
     }
-  </script>
+ 
+  const toggle = document.getElementById('theme-toggle');
+  toggle.addEventListener('change', function () {
+    if (this.checked) {
+      document.body.style.backgroundColor = '#121212';
+      document.body.style.color = '#eee';
+    } else {
+      document.body.style.backgroundColor = '#f4f6f8';
+      document.body.style.color = '#333';
+    }
+  });
 
+  function toggleAccordion() {
+    const content = document.getElementById('accordion-content');
+    content.style.display = content.style.display === 'none' ? 'block' : 'none';
+  }
+</script>
 </body>
 </html>
