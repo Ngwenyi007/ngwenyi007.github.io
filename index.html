@@ -82,138 +82,56 @@
       display: block;
     }
 }
-    
-     :root {
-  --bg: #ffffff;
-  --text: #111;
-  --primary: #2e7d32;
-  --drawer-bg: #263238;
-  --link: #80cbc4;
-}
-body {
-  margin: 0;
-  font-family: sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  transition: background .3s, color .3s;
-}
-body.dark {
-  --bg: #121212;
-  --text: #eee;
-  --primary: #81c784;
-  --drawer-bg: #37474f;
-  --link: #4dd0e1;
+   :root{
+  --drawer-width:260px;
+  --primary:#2e7d32;
 }
 
-/* BURGER */
-#burger {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  font-size: 2rem;
-  background: var(--primary);
-  color: white;
-  padding: .5rem .8rem;
-  border-radius: 6px;
-  cursor: pointer;
-  z-index: 1002;
-  transition: transform .3s ease, opacity .3s ease;
+/* base */
+body{margin:0;font-family:sans-serif;transition:.3s background,color;}
+body.dark{background:#121212;color:#eee;}
+main{padding:4rem 1.5rem;}
+
+/* hamburger */
+#burger{
+  position:fixed;top:16px;left:16px;
+  font-size:2rem;color:#fff;background:var(--primary);
+  border:none;border-radius:8px;padding:.4rem .8rem;cursor:pointer;
+  z-index:1002;transition:transform .3s,opacity .3s;
 }
-#burger.hide {
-  transform: translateX(-120%);
-  opacity: 0;
-  pointer-events: none;
+body.drawer-open #burger{transform:translateX(-120%);opacity:0;pointer-events:none}
+
+/* drawer */
+#drawer{
+  position:fixed;top:0;left:calc(-1*var(--drawer-width));
+  width:var(--drawer-width);height:100vh;
+  background:#37474f;color:#fff;padding:1rem;
+  box-shadow:2px 0 8px rgba(0,0,0,.4);
+  transition:left .3s ease;z-index:1001;overflow-y:auto;
+}
+body.drawer-open #drawer{left:0}
+
+/* close btn */
+#close{
+  font-size:2rem;background:none;border:none;color:#fff;
+  float:right;cursor:pointer;margin-bottom:1rem;
 }
 
-/* DRAWER */
-#drawer {
-  position: fixed;
-  top: 0;
-  left: -260px;
-  width: 260px;
-  height: 100%;
-  background: var(--drawer-bg);
-  color: white;
-  padding: 1rem;
-  z-index: 1001;
-  transition: left .3s ease;
-}
-#navToggle:checked ~ #drawer {
-  left: 0;
-}
-#close {
-  font-size: 2rem;
-  background: none;
-  border: none;
-  color: white;
-  float: right;
-  cursor: pointer;
-}
-#drawer h2 {
-  margin-top: 1rem;
-}
-#drawer nav ul {
-  list-style: none;
-  padding: 1rem 0;
-}
-#drawer nav a {
-  color: var(--link);
-  text-decoration: none;
-  display: block;
-  margin: .8rem 0;
-}
+/* links */
+#drawer a{color:#80cbc4;text-decoration:none;display:block;margin:.8rem 0}
 
-/* ACCORDION */
-.accordion-title {
-  cursor: pointer;
-  display: block;
-  margin-top: 1.5rem;
-  font-weight: bold;
+/* overlay */
+#overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);
+  display:none;z-index:1000;
 }
-.accordion-content {
-  display: none;
-  margin-top: .5rem;
-}
-.accordion input:checked ~ .accordion-content {
-  display: block;
-}
-.accordion-content a {
-  color: var(--link);
-  text-decoration: none;
-}
+body.drawer-open #overlay{display:block}
 
-/* SOCIALS */
-.socials a {
-  display: inline-block;
-  margin-top: 1rem;
-  margin-right: 1rem;
-  color: var(--link);
-}
+/* theme switch */
+.theme-switch{display:block;margin-top:2rem;cursor:pointer}
 
-/* OVERLAY */
-#overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: none;
-  z-index: 1000;
-}
-#navToggle:checked ~ #overlay {
-  display: block;
-}
-
-/* THEME SWITCH */
-.theme-switch {
-  margin-top: 2rem;
-}
-.theme-switch input {
-  transform: scale(1.2);
-}
-
-/* MAIN */
-main {
-  padding: 5rem 2rem;
-}
+/* dark theme extras */
+body.dark #drawer{background:#263238}
      .gold-oval-container {
       display: inline-block;
       padding: 8px;
@@ -247,49 +165,39 @@ main {
 </head>
 <body>
 
-<!-- HAMBURGER + NAV TOGGLE -->
-<input type="checkbox" id="navToggle" hidden />
-<label for="navToggle" id="burger">☰</label>
+<!-- HAMBURGER ICON -->
+<button id="burger">☰</button>
 
 <!-- SIDE DRAWER -->
 <aside id="drawer">
   <button id="close">×</button>
-  <div class="profile">
-    <h2>Adept Orchestrate</h2>
-    <p>Creative Woodworking & Automation</p>
-  </div>
-
+  <h2>Menu</h2>
   <nav>
-    <ul>
-      <li><a href="#projects">📦 Projects</a></li>
-      <li><a href="#services">🛠 Services</a></li>
-      <li><a href="#contact">📞 Contact</a></li>
-    </ul>
+    <a href="#">Home</a>
+    <a href="#">Projects</a>
+    <a href="#">Contact</a>
   </nav>
 
-  <div class="accordion">
-    <input type="checkbox" id="teaToggle" hidden />
-    <label for="teaToggle" class="accordion-title">🍵 Buy Me Tea</label>
-    <div class="accordion-content">
-      <a href="https://www.buymeacoffee.com/ngwenyi007" target="_blank">Support my work</a>
-    </div>
-  </div>
+  <!-- Buy-Me-Tea accordion -->
+  <details>
+    <summary>🍵 Buy Me Tea</summary>
+    <a href="https://github.com/sponsors/ngwenyi007" target="_blank">❤️ GitHub Sponsor</a><br>
+    <a href="https://www.buymeacoffee.com/ngwenyi007" target="_blank">☕ Buy Me Coffee</a>
+  </details>
 
+  <!-- Social links -->
   <div class="socials">
-    <a href="https://github.com/ngwenyi007" target="_blank">🐱 GitHub</a>
-    <a href="https://github.com/sponsors/ngwenyi007" target="_blank">❤️ Sponsor</a>
-    <a href="https://wa.me/2547XXXXXXX" target="_blank">💬 WhatsApp</a>
+    <a href="https://github.com/ngwenyi007" target="_blank">GitHub</a>
+    <a href="https://wa.me/2547XXXXXXX" target="_blank">WhatsApp</a>
   </div>
 
-  <div class="theme-switch">
-    <label>
-      <input type="checkbox" id="themeToggle" />
-      🌞 / 🌙
-    </label>
-  </div>
+  <!-- Theme toggle -->
+  <label class="theme-switch">
+    <input type="checkbox" id="themeToggle"> 🌞/🌙
+  </label>
 </aside>
 
-<!-- OVERLAY -->
+<!-- CLICK-OFF OVERLAY -->
 <div id="overlay"></div>
   <!-- Header -->
   <header>
@@ -465,32 +373,28 @@ main {
   </footer>
 
   <!-- JavaScript -->
+<script src="script.js"></script>
   <script>
- 
-const burger = document.getElementById('burger');
-const drawerToggle = document.getElementById('navToggle');
-const overlay = document.getElementById('overlay');
-const closeBtn = document.getElementById('close');
+const body        = document.body;
+const burger      = document.getElementById('burger');
+const closeBtn    = document.getElementById('close');
+const overlay     = document.getElementById('overlay');
 const themeToggle = document.getElementById('themeToggle');
 
-// Open drawer
-burger.onclick = () => {
-  drawerToggle.checked = true;
-  burger.classList.add('hide');
-};
+/* open drawer */
+burger.addEventListener('click', () => body.classList.add('drawer-open'));
 
-// Close drawer
-function closeDrawer() {
-  drawerToggle.checked = false;
-  burger.classList.remove('hide');
+/* close drawer */
+function closeDrawer(){
+  body.classList.remove('drawer-open');
 }
-overlay.onclick = closeDrawer;
-closeBtn.onclick = closeDrawer;
+closeBtn.addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
 
-// Theme toggle
-themeToggle.onchange = () => {
-  document.body.classList.toggle('dark', themeToggle.checked);
-};
+/* theme switch */
+themeToggle.addEventListener('change', () => {
+  body.classList.toggle('dark', themeToggle.checked);
+});
  </script>
 </body>
 </html>
