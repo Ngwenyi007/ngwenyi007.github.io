@@ -15,7 +15,7 @@ I'm the founder of **Adept Wood Worker**, a digital workshop creating:
 **Loft Bed Blueprint Package**  
 Design tailored for small spaces with step-by-step 3D animation, cutting list PDF, and study desk layout.  
 → [See it on GitHub](#)  
-→ [Buy on Gumroad](#)
+→ [Buy on Gumroad](https://francismatu.gumroad.com/l/ttcuj)
 
 ---
 
