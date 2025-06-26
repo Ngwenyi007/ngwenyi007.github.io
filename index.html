@@ -24,7 +24,7 @@
 
     section, .product-card {
       padding: 2rem;
-      max-width: 200px;
+      max-width: 300px;
       margin: 1rem auto;
       background: white;
       border-radius: 8px;
@@ -84,13 +84,13 @@
   justify-content: center;
   margin: 2rem 0;
 }
-
 .gold-oval-container {
   padding: 0.5rem;
   border: 3px solid gold;
   border-radius: 50% / 60%;
   background: #fff8e1; /* soft gold background */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: inline-block; /* allows centering with text-align */
 }
 
 .gold-oval-container img {
@@ -126,9 +126,10 @@
 
   <!-- Portrait -->
 <div style="text-align: center;">
- <div class="full-body-portrait-frame">
-  <div class="gold-oval-container">
-    <img src="IMG_20250504_113932_MP~2.jpg" alt="Francis">
+  <div class="full-body-portrait-frame">
+    <div class="gold-oval-container">
+      <img src="IMG_20250504_113932_MP~2.jpg" alt="Francis">
+    </div>
   </div>
 </div>
   <!-- Services -->
