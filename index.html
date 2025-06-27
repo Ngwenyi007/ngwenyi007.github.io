@@ -5,28 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Adept Orchestrate - Ngwenyi007</title>
   <style>
-html, body {
-  height: 100%;
-  margin: 0;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  display: flex;
-  align-items: center;     /* Vertical centering */
-  justify-content: center; /* Horizontal centering */
-  flex-direction: column;
-}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f0f0;
+      color: #333;
+      line-height: 1.6;
+      padding: 1rem;
+    }
+
     header {
       background: #00cc66;
       color: white;
-      padding: 2rem 2rem;
+      padding: 2rem 3rem;
       text-align: center;
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-      max-width: 600px;
-      width: 90%;
+      max-width: 700px;
+      margin: 2rem auto; /* horizontally center the header */
     }
 
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      margin: 0.3rem 0;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 1.5rem 1rem;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+    }
 section, .product-card {  
   padding: 2rem;  
   width:100%;  
