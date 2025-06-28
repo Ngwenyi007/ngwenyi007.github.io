@@ -126,6 +126,47 @@ section, .product-card {
   display: inline-block; /* allows centering with text-align */
 }
 
+  .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px; width: 26px;
+  left: 4px; bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+/* When checked */
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
 .gold-oval-container img {
   width: 70px;
   height: 100px;
@@ -158,6 +199,10 @@ section, .product-card {
   <p>Crafting Space-Saving Furniture for Urban Living</p>
   <p>Designs | Automation | Innovation</p>
 </header>
+<label class="switch">
+  <input type="checkbox" id="toggleBtn">
+  <span class="slider"></span>
+</label>
   <section id="about">
     <h3>👨‍🔧 About Me</h3>
     <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>
@@ -352,7 +397,16 @@ section, .product-card {
   <footer>
     <p>#makingkenyaindustrialhub</p>
   </footer>
-
-
+<script>
+document.getElementById('toggleBtn').addEventListener('change', function() {
+  if(this.checked) {
+    // Toggle ON action
+    document.body.style.background = "#e0f7fa";
+  } else {
+    // Toggle OFF action
+    document.body.style.background = "#fff";
+  }
+});
+</script>
 </body>
 </html>
