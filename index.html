@@ -113,27 +113,29 @@ section, .product-card {
     }
 .gold-oval-container {
   width: 200px;
-  he8ight: 200px;
+  height: 200px; /* ✅ fix typo: was 'he8ight' */
   padding: 8px;
   border: 6px solid #d4af37; /* elegant gold */
   border-radius: 50% / 60%;
-  background: radial-gradient(circle at center, #fffaf0, #fef6dc); /* ivory to pale gold */
+  background: radial-gradient(circle at center, #fffaf0, #fef6dc);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  transition: box-shadow 0.3s, transform 0.3s; /* 🪄 moved from hover block */
+}
+
+/* ✅ hover block must be outside main class */
 .gold-oval-container:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   transform: scale(1.02);
-  transition: box-shadow 0.3s, transform 0.3s;
 }
-}
+
 .gold-oval-container img {
   width: auto;
-  align-item;center
-  height: 90%;
+  height: 100%;
   object-fit: cover;
   object-position: top center;
   display: block;
@@ -144,8 +146,6 @@ section, .product-card {
     font-size: 1.8rem;
     padding: 2rem 1rem;
   }
-}
-
 }
   </style>
 </head>
