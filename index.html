@@ -123,16 +123,14 @@ section, .product-card {
   display: flex;
   align-items: center;
   justify-content: center;
-  object-posotion:top;
   position: relative;
 }
-.gold-oval-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50% / 60%;
-  box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.2);
-  pointer-events: none;
+.gold-oval-container img {
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
 }
 
 @media (max-width: 600px) {
