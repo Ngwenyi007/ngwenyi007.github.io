@@ -111,30 +111,32 @@ section, .product-card {
       margin: 1rem auto;
       display: block;
     }
-}
-.full-body-portrait-frame {
-  display: flex;
 .gold-oval-container {
-  padding: 0.5rem;
-  border: 3px solid gold;
-  border-radius: 50% / 60%; /* creates an oval shape */
-  background: #fff8e1; /* soft gold background */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  display: inline-block; /* allows centering with text-align */
-  text-align: center; /* centers content inside if it's inline-block */
-  overflow: hidden; /* clips the image to the oval */
-  width: 300px; /* adjust width as needed */
-  height: 350px; /* adjust height to create oval */
-}  justify-content: center;
-  margin: 2rem 0;
+  /* Control size here – width ≠ height to keep oval shape */
+  width: 320px;
+  height: 400px;
+
+  padding: 8px;
+  border: 6px solid gold;
+  border-radius: 50% / 60%; /* oval: 50% horizontal, 60% vertical */
+  background: radial-gradient(circle at center, #fffaf0, #fef6dc);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gold-oval-container img {
-  width: 100%;
+  width: auto;
   height: 100%;
-  object-fit: cover; /* fills the container while preserving aspect ratio */
-  display: block;
+  max-width: none;
+  object-fit: cover;
+  /* Helps focus center of image inside oval */
 }
+
+
 @media (max-width: 600px) {
   .site-header {
     font-size: 1.8rem;
