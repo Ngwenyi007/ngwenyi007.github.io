@@ -126,72 +126,123 @@ section, .product-card {
   display: inline-block; /* allows centering with text-align */
 }
 
-  .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
 
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0; left: 0;
-  right: 0; bottom: 0;
-  background-color: #ccc;
-  transition: .4s;
-  border-radius: 34px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px; width: 26px;
-  left: 4px; bottom: 4px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%;
-}
-
-/* When checked */
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-.gold-oval-container img {
-  width: 70px;
-  height: 100px;
-  object-fit: cover;
-  object-position: center top;
-  border-radius: 50% / 60%;
-  display: block;
-}
-      .buy-button {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 0.5rem;
-      }
-    }
 @media (max-width: 600px) {
   .site-header {
     font-size: 1.8rem;
     padding: 2rem 1rem;
   }
 }
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.nav-left {
+  display: flex;
+  gap: 18px;
+}
+
+.nav-left button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav-left button:hover {
+  background: #1769aa;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.bulb-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ffeb3b;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+.bulb-btn:hover {
+  color: #ffd600;
+}
+
+.main-content {
+  margin-top: 70px;
+  padding: 32px 24px;
+}
+
+/* Dark mode */
+body.dark-mode {
+  background: #181c24;
+  color: #e0e0e0;
+}
+
+body.dark-mode .navbar {
+  background: #23272f;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+body.dark-mode .nav-left button {
+  background: #333a49;
+  color: #b3e5fc;
+}
+
+body.dark-mode .nav-left button:hover {
+  background: #2196f3;
+  color: #fff;
+}
+
+body.dark-mode .bulb-btn {
+  color: #fff176;
+}
+body.dark-mode .bulb-btn:hover {
+  color: #fffde7;
+}
   </style>
 </head>
 <body>
   <!-- Main content -->
   <!-- Header -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <button id="homeBtn"><i class="fa-solid fa-house"></i> Home</button>
+      <button id="designBtn"><i class="fa-solid fa-pen-nib"></i> Drop Your Design</button>
+      <button id="coffeeBtn"><i class="fa-solid fa-mug-hot"></i> Buy Me Coffee</button>
+    </div>
+    <div class="nav-right">
+      <button id="toggleMode" class="bulb-btn" title="Toggle light/dark mode">
+        <i id="bulbIcon" class="fa-regular fa-lightbulb"></i>
+      </button>
+    </div>
+  </nav>
+  <main id="mainContent" class="main-content">
+    <h2>Welcome Home!</h2>
+    <p>This is your home page content.</p>
+  </main>
+  <script src="script.js"></script>
   <!-- About -->
 <header style="text-align: center; padding: 20px;">
   <img src="assets/logo.png" alt="Adept Orchestrate Logo" style="height: 80px; margin-bottom: 10px;">
@@ -199,10 +250,6 @@ input:checked + .slider:before {
   <p>Crafting Space-Saving Furniture for Urban Living</p>
   <p>Designs | Automation | Innovation</p>
 </header>
-<label class="switch">
-  <input type="checkbox" id="toggleBtn">
-  <span class="slider"></span>
-</label>
   <section id="about">
     <h3>👨‍🔧 About Me</h3>
     <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>
@@ -398,15 +445,45 @@ input:checked + .slider:before {
     <p>#makingkenyaindustrialhub</p>
   </footer>
 <script>
-document.getElementById('toggleBtn').addEventListener('change', function() {
-  if(this.checked) {
-    // Toggle ON action
-    document.body.style.background = "#e0f7fa";
+const contents = {
+  home: `
+    <h2>Welcome Home!</h2>
+    <p>This is your home page content.</p>
+  `,
+  design: `
+    <h2>Drop Your Design for Blueprint</h2>
+    <p>Submit your design files or sketches here for blueprinting!</p>
+  `
+};
+
+// Handle navigation buttons
+document.getElementById('homeBtn').onclick = () => {
+  document.getElementById('mainContent').innerHTML = contents.home;
+};
+
+document.getElementById('designBtn').onclick = () => {
+  document.getElementById('mainContent').innerHTML = contents.design;
+};
+
+document.getElementById('coffeeBtn').onclick = () => {
+  window.open('https://www.buymeacoffee.com/', '_blank');
+};
+
+// Handle dark mode toggle
+const toggleBtn = document.getElementById('toggleMode');
+const bulbIcon = document.getElementById('bulbIcon');
+
+toggleBtn.onclick = () => {
+  document.body.classList.toggle('dark-mode');
+  // Swap bulb icon style
+  if (document.body.classList.contains('dark-mode')) {
+    bulbIcon.classList.remove('fa-regular');
+    bulbIcon.classList.add('fa-solid');
   } else {
-    // Toggle OFF action
-    document.body.style.background = "#fff";
+    bulbIcon.classList.remove('fa-solid');
+    bulbIcon.classList.add('fa-regular');
   }
-});
+};
 </script>
 </body>
 </html>
