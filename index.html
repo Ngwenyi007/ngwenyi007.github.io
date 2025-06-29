@@ -200,7 +200,7 @@ section, .product-card {
   </section>
 
   <!-- Products -->
-  <section class="product-card" id="products">
+  <section class="product-card" id="🪚 DIY Shoe Rack Plan">
     <h2>🪚 DIY Shoe Rack Plan</h2>
     <ul>
       <li>📐 Top + Side + Front drawings</li>
@@ -213,7 +213,7 @@ section, .product-card {
     <a class="buy-button" href="https://wa.me/254786390308">Chat on WhatsApp</a>
   </section>
 
-  <section class="product-card">
+  <section class="product-card" id="🛏️ Loft Bed Plan">
     <h2>🛏️ Loft Bed Plan</h2>
     <div class="product-display">
       <img src="1746869325217.jpg" alt="Loft Bed Design">
@@ -228,7 +228,8 @@ section, .product-card {
     <a class="buy-button" href="https://francismatu.gumroad.com/l/ttcuj" target="_blank">Buy on Gumroad</a>
     <a class="buy-button" href="https://wa.me/254786390308">Chat on WhatsApp</a>
   </section>
-</section>  <!-- ──────────────────────────────────────────────── -->  <!-- Metallic Resin Floor – product card            -->  <!-- ──────────────────────────────────────────────── -->  <section class="product-card">  
+<section class="product-card" id="🪄 Metallic Resin Floor Plan">
+  <!-- ──────────────────────────────────────────────── -->  <!-- Metallic Resin Floor – product card            -->  <!-- ──────────────────────────────────────────────── -->  <section class="product-card">  
   <h2>🪄 Metallic Resin Floor Plan</h2>    <div class="product-display">  
     <img src="1746682766031.jpg"  
          alt="Metallic resin floor with glossy mirror-like finish"  
@@ -368,83 +369,85 @@ section, .product-card {
   <footer>
     <p>#makingkenyaindustrialhub</p>
   </footer>
-<!-- Add before </body> -->
 <script>
-  // Track button clicks for fitness scoring
-  document.querySelectorAll('.buy-button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const clicks = parseInt(localStorage.getItem('btnClicks') || '0');
-      localStorage.setItem('btnClicks', clicks + 1);
-    });
-  });
+  const abTest = {
+    elements: {
+      loftBedTitle: document.querySelector('#loft-bed h2'),
+      shoeRackButton: document.querySelector('#shoe-rack .buy-button'),
+      resinPriceDisplay: document.querySelector('#resin-floor b')
+    },
+    
+    genes: {
+      titles: ["🛏️ Loft Bed Plan", "Space-Saver Loft Bed Blueprint", "Small Bedroom Loft Plan - Instant Download"],
+      buttonText: ["Buy Now", "Get Blueprint", "Instant Download", "Purchase for $8"],
+      priceDisplays: ["💲Price: $10", "💲Only $10 (Save 33%)", "📌 Download: $10 USD"]
+    },
 
-  // Count visitors
-  localStorage.setItem('visitorCount', 
-    parseInt(localStorage.getItem('visitorCount') || '0') + 1
-  );
-</script>
+    simulateVisitors: (count = 50) => {
+      for (let i = 0; i < count; i++) {
+        const fakeData = {
+          titles_conversions: { "0": i, "1": i+3, "2": i+8 },
+          shoeRackButton_conversions: { "0": i+2, "1": i+5 }
+        };
+        Object.entries(fakeData).forEach(([key, val]) => {
+          localStorage.setItem(key, JSON.stringify(val));
+        });
+      }
+      console.log(`Simulated ${count} visitors. Run abTest.evolve()`);
+    },
 
-<!-- Load TinyGA (lightweight genetic algorithm library) -->
-<script src="https://cdn.jsdelivr.net/npm/tiny-ga@1.0.0/dist/tinyga.min.js"></script>
+    trackConversion: (elementType, variantIndex) => {
+      const key = `${elementType}_conversions`;
+      const current = JSON.parse(localStorage.getItem(key) || '{}');
+      current[variantIndex] = (current[variantIndex] || 0) + 1;
+      localStorage.setItem(key, JSON.stringify(current));
+    },
+    
+    evolve: () => {
+      const bestTitle = JSON.parse(localStorage.getItem('titles_conversions') || '{}');
+      const topTitle = Object.keys(bestTitle).reduce((a, b) => 
+        bestTitle[a] > bestTitle[b] ? a : b
+      );
+      this.elements.loftBedTitle.textContent = this.genes.titles[topTitle];
+      
+      const bestButton = JSON.parse(localStorage.getItem('shoeRackButton_conversions') || '{}');
+      const topButton = Object.keys(bestButton).reduce((a, b) => 
+        bestButton[a] > bestButton[b] ? a : b
+      );
+      this.elements.shoeRackButton.textContent = this.genes.buttonText[topButton];
+      
+      const bestPrice = JSON.parse(localStorage.getItem('priceDisplays_conversions') || '{}');
+      const topPrice = Object.keys(bestPrice).reduce((a, b) => 
+        bestPrice[a] > bestPrice[b] ? a : b
+      );
+      this.elements.resinPriceDisplay.textContent = this.genes.priceDisplays[topPrice];
+    }
+  };
 
-<!-- AlphaEvolve Core -->
-<script>
-  // 1. Evolve Button Colors
-  const ga = new TinyGA({
-    populationSize: 5,
-    geneCount: 3, // RGB values
-    fitness: (genes) => {
-      // Test this color variant
-      document.querySelectorAll('.buy-button').forEach(btn => {
-        btn.style.backgroundColor = `rgb(${genes[0]}, ${genes[1]}, ${genes[2]})`;
+  function runABTests() {
+    if (!localStorage.getItem('ab_initialized')) {
+      abTest.elements.loftBedTitle.textContent = 
+        abTest.genes.titles[Math.floor(Math.random() * abTest.genes.titles.length)];
+      abTest.elements.shoeRackButton.textContent = 
+        abTest.genes.buttonText[Math.floor(Math.random() * abTest.genes.buttonText.length)];
+      abTest.elements.resinPriceDisplay.textContent = 
+        abTest.genes.priceDisplays[Math.floor(Math.random() * abTest.genes.priceDisplays.length)];
+      localStorage.setItem('ab_initialized', 'true');
+    }
+    
+    document.querySelectorAll('.buy-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const buttonType = btn.closest('.product-card').id === 'shoe-rack' ? 
+          'shoeRackButton' : 'otherButton';
+        const variantIndex = abTest.genes.buttonText.indexOf(btn.textContent);
+        abTest.trackConversion(buttonType, variantIndex);
       });
-      return Math.random() * 100; // Replace with real click tracking later
-    },
-    mutationRate: 0.1
-  });
+    });
 
-  // Run evolution every 100 visitors
-  if (localStorage.getItem('visitorCount') % 100 === 0) {
-    ga.evolve(10); // 10 generations
+    if (new Date().getDay() === 0) abTest.evolve();
   }
 
-  // 2. Track Engagement (Add to existing elements)
-  document.querySelectorAll('.product-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const clicks = parseInt(localStorage.getItem(card.id) || 0);
-      localStorage.setItem(card.id, clicks + 1);
-    });
-  });
-
-  // 3. Dynamic Product Sorting
-  function sortProducts() {
-    const products = [...document.querySelectorAll('.product-card')];
-    products.sort((a, b) => {
-      return (localStorage.getItem(b.id) || 0) - (localStorage.getItem(a.id) || 0);
-    });
-    products.forEach(p => p.parentNode.appendChild(p));
-  }
-  // Re-sort weekly
-  setInterval(sortProducts, 604800000); 
+  runABTests();
 </script>
-<script>
-  fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer YOUR_API_KEY',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      messages: [{role: "user", content: "Write a 10-word description for a woodworking loft bed"}]
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    document.querySelector('#loft-bed p').textContent = data.choices[0].message.content;
-  });
-</script>
-
-
 </body>
 </html>
