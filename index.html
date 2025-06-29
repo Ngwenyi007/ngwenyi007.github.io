@@ -368,6 +368,83 @@ section, .product-card {
   <footer>
     <p>#makingkenyaindustrialhub</p>
   </footer>
+<!-- Add before </body> -->
+<script>
+  // Track button clicks for fitness scoring
+  document.querySelectorAll('.buy-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const clicks = parseInt(localStorage.getItem('btnClicks') || '0');
+      localStorage.setItem('btnClicks', clicks + 1);
+    });
+  });
+
+  // Count visitors
+  localStorage.setItem('visitorCount', 
+    parseInt(localStorage.getItem('visitorCount') || '0') + 1
+  );
+</script>
+
+<!-- Load TinyGA (lightweight genetic algorithm library) -->
+<script src="https://cdn.jsdelivr.net/npm/tiny-ga@1.0.0/dist/tinyga.min.js"></script>
+
+<!-- AlphaEvolve Core -->
+<script>
+  // 1. Evolve Button Colors
+  const ga = new TinyGA({
+    populationSize: 5,
+    geneCount: 3, // RGB values
+    fitness: (genes) => {
+      // Test this color variant
+      document.querySelectorAll('.buy-button').forEach(btn => {
+        btn.style.backgroundColor = `rgb(${genes[0]}, ${genes[1]}, ${genes[2]})`;
+      });
+      return Math.random() * 100; // Replace with real click tracking later
+    },
+    mutationRate: 0.1
+  });
+
+  // Run evolution every 100 visitors
+  if (localStorage.getItem('visitorCount') % 100 === 0) {
+    ga.evolve(10); // 10 generations
+  }
+
+  // 2. Track Engagement (Add to existing elements)
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const clicks = parseInt(localStorage.getItem(card.id) || 0);
+      localStorage.setItem(card.id, clicks + 1);
+    });
+  });
+
+  // 3. Dynamic Product Sorting
+  function sortProducts() {
+    const products = [...document.querySelectorAll('.product-card')];
+    products.sort((a, b) => {
+      return (localStorage.getItem(b.id) || 0) - (localStorage.getItem(a.id) || 0);
+    });
+    products.forEach(p => p.parentNode.appendChild(p));
+  }
+  // Re-sort weekly
+  setInterval(sortProducts, 604800000); 
+</script>
+<script>
+  fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: "gpt-3.5-turbo",
+      messages: [{role: "user", content: "Write a 10-word description for a woodworking loft bed"}]
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.querySelector('#loft-bed p').textContent = data.choices[0].message.content;
+  });
+</script>
+
 
 </body>
 </html>
