@@ -1,155 +1,119 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Video Compressor</title>
   <style>
     body {
       font-family: sans-serif;
       background: #f5f5f5;
       margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-    }header {
-  background: #333;
-  color: #fff;
-  padding: 1rem 2rem;
-  width: 100%;
-  text-align: center;
-}
-
-.container {
-  margin-top: 2rem;
-  padding: 1rem;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  width: 90%;
-}
-
-input[type="file"] {
-  display: block;
-  margin-bottom: 1rem;
-}
-
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.status {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #444;
-}
-
-#ab-dashboard {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background: white;
-  border: 1px solid #ccc;
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-  </style>
-</head><body>
-  <header>
-    <h1>Video Compressor</h1>
-    <p>Select a video file to compress</p>
-<div style="text-align:center; margin: 20px;">
-  <button onclick="compressVideo()">✨ Compress Version A ➜ B</button>
-</div>
-
-
-  </header>  <section class="container">
-    <input type="file" id="videoInput" accept="video/*">
-    <button onclick="compressVideo()">Compress</button>
-    <div class="status" id="statusMsg"></div>
-  </section>
-  <div id="ab-dashboard">Version A</div>
-  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js"></script>
-<script>
-  const { createFFmpeg, fetchFile } = FFmpeg;
-  const ffmpeg = createFFmpeg({ log: true });
-  let originalFile;
-
-  async function handleFileUpload(event, version) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const url = URL.createObjectURL(file);
-    document.getElementById(`video${version}`).src = url;
-
-    const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-    const name = file.name;
-
-    const tempVideo = document.createElement('video');
-    tempVideo.src = url;
-    tempVideo.onloadedmetadata = async () => {
-      const resolution = `${tempVideo.videoWidth}x${tempVideo.videoHeight}`;
-      const infoText = `Name: ${name}<br>Size: ${sizeMB} MB<br>Resolution: ${resolution}`;
-      document.getElementById(`info${version}`).innerHTML = infoText;
-    };
-
-    if (version === 'A') {
-      originalFile = file;
+      padding: 20px;
+      text-align: center;
     }
-  }
+    video {
+      width: 90%;
+      max-width: 400px;
+      margin: 1rem auto;
+      display: block;
+      border: 1px solid #ccc;
+    }
+    .info {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      margin-top: 10px;
+    }
+    .slider-container {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎬 Video Compressor with Quality Slider</h1>
 
-  async function compressVideo() {
-    if (!originalFile) return alert('Please upload Version A first.');
+  <input type="file" id="videoInput" accept="video/*" />
+  <div class="info" id="infoA"></div>
+  <video id="videoA" controls></video>
 
-    if (!ffmpeg.isLoaded()) await ffmpeg.load();
+  <div class="slider-container">
+    <label for="qualitySlider">Compression Quality (Bitrate)</label><br>
+    <input type="range" id="qualitySlider" min="200" max="2000" step="100" value="800" />
+    <div id="bitrateDisplay">Bitrate: 800k</div>
+  </div>
 
-    const inputName = 'input.mp4';
-    const outputName = 'compressed.mp4';
+  <button onclick="compressVideo()">✨ Compress Video</button>
 
-    ffmpeg.FS('writeFile', inputName, await fetchFile(originalFile));
+  <div class="info" id="infoB"></div>
+  <video id="videoB" controls></video>
 
-    await ffmpeg.run(
-      '-i', inputName,
-      '-b:v', '800k', // Reduce bitrate
-      '-vf', 'scale=640:-1', // Resize width to 640px, auto height
-      outputName
-    );
+  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js"></script>
+  <script>
+    const { createFFmpeg, fetchFile } = FFmpeg;
+    const ffmpeg = createFFmpeg({ log: true });
+    let originalFile;
 
-    const data = ffmpeg.FS('readFile', outputName);
-    const blob = new Blob([data.buffer], { type: 'video/mp4' });
-    const compressedURL = URL.createObjectURL(blob);
+    // Update bitrate display live
+    const bitrateDisplay = document.getElementById('bitrateDisplay');
+    const qualitySlider = document.getElementById('qualitySlider');
+    qualitySlider.addEventListener('input', () => {
+      bitrateDisplay.textContent = `Bitrate: ${qualitySlider.value}k`;
+    });
 
-    document.getElementById('videoB').src = compressedURL;
+    // Handle file input
+    document.getElementById('videoInput').addEventListener('change', async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
 
-    // Info section
-    const sizeMB = (blob.size / (1024 * 1024)).toFixed(2);
-    document.getElementById('infoB').innerHTML = `Compressed Size: ${sizeMB} MB`;
+      originalFile = file;
+      const url = URL.createObjectURL(file);
+      const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
 
-    // Download link
-    const downloadBtn = document.createElement('a');
-    downloadBtn.href = compressedURL;
-    downloadBtn.download = 'compressed.mp4';
-    downloadBtn.textContent = '⬇ Download Compressed Video';
-    downloadBtn.style.display = 'inline-block';
-    downloadBtn.style.marginTop = '10px';
+      const videoA = document.getElementById('videoA');
+      const infoA = document.getElementById('infoA');
 
-    document.getElementById('infoB').appendChild(downloadBtn);
-  }
+      videoA.src = url;
 
-  // Add listener to a button (add this to your HTML body):
-  // <button onclick="compressVideo()">Compress Version A ➜ B</button>
-  </script></body></html>
+      const temp = document.createElement('video');
+      temp.src = url;
+      temp.onloadedmetadata = () => {
+        const resolution = `${temp.videoWidth}x${temp.videoHeight}`;
+        infoA.innerHTML = `Original Size: ${sizeMB} MB<br>Resolution: ${resolution}`;
+      };
+    });
+
+    async function compressVideo() {
+      if (!originalFile) return alert('Please upload a video first.');
+
+      if (!ffmpeg.isLoaded()) await ffmpeg.load();
+
+      const inputName = 'input.mp4';
+      const outputName = 'output.mp4';
+      const bitrate = `${qualitySlider.value}k`;
+
+      ffmpeg.FS('writeFile', inputName, await fetchFile(originalFile));
+
+      await ffmpeg.run(
+        '-i', inputName,
+        '-b:v', bitrate,
+        '-vf', 'scale=640:-1',
+        outputName
+      );
+
+      const data = ffmpeg.FS('readFile', outputName);
+      const blob = new Blob([data.buffer], { type: 'video/mp4' });
+      const compressedURL = URL.createObjectURL(blob);
+
+      const videoB = document.getElementById('videoB');
+      const infoB = document.getElementById('infoB');
+
+      videoB.src = compressedURL;
+      const sizeMB = (blob.size / (1024 * 1024)).toFixed(2);
+      infoB.innerHTML = `Compressed Size: ${sizeMB} MB<br><a href="${compressedURL}" download="compressed.mp4">⬇ Download Compressed Video</a>`;
+    }
+  </script>
+</body>
+</html>
+
