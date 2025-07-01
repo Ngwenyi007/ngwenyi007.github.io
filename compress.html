@@ -2,58 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Video Compressor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.15/dist/ffmpeg.min.js"></script>
 </head>
 <body>
-  <h1>Video Compressor (Browser-based)</h1>
-  <input type="file" id="uploader" accept="video/*" />
+  <h2>Select a Video to Compress</h2>
+  <input type="file" id="videoInput" accept="video/*" />
   <button id="compressBtn">Compress</button>
-  <p id="status">Waiting for file...</p>
-  <video id="preview" controls style="width: 300px; margin-top: 10px;"></video>
-  <br/>
-  <a id="downloadLink" style="display: none;" download="compressed.mp4">Download Compressed Video</a>
+  <br><br>
+  <video id="preview" controls style="display:none; max-width: 100%;"></video>
+  <br><br>
+  <a id="downloadLink" style="display:none;" download="compressed.mp4">Download Compressed Video</a>
 
-  <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.15/dist/ffmpeg.min.js"></script>
   <script>
     const { createFFmpeg, fetchFile } = FFmpeg;
     const ffmpeg = createFFmpeg({ log: true });
-    const uploader = document.getElementById('uploader');
-    const compressBtn = document.getElementById('compressBtn');
-    const preview = document.getElementById('preview');
-    const status = document.getElementById('status');
-    const downloadLink = document.getElementById('downloadLink');
 
-    let fileData;
+    document.getElementById('compressBtn').addEventListener('click', async () => {
+      const fileInput = document.getElementById('videoInput');
+      const file = fileInput.files[0];
+      if (!file) return alert("Please select a video first.");
 
-    uploader.addEventListener('change', (e) => {
-      fileData = e.target.files[0];
-      preview.src = URL.createObjectURL(fileData);
-      preview.load();
-      preview.play();
-      status.innerText = `Loaded: ${fileData.name}`;
-    });
-
-    compressBtn.addEventListener('click', async () => {
-      if (!fileData) return alert("Please select a video first.");
-
-      status.innerText = 'Loading FFmpeg...';
       if (!ffmpeg.isLoaded()) await ffmpeg.load();
 
-      status.innerText = 'Compressing...';
-      ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(fileData));
-
-      await ffmpeg.run('-i', 'input.mp4', '-vcodec', 'libx264', '-crf', '28', 'output.mp4');
+      ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(file));
+      await ffmpeg.run('-i', 'input.mp4', '-b:v', '800k', '-vf', 'scale=640:-2', 'output.mp4');
 
       const data = ffmpeg.FS('readFile', 'output.mp4');
-      const blob = new Blob([data.buffer], { type: 'video/mp4' });
-      const url = URL.createObjectURL(blob);
+      const videoBlob = new Blob([data.buffer], { type: 'video/mp4' });
+      const videoUrl = URL.createObjectURL(videoBlob);
 
-      downloadLink.href = url;
-      downloadLink.style.display = 'block';
-      downloadLink.innerText = 'Download Compressed Video';
-      status.innerText = 'Compression complete!';
+      const preview = document.getElementById('preview');
+      preview.src = videoUrl;
+      preview.style.display = 'block';
+
+      const download = document.getElementById('downloadLink');
+      download.href = videoUrl;
+      download.style.display = 'inline';
     });
   </script>
 </body>
 </html>
+
