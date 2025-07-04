@@ -1,47 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Video Compressor</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.15/dist/ffmpeg.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Compressor</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .container { border: 2px dashed #ccc; padding: 20px; text-align: center; }
+        #fileInput { display: none; }
+        .btn { background: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer; }
+        .btn:hover { background: #45a049; }
+        #results { margin-top: 20px; }
+        .progress { width: 100%; background-color: #ddd; margin: 10px 0; }
+        .progress-bar { height: 30px; background-color: #4CAF50; text-align: center; line-height: 30px; color: white; }
+    </style>
 </head>
 <body>
-  <h2>Select a Video to Compress</h2>
-  <input type="file" id="videoInput" accept="video/*" />
-  <button id="compressBtn">Compress</button>
-  <br><br>
-  <video id="preview" controls style="display:none; max-width: 100%;"></video>
-  <br><br>
-  <a id="downloadLink" style="display:none;" download="compressed.mp4">Download Compressed Video</a>
+    <h1>File Compressor</h1>
+    <div class="container">
+        <p>Drag & drop files here or</p>
+        <button class="btn" onclick="document.getElementById('fileInput').click()">Select Files</button>
+        <input type="file" id="fileInput" multiple>
+        <div class="progress" style="display: none;">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+    </div>
+    <div id="results"></div>
 
-  <script>
-    const { createFFmpeg, fetchFile } = FFmpeg;
-    const ffmpeg = createFFmpeg({ log: true });
+    <script>
+        const container = document.querySelector('.container');
+        const fileInput = document.getElementById('fileInput');
+        const resultsDiv = document.getElementById('results');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.querySelector('.progress');
 
-    document.getElementById('compressBtn').addEventListener('click', async () => {
-      const fileInput = document.getElementById('videoInput');
-      const file = fileInput.files[0];
-      if (!file) return alert("Please select a video first.");
+        // Handle drag and drop
+        container.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            container.style.borderColor = '#4CAF50';
+        });
 
-      if (!ffmpeg.isLoaded()) await ffmpeg.load();
+        container.addEventListener('dragleave', () => {
+            container.style.borderColor = '#ccc';
+        });
 
-      ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(file));
-      await ffmpeg.run('-i', 'input.mp4', '-b:v', '800k', '-vf', 'scale=640:-2', 'output.mp4');
+        container.addEventListener('drop', (e) => {
+            e.preventDefault();
+            container.style.borderColor = '#ccc';
+            handleFiles(e.dataTransfer.files);
+        });
 
-      const data = ffmpeg.FS('readFile', 'output.mp4');
-      const videoBlob = new Blob([data.buffer], { type: 'video/mp4' });
-      const videoUrl = URL.createObjectURL(videoBlob);
+        // Handle file selection
+        fileInput.addEventListener('change', () => {
+            handleFiles(fileInput.files);
+        });
 
-      const preview = document.getElementById('preview');
-      preview.src = videoUrl;
-      preview.style.display = 'block';
+        async function handleFiles(files) {
+            if (files.length === 0) return;
+            
+            progressContainer.style.display = 'block';
+            resultsDiv.innerHTML = '';
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                await compressFile(file);
+            }
+            
+            progressContainer.style.display = 'none';
+        }
 
-      const download = document.getElementById('downloadLink');
-      download.href = videoUrl;
-      download.style.display = 'inline';
-    });
-  </script>
+        async function compressFile(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const originalSize = file.size;
+                    const fileName = file.name;
+                    
+                    // Create a ZIP file (using JSZip library - you'll need to include it)
+                    const zip = new JSZip();
+                    zip.file(file.name, e.target.result);
+                    
+                    zip.generateAsync({
+                        type: 'blob',
+                        compression: 'DEFLATE',
+                        compressionOptions: { level: 6 },
+                    }, (metadata) => {
+                        // Update progress
+                        const percent = Math.round(metadata.percent);
+                        progressBar.style.width = percent + '%';
+                        progressBar.textContent = percent + '%';
+                    }).then((compressedBlob) => {
+                        const compressedSize = compressedBlob.size;
+                        const compressionRatio = ((originalSize - compressedSize) / originalSize * 100).toFixed(2);
+                        
+                        // Create download link
+                        const url = URL.createObjectURL(compressedBlob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = fileName + '.zip';
+                        link.textContent = `Download ${fileName} (compressed ${compressionRatio}%)`;
+                        
+                        // Display results
+                        const fileInfo = document.createElement('div');
+                        fileInfo.innerHTML = `
+                            <p>${fileName} - 
+                            Original: ${formatBytes(originalSize)}, 
+                            Compressed: ${formatBytes(compressedSize)}, 
+                            Ratio: ${compressionRatio}%</p>
+                        `;
+                        fileInfo.appendChild(link);
+                        fileInfo.appendChild(document.createElement('hr'));
+                        
+                        resultsDiv.appendChild(fileInfo);
+                        resolve();
+                    });
+                };
+                
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+    <!-- Include JSZip library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </body>
 </html>
-
