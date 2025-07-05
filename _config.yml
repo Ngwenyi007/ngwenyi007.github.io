@@ -1,5 +1,0 @@
-include:
-  - sitemap.xml
-override:
-  sitemap.xml:
-    content_type: application/xml
