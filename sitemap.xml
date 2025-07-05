@@ -1,14 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ngwenyi007.github.io/</loc>
-    <lastmod>2025-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://ngwenyi007.github.io/index.html</loc>
-    <lastmod>2025-06-22</lastmod>
-    <priority>0.8</priority>
-  </url>
-</urlset>
+import datetime
+import os
+
+BASE_URL = "https://ngwenyi007.github.io/"
+PAGES = ["", "projects/", "about/"]  # Add your paths here
+
+with open("sitemap.xml", "w") as f:
+    f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+    f.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+    
+    for page in PAGES:
+        f.write("  <url>\n")
+        f.write(f"    <loc>{BASE_URL}{page}</loc>\n")
+        f.write(f"    <lastmod>{datetime.date.today()}</lastmod>\n")
+        f.write("    <changefreq>weekly</changefreq>\n")
+        f.write("    <priority>0.8</priority>\n")
+        f.write("  </url>\n")
+    
+    f.write("</urlset>\n")
