@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head><title>Local Video Compressor</title></head>
+<body>
+  <h2>Upload Video</h2>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="video" required>
+    <button type="submit">Compress</button>
+  </form>
+  <div id="result"></div>
+  <script>
+    document.getElementById('uploadForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const res = await fetch('/compress', {
+        method: 'POST',
+        body: data
+      });
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        document.getElementById('result').innerHTML = `
+          <video controls src="${url}" style="max-width:100%"></video><br>
+          <a href="${url}" download="compressed.mp4">Download</a>
+        `;
+      } else {
+        alert('Compression failed');
+      }
+    };
+  </script>
+</body>
+</html>

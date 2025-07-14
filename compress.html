@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced File Compressor</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .container { border: 2px dashed #ccc; padding: 20px; text-align: center; margin-bottom: 20px; }
+        #fileInput { display: none; }
+        .btn { 
+            background: #4CAF50; 
+            color: white; 
+            padding: 10px 15px; 
+            border: none; 
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 4px;
+        }
+        .btn:hover { background: #45a049; }
+        .btn-secondary { background: #2196F3; }
+        .btn-secondary:hover { background: #0b7dda; }
+        .progress { width: 100%; background-color: #ddd; margin: 10px 0; border-radius: 4px; }
+        .progress-bar { 
+            height: 30px; 
+            background-color: #4CAF50; 
+            text-align: center; 
+            line-height: 30px; 
+            color: white;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .preview-section { 
+            display: flex; 
+            justify-content: space-between;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .file-preview {
+            width: 48%;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .file-info {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .comparison {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+        .comparison-item {
+            text-align: center;
+            width: 30%;
+        }
+        .compression-ratio {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .file-list {
+            text-align: left;
+            margin: 10px 0;
+        }
+        .settings-panel {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .settings-row {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Advanced File Compressor</h1>
+    
+    <div class="container">
+        <p>Drag & drop files here or</p>
+        <button class="btn" onclick="document.getElementById('fileInput').click()">Select Files</button>
+        <input type="file" id="fileInput" multiple>
+        <div class="progress" style="display: none;">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+    </div>
+
+    <div class="settings-panel">
+        <h3>Compression Settings</h3>
+        <div class="settings-row">
+            <label for="compressionLevel">Compression Level:</label>
+            <select id="compressionLevel">
+                <option value="1">Fast (least compression)</option>
+                <option value="3">Medium</option>
+                <option value="6" selected>Default</option>
+                <option value="9">Maximum (slowest)</option>
+            </select>
+        </div>
+        <div class="settings-row">
+            <label for="imageQuality">Image Quality (if any):</label>
+            <input type="range" id="imageQuality" min="10" max="100" value="80">
+            <span id="qualityValue">80%</span>
+        </div>
+        <button class="btn btn-secondary" id="compressBtn" disabled>Compress Files</button>
+    </div>
+
+    <div id="previewArea" style="display: none;">
+        <h2>File Preview</h2>
+        <div class="preview-section" id="previewSection"></div>
+        
+        <div class="comparison">
+            <div class="comparison-item">
+                <h3>Original Files</h3>
+                <div id="originalStats"></div>
+            </div>
+            <div class="comparison-item">
+                <h3>Compression Ratio</h3>
+                <div class="compression-ratio" id="compressionRatio">--%</div>
+            </div>
+            <div class="comparison-item">
+                <h3>Compressed Result</h3>
+                <div id="compressedStats"></div>
+            </div>
+        </div>
+        
+        <button class="btn" id="downloadBtn" style="display: none;">Download Compressed Files</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+        // DOM elements
+        const container = document.querySelector('.container');
+        const fileInput = document.getElementById('fileInput');
+        const previewArea = document.getElementById('previewArea');
+        const previewSection = document.getElementById('previewSection');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.querySelector('.progress');
+        const compressBtn = document.getElementById('compressBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const compressionLevel = document.getElementById('compressionLevel');
+        const imageQuality = document.getElementById('imageQuality');
+        const qualityValue = document.getElementById('qualityValue');
+        const originalStats = document.getElementById('originalStats');
+        const compressedStats = document.getElementById('compressedStats');
+        const compressionRatio = document.getElementById('compressionRatio');
+
+        // Global variables
+        let selectedFiles = [];
+        let compressedBlob = null;
+        let totalOriginalSize = 0;
+        
+        // Event listeners
+        imageQuality.addEventListener('input', () => {
+            qualityValue.textContent = imageQuality.value + '%';
+        });
+
+        compressBtn.addEventListener('click', compressFiles);
+        downloadBtn.addEventListener('click', downloadCompressed);
+
+        // Handle drag and drop
+        container.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            container.style.borderColor = '#4CAF50';
+        });
+
+        container.addEventListener('dragleave', () => {
+            container.style.borderColor = '#ccc';
+        });
+
+        container.addEventListener('drop', (e) => {
+            e.preventDefault();
+            container.style.borderColor = '#ccc';
+            handleFiles(e.dataTransfer.files);
+        });
+
+        // Handle file selection
+        fileInput.addEventListener('change', () => {
+            handleFiles(fileInput.files);
+        });
+
+        // Main file handling function
+        function handleFiles(files) {
+            if (files.length === 0) return;
+            
+            selectedFiles = Array.from(files);
+            totalOriginalSize = selectedFiles.reduce((sum, file) => sum + file.size, 0);
+            
+            // Show preview area
+            previewArea.style.display = 'block';
+            previewSection.innerHTML = '';
+            
+            // Display original files info
+            displayOriginalStats();
+            
+            // Create preview for each file
+            selectedFiles.forEach((file, index) => {
+                createFilePreview(file, index);
+            });
+            
+            // Enable compress button
+            compressBtn.disabled = false;
+            downloadBtn.style.display = 'none';
+        }
+
+        // Create preview for a single file
+        function createFilePreview(file, index) {
+            const previewDiv = document.createElement('div');
+            previewDiv.className = 'file-preview';
+            previewDiv.innerHTML = `
+                <h4>${file.name}</h4>
+                <div class="file-info">
+                    <p>Type: ${file.type || 'Unknown'}</p>
+                    <p>Size: ${formatBytes(file.size)}</p>
+                </div>
+                <div class="preview-content" id="preview-${index}"></div>
+            `;
+            
+            previewSection.appendChild(previewDiv);
+            
+            // Show preview based on file type
+            const previewContent = document.getElementById(`preview-${index}`);
+            
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '200px';
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    img.src = e.target.result;
+                    previewContent.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type.startsWith('text/')) {
+                const pre = document.createElement('pre');
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    pre.textContent = e.target.result.substring(0, 500) + 
+                                     (e.target.result.length > 500 ? '...' : '');
+                    previewContent.appendChild(pre);
+                };
+                reader.readAsText(file);
+            } else {
+                previewContent.textContent = 'No preview available for this file type';
+            }
+        }
+
+        // Display original files statistics
+        function displayOriginalStats() {
+            originalStats.innerHTML = `
+                <p>Files: ${selectedFiles.length}</p>
+                <p>Total Size: ${formatBytes(totalOriginalSize)}</p>
+                <div class="file-list">
+                    ${selectedFiles.map(file => 
+                        `<p>${file.name} - ${formatBytes(file.size)}</p>`
+                    ).join('')}
+                </div>
+            `;
+        }
+
+        // Main compression function
+        async function compressFiles() {
+            if (selectedFiles.length === 0) return;
+            
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            progressBar.textContent = '0%';
+            compressBtn.disabled = true;
+            
+            const zip = new JSZip();
+            const level = parseInt(compressionLevel.value);
+            const quality = parseInt(imageQuality.value) / 100;
+            
+            try {
+                // Process each file with appropriate compression
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    const file = selectedFiles[i];
+                    await processFile(zip, file, level, quality, i, selectedFiles.length);
+                }
+                
+                // Generate the ZIP file
+                zip.generateAsync({
+                    type: 'blob',
+                    compression: 'DEFLATE',
+                    compressionOptions: { level: level },
+                }, (metadata) => {
+                    const percent = Math.round(metadata.percent);
+                    progressBar.style.width = percent + '%';
+                    progressBar.textContent = percent + '%';
+                }).then((blob) => {
+                    compressedBlob = blob;
+                    const compressedSize = blob.size;
+                    const ratio = ((totalOriginalSize - compressedSize) / totalOriginalSize * 100).toFixed(2);
+                    
+                    // Display results
+                    compressedStats.innerHTML = `
+                        <p>Compressed Size: ${formatBytes(compressedSize)}</p>
+                        <p>Archive Format: ZIP</p>
+                    `;
+                    
+                    compressionRatio.textContent = `${ratio}%`;
+                    
+                    // Show download button
+                    downloadBtn.style.display = 'inline-block';
+                    progressContainer.style.display = 'none';
+                });
+            } catch (error) {
+                console.error('Compression error:', error);
+                alert('An error occurred during compression');
+                progressContainer.style.display = 'none';
+                compressBtn.disabled = false;
+            }
+        }
+
+        // Process individual files with type-specific optimizations
+        async function processFile(zip, file, level, quality, index, total) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                
+                if (file.type.startsWith('image/')) {
+                    // Optimize images
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            ctx.drawImage(img, 0, 0);
+                            
+                            // Convert to JPEG with specified quality for better compression
+                            if (file.type !== 'image/png' && file.type !== 'image/gif') {
+                                canvas.toBlob((blob) => {
+                                    zip.file(getOptimizedFileName(file), blob);
+                                    updateProgress(index + 1, total);
+                                    resolve();
+                                }, 'image/jpeg', quality);
+                            } else {
+                                // For PNG/GIF, keep format but reduce quality
+                                canvas.toBlob((blob) => {
+                                    zip.file(file.name, blob);
+                                    updateProgress(index + 1, total);
+                                    resolve();
+                                }, file.type, quality);
+                            }
+                        };
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    // For non-image files
+                    reader.onload = (e) => {
+                        zip.file(file.name, e.target.result, { compression: 'DEFLATE' });
+                        updateProgress(index + 1, total);
+                        resolve();
+                    };
+                    reader.readAsArrayBuffer(file);
+                }
+            });
+        }
+
+        // Helper to create optimized file names
+        function getOptimizedFileName(file) {
+            if (file.type.startsWith('image/') && file.type !== 'image/png' && file.type !== 'image/gif') {
+                return file.name.replace(/\.[^/.]+$/, '') + '.jpg';
+            }
+            return file.name;
+        }
+
+        // Update progress during processing
+        function updateProgress(current, total) {
+            const percent = Math.round((current / total) * 100);
+            progressBar.style.width = percent + '%';
+            progressBar.textContent = percent + '%';
+        }
+
+        // Download the compressed file
+        function downloadCompressed() {
+            if (compressedBlob) {
+                saveAs(compressedBlob, 'compressed_files.zip');
+            }
+        }
+
+        // Format bytes to human-readable format
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>
