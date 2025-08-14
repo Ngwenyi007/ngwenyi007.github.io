@@ -1,5 +1,8 @@
 include:
   - sitemap.xml
+  - robots.txt
 override:
   sitemap.xml:
     content_type: application/xml
+  robots.txt:
+    content_type: text/plain

@@ -43,3 +43,10 @@ If you believe in open-source, practical skills, and DIY empowerment, consider s
 ## 📬 Contact
 - 📧 Email: [Mail Me](https://francismatu8@gmail.com)
 - 🛠️ WhatsApp: [Message Me](https://wa.me/254786390308)
+
+## Site improvements (2025-08-14)
+- Added `robots.txt` and a clean `sitemap.xml` for SEO.
+- Compressed heavy images and added WebP versions with `<picture>` fallbacks.
+- Switched OG/Twitter image to optimized 1200x630 asset; added PNG favicons.
+- Removed duplicate `<title>`; added lazy-loading and alt text fixes.
+- Fixed typos in shelf caption.
