@@ -1,62 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adept Orchestrate</title>
-
-<style>
+<title>Adept Orchestrate</title><style>
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: white;
-    text-align: center;
+    font-family: 'Segoe UI', monospace;
+    background: radial-gradient(circle at top, #0f2027, #000);
+    color: #00eaff;
+    overflow-x: hidden;
+}
+
+/* TERMINAL INTRO */
+#intro {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: black;
+    color: #00ff88;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    z-index: 9999;
 }
 
 /* HEADER */
 header {
-    padding: 30px;
+    text-align: center;
+    padding: 20px;
 }
 
 h1 {
-    font-size: 40px;
-    color: #00eaff;
-    text-shadow: 0 0 15px #00eaff;
+    font-size: 42px;
+    text-shadow: 0 0 20px #00eaff;
 }
 
-p {
-    color: #ccc;
+/* TOGGLE */
+.toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    padding: 8px;
+    background: #00eaff;
+    color: black;
+    border-radius: 5px;
 }
 
-/* LOGO */
-.logo {
-    margin: 20px 0;
-}
-
-/* CARD CONTAINER */
+/* GRID */
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 20px;
     padding: 30px;
 }
 
-/* CARD STYLE */
+/* CARD */
 .card {
-    background: rgba(255,255,255,0.05);
+    background: rgba(0,255,255,0.05);
     border-radius: 15px;
     padding: 20px;
     transition: 0.3s;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
 }
 
 .card:hover {
-    transform: translateY(-10px);
+    transform: scale(1.05);
     box-shadow: 0 0 25px #00eaff;
 }
 
-/* BUTTON */
 .btn {
     display: inline-block;
     margin-top: 10px;
@@ -65,88 +78,86 @@ p {
     color: black;
     border-radius: 5px;
     text-decoration: none;
-    transition: 0.3s;
 }
 
-.btn:hover {
-    background: white;
+/* FLOATING ICONS */
+.icon {
+    position: absolute;
+    width: 40px;
+    opacity: 0.2;
+    animation: float 10s infinite ease-in-out;
 }
 
-/* FOOTER */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+    100% { transform: translateY(0); }
+}
+
 footer {
-    margin-top: 40px;
+    text-align: center;
     padding: 20px;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.5);
 }
-
-/* ANIMATION */
-@keyframes glow {
-    from { text-shadow: 0 0 10px #00eaff; }
-    to { text-shadow: 0 0 25px #00eaff; }
-}
-
-h1 {
-    animation: glow 2s infinite alternate;
-}
-</style>
-</head>
-
-<body>
-
-<header>
+</style></head><body><div id="intro">Initializing Adept Systems...</div><div class="toggle" onclick="toggleMode()">Toggle Mode</div><header>
     <h1>ADEPT ORCHESTRATE</h1>
-    <p>Your Trusted Partner in Technology ⚡</p>
-    <img src="assets/optimized/logo-400.jpg" width="250" class="logo">
-</header>
-
-<div class="container">
-
-    <!-- SOFTWARE -->
-    <div class="card">
-        <h2>💻 Software Solutions</h2>
-        <p>Web Apps, AI, Security & Cloud Systems</p>
-        <a href="#" class="btn">Explore</a>
-    </div>
-
-    <!-- ELECTRONICS -->
-    <div class="card">
-        <h2>🔌 Electronics</h2>
-        <p>Circuits, IoT, Embedded Programming</p>
-        <a href="#" class="btn">Learn More</a>
-    </div>
-
-    <!-- WOODWORK -->
-    <div class="card">
-        <h2>🪵 Wood Work</h2>
-        <p>Creative and Functional Designs</p>
-        <a href="woodwork.html" class="btn">Visit</a>
-    </div>
-
-    <!-- COMPRESSOR -->
-    <div class="card">
-        <h2>📦 Compressor Tool</h2>
-        <p>Organize and save disk space efficiently</p>
-        <a href="compressor.html" class="btn">Use Tool</a>
-    </div>
-
-    <!-- TECH SERVICES -->
-    <div class="card">
-        <h2>⚙️ PC Services</h2>
-        <p>
-        ✔ Windows 10 → 11 Upgrade<br>
-        ✔ Dual / Tri Boot Setup<br>
-        ✔ Blue Screen Fix
-        </p>
-        <a href="https://wa.me/254769809911" class="btn">Chat on WhatsApp</a>
-    </div>
-
+    <p>Your Tech Command Center ⚡</p>
+</header><div class="container"><!-- SOFTWARE FIRST -->
+<div class="card">
+    <h2>💻 Software Solutions</h2>
+    <p>Web Apps, AI, Security, Cloud Systems</p>
+    <a href="#" class="btn">Explore</a>
 </div>
 
-<footer>
+<!-- PC SERVICES SECOND -->
+<div class="card">
+    <h2>⚙️ PC Services</h2>
+    <p>Windows Upgrade, Dual Boot, Blue Screen Fix</p>
+    <a href="https://wa.me/254769809911" class="btn">WhatsApp</a>
+</div>
+
+<!-- COMPRESSOR THIRD -->
+<div class="card">
+    <h2>📦 Compressor</h2>
+    <p>Save space & organize files</p>
+    <a href="compressor.html" class="btn">Use Tool</a>
+</div>
+
+<!-- ELECTRONICS -->
+<div class="card">
+    <h2>🔌 Electronics</h2>
+    <p>IoT, Circuits, Embedded Systems</p>
+    <a href="#" class="btn">Learn</a>
+</div>
+
+<!-- WOODWORK -->
+<div class="card">
+    <h2>🪵 Wood Work</h2>
+    <p>Creative builds & furniture</p>
+    <a href="woodwork.html" class="btn">Visit</a>
+</div>
+
+</div><!-- FLOATING OS ICONS --><img src="https://cdn-icons-png.flaticon.com/512/732/732225.png" class="icon" style="left:10%; top:60%;">
+<img src="https://cdn-icons-png.flaticon.com/512/226/226772.png" class="icon" style="left:80%; top:50%;">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="icon" style="left:50%; top:80%;"><footer>
     <p>📧 francismatu8@gmail.com</p>
     <p>🌐 http://ngwenyi007.github.io/</p>
-    <p>© 2026 Adept Orchestrate</p>
-</footer>
+</footer><script>
+// TERMINAL INTRO
+setTimeout(() => {
+    document.getElementById('intro').style.display = 'none';
+}, 2500);
 
-</body>
+// DARK/LIGHT MODE
+function toggleMode() {
+    document.body.classList.toggle('light');
+    if(document.body.classList.contains('light')){
+        document.body.style.background = '#f0f8ff';
+        document.body.style.color = '#000';
+    } else {
+        document.body.style.background = 'black';
+        document.body.style.color = '#00eaff';
+    }
+}
+</script></body>
 </html>
