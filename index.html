@@ -1,176 +1,240 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adept Orchestrate</title><style>
-body {
-    margin: 0;
-    font-family: 'Consolas', monospace;
-    background: radial-gradient(circle at top, #0f2027, #000);
-    color: #00eaff;
-    overflow: hidden;
-}
-
-/* BOOT SCREEN */
-#boot {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-}
-
-/* SPINNER */
-.spinner {
-    width: 80px;
-    height: 80px;
-    border: 6px solid rgba(0,255,255,0.1);
-    border-top: 6px solid #00eaff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite, blurPulse 2s ease-in-out infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes blurPulse {
-    0%,100% { filter: blur(1px); }
-    50% { filter: blur(3px); }
-}
-
-/* TERMINAL TEXT */
-#terminal {
-    margin-top: 20px;
-    color: #00ff88;
-    font-size: 16px;
-}
-
-/* MAIN UI */
-.hidden { display: none; }
-
-header {
-    text-align: center;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 40px;
-    text-shadow: 0 0 15px #00eaff;
-}
-
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 30px;
-}
-
-.card {
-    background: rgba(0,255,255,0.05);
-    border-radius: 15px;
-    padding: 20px;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px #00eaff;
-}
-
-.btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 15px;
-    background: #00eaff;
-    color: black;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-footer {
-    text-align: center;
-    padding: 15px;
-}
-</style></head><body><!-- BOOT SCREEN --><div id="boot">
-    <div class="spinner"></div>
-    <div id="terminal"></div>
-</div><!-- MAIN CONTENT --><div id="main" class="hidden">
-<header>
-    <h1>ADEPT ORCHESTRATE</h1>
-    <p>Your Tech Command Center ⚡</p>
-</header><div class="container"><div class="card">
-    <h2>💻 Software Solutions</h2>
-    <p>Web Apps, AI, Security, Cloud Systems</p>
-    <a href="#" class="btn">Explore</a>
-</div>
-
-<div class="card">
-    <h2>⚙️ PC Services</h2>
-    <p>Windows Upgrade, Dual Boot, Blue Screen Fix</p>
-    <a href="https://wa.me/254769809911" class="btn">WhatsApp</a>
-</div>
-
-<div class="card">
-    <h2>📦 Compressor</h2>
-    <p>Save space & organize files</p>
-    <a href="compressor.html" class="btn">Use Tool</a>
-</div>
-
-<div class="card">
-    <h2>🔌 Electronics</h2>
-    <p>IoT, Circuits, Embedded Systems</p>
-    <a href="#" class="btn">Learn</a>
-</div>
-
-<div class="card">
-    <h2>🪵 Wood Work</h2>
-    <p>Creative builds & furniture</p>
-    <a href="woodwork.html" class="btn">Visit</a>
-</div>
-
-</div><footer>
-    <p>📧 francismatu8@gmail.com</p>
-    <p>🌐 http://ngwenyi007.github.io/</p>
-</footer>
-</div><script>
-// TYPEWRITER EFFECT
-const lines = [
-  "Initializing Adept Systems...",
-  "Loading core modules...",
-  "Launching services...",
-  "System ready."
-];
-
-let i = 0, j = 0;
-const terminal = document.getElementById("terminal");
-
-function typeLine() {
-    if (i < lines.length) {
-        if (j < lines[i].length) {
-            terminal.innerHTML += lines[i].charAt(j);
-            j++;
-            setTimeout(typeLine, 30);
-        } else {
-            terminal.innerHTML += "<br>";
-            i++;
-            j = 0;
-            setTimeout(typeLine, 500);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adept Orchestrate | Secure Boot</title>
+    <style>
+        :root {
+            --parrot-cyan: #00eaff;
+            --parrot-green: #00ff88;
         }
-    } else {
-        setTimeout(() => {
-            document.getElementById("boot").style.display = "none";
-            document.getElementById("main").classList.remove("hidden");
-            document.body.style.overflow = "auto";
-        }, 500);
-    }
-}
 
-typeLine();
-</script></body>
+        body {
+            margin: 0;
+            font-family: 'Consolas', monospace;
+            background: radial-gradient(circle at top, #0f2027, #000);
+            color: var(--parrot-cyan);
+            overflow: hidden; /* Prevent scrolling during boot */
+        }
+
+        /* PARROT BOOT SCREEN */
+        #boot {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
+        #parrot-frame {
+            width: 320px; /* Adjust size based on your images */
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(0, 234, 255, 0.4));
+        }
+
+        #terminal {
+            margin-top: 25px;
+            color: var(--parrot-green);
+            font-size: 14px;
+            min-height: 100px;
+            text-align: center;
+        }
+
+        #input-prompt {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-transform: uppercase;
+        }
+
+        .blink { animation: blinker 1.5s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        /* MAIN UI */
+        #main { opacity: 0; transition: opacity 1s ease; }
+        #main.visible { opacity: 1; }
+        .hidden { display: none; }
+
+        header { text-align: center; padding: 20px; }
+        h1 { font-size: 40px; text-shadow: 0 0 15px var(--parrot-cyan); }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .card {
+            background: rgba(0,255,255,0.05);
+            border: 1px solid rgba(0,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--parrot-cyan);
+            background: rgba(0,255,255,0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: var(--parrot-cyan);
+            color: black;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer { text-align: center; padding: 30px; font-size: 0.8rem; opacity: 0.7; }
+    </style>
+</head>
+<body>
+
+<div id="boot">
+    <img id="parrot-frame" src="progress-0.png" alt="Booting...">
+    <div id="terminal"></div>
+    <div id="input-prompt" class="blink">Press any key to proceed _</div>
+</div>
+
+<div id="main" class="hidden">
+    <header>
+        <h1>ADEPT ORCHESTRATE</h1>
+        <p>Your Tech Command Center ⚡</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>💻 Software Solutions</h2>
+            <p>Web Apps, AI, Security, Cloud Systems</p>
+            <a href="#" class="btn boot-link">Explore</a>
+        </div>
+
+        <div class="card">
+            <h2>⚙️ PC Services</h2>
+            <p>Windows Upgrade, Dual Boot, Blue Screen Fix</p>
+            <a href="https://wa.me/254769809911" class="btn">WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <h2>📦 Compressor</h2>
+            <p>Save space & organize files</p>
+            <a href="compressor.html" class="btn boot-link">Use Tool</a>
+        </div>
+
+        <div class="card">
+            <h2>🔌 Electronics</h2>
+            <p>IoT, Circuits, Embedded Systems</p>
+            <a href="#" class="btn boot-link">Learn</a>
+        </div>
+
+        <div class="card">
+            <h2>🪵 Wood Work</h2>
+            <p>Creative builds & furniture</p>
+            <a href="woodwork.html" class="btn boot-link">Visit</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>📧 francismatu8@gmail.com | 🌐 http://ngwenyi007.github.io/</p>
+    </footer>
+</div>
+
+<script>
+    const terminal = document.getElementById("terminal");
+    const frameImg = document.getElementById('parrot-frame');
+    const bootLayer = document.getElementById('boot');
+    const mainContent = document.getElementById('main');
+    const prompt = document.getElementById('input-prompt');
+    
+    const lines = [
+        "Initializing Adept Systems...",
+        "Checking security protocols...",
+        "Establishing encrypted tunnel...",
+        "Loading core modules...",
+        "System ready."
+    ];
+
+    let lineIdx = 0, charIdx = 0, currentFrame = 0;
+    let bootSequenceComplete = false;
+
+    // 1. PARROT ANIMATION CYCLE
+    const animInterval = setInterval(() => {
+        currentFrame = (currentFrame + 1) % 33;
+        frameImg.src = `progress-${currentFrame}.png`;
+    }, 50);
+
+    // 2. TYPEWRITER EFFECT
+    function typeLine() {
+        if (lineIdx < lines.length) {
+            if (charIdx < lines[lineIdx].length) {
+                terminal.innerHTML += lines[lineIdx].charAt(charIdx);
+                charIdx++;
+                setTimeout(typeLine, 30);
+            } else {
+                terminal.innerHTML += "<br>";
+                lineIdx++;
+                charIdx = 0;
+                setTimeout(typeLine, 500);
+            }
+        }
+    }
+    typeLine();
+
+    // 3. THE 10-SECOND LOCK
+    setTimeout(() => {
+        bootSequenceComplete = true;
+        prompt.style.opacity = "1";
+    }, 9000);
+
+    // 4. ENTER INTERACTION
+    const enterSystem = () => {
+        if (bootSequenceComplete) {
+            bootLayer.style.opacity = "0";
+            setTimeout(() => {
+                bootLayer.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                setTimeout(() => mainContent.classList.add('visible'), 50);
+                document.body.style.overflow = "auto";
+            }, 800);
+        }
+    };
+
+    window.addEventListener('keydown', enterSystem);
+    window.addEventListener('click', enterSystem);
+
+    // 5. LINK INTERCEPTOR (For external links or app links)
+    document.querySelectorAll('.boot-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.href;
+            
+            // Show loader again
+            bootLayer.classList.remove('hidden');
+            bootLayer.style.opacity = "1";
+            mainContent.classList.remove('visible');
+            prompt.style.opacity = "0";
+            bootSequenceComplete = false;
+
+            // Short 2-second "Processing" delay before navigating
+            setTimeout(() => {
+                window.location.href = target;
+            }, 2000);
+        });
+    });
+</script>
+
+</body>
 </html>
