@@ -332,6 +332,11 @@
 <footer>
     <p>Adept Orchestrate © 2026 | Technical Command Center</p>
 </footer>
-
+<script>
+    // Add this inside your startPage() function in pc_services.html
+const info = document.getElementById('user-info');
+info.innerHTML += `<br>> AI_ENGINE: OLLAMA_DETECTED: FALSE (READY FOR INSTALL)`;
+info.innerHTML += `<br>> NEURAL_COMPUTE: GPU_ACCELERATION_AVAILABLE`;
+</script>
 </body>
 </html>
