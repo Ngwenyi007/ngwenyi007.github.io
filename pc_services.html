@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adept PC Services | System Recovery & Deployment</title>
+    <style>
+        :root {
+            --parrot-cyan: #00eaff;
+            --parrot-green: #00ff88;
+            --bg-dark: #050505;
+            --card-bg: rgba(0, 234, 255, 0.05);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            background: radial-gradient(circle at top, #0f2027, #000);
+            color: var(--parrot-cyan);
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid rgba(0, 234, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px var(--parrot-cyan);
+            margin-bottom: 10px;
+        }
+
+        .status-bar {
+            color: var(--parrot-green);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        /* DYNAMIC IMAGE SLIDER */
+        .slider-container {
+            width: 100%;
+            max-width: 1000px;
+            height: 400px;
+            margin: -30px auto 50px;
+            overflow: hidden;
+            border: 1px solid var(--parrot-cyan);
+            position: relative;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(0, 234, 255, 0.1);
+        }
+
+        .slide-track {
+            display: flex;
+            width: calc(400px * 10); /* Adjust based on image count */
+            animation: scroll 25s linear infinite;
+        }
+
+        .slide-track:hover { animation-play-state: paused; }
+
+        .slide {
+            width: 400px;
+            height: 400px;
+            padding: 5px;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.2) contrast(1.1);
+            border: 1px solid rgba(0, 234, 255, 0.3);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-400px * 5)); }
+        }
+
+        /* SERVICES GRID */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 0 40px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 234, 255, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            border-color: var(--parrot-cyan);
+            box-shadow: 0 0 20px rgba(0, 234, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .service-card h2 {
+            font-size: 1.4rem;
+            margin-top: 0;
+            color: var(--parrot-green);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            background: rgba(0, 234, 255, 0.1);
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin-right: 5px;
+            text-transform: uppercase;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li::before {
+            content: "[✔] ";
+            color: var(--parrot-green);
+        }
+
+        .contact-btn {
+            display: block;
+            width: fit-content;
+            margin: 40px auto;
+            padding: 15px 40px;
+            background: var(--parrot-cyan);
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .contact-btn:hover {
+            box-shadow: 0 0 30px var(--parrot-cyan);
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="status-bar">SYSTEM_DIAGNOSTIC: ACTIVE | RECOVERY_MODE: ENABLED</div>
+    <h1>PC SERVICES & RECOVERY</h1>
+    <p>Advanced Technical Solutions by Adept Orchestrate</p>
+</header>
+
+<div class="slider-container">
+    <div class="slide-track">
+        <div class="slide"><img src="upgrde1.png" alt="Setup 1"></div>
+        <div class="slide"><img src="upgrade2.png" alt="Setup 2"></div>
+        <div class="slide"><img src="upgrade3.png" alt="Setup 3"></div>
+        <div class="slide"><img src="upgrade4.png" alt="Setup 4"></div>
+        <div class="slide"><img src="upgrade5.png" alt="Setup 5"></div>
+        <div class="slide"><img src="upgrde1.png" alt="Setup 1"></div>
+        <div class="slide"><img src="upgrade2.png" alt="Setup 2"></div>
+        <div class="slide"><img src="upgrade3.png" alt="Setup 3"></div>
+        <div class="slide"><img src="upgrade4.png" alt="Setup 4"></div>
+        <div class="slide"><img src="upgrade5.png" alt="Setup 5"></div>
+    </div>
+</div>
+
+<div class="services-grid">
+    
+    <div class="service-card">
+        <div><span class="tag">Deployment</span><span class="tag">Core</span></div>
+        <h2>OS Installation & Upgrade</h2>
+        <p>Expert deployment of professional environments. We ensure hardware-software synergy.</p>
+        <ul>
+            <li>Windows 10 / 11 Pro Upgrades</li>
+            <li>Linux Distribution (Parrot, Kali, Ubuntu)</li>
+            <li>Dual-Boot Configuration</li>
+            <li>Driver & Kernel Optimization</li>
+        </ul>
+    </div>
+
+    <div class="service-card">
+        <div><span class="tag">Security</span><span class="tag">Forensics</span></div>
+        <h2>Data Recovery</h2>
+        <p>Restoring critical files from corrupted or inaccessible storage media.</p>
+        <ul>
+            <li>Hard Drive & SSD Recovery</li>
+            <li>Deleted Partition Retrieval</li>
+            <li>Raw Data Reconstruction</li>
+            <li>External Drive Repair</li>
+        </ul>
+    </div>
+
+    <div class="service-card">
+        <div><span class="tag">Admin</span><span class="tag">Encryption</span></div>
+        <h2>Access & Encryption</h2>
+        <p>Bypassing security hurdles and recovering encrypted volumes.</p>
+        <ul>
+            <li>**BitLocker** Recovery</li>
+            <li>Windows Local/MS Account Recovery</li>
+            <li>Password Reset Services</li>
+            <li>BIOS/UEFI Password Removal</li>
+        </ul>
+    </div>
+
+    <div class="service-card">
+        <div><span class="tag">Enterprise</span><span class="tag">Testing</span></div>
+        <h2>Virtualization Tech</h2>
+        <p>Setting up isolated environments for development and security testing.</p>
+        <ul>
+            <li>VMware & VirtualBox Setup</li>
+            <li>Hyper-V Configuration</li>
+            <li>VT-x / AMD-V BIOS Optimization</li>
+            <li>Cloud Environment Mirroring</li>
+        </ul>
+    </div>
+
+</div>
+
+<a href="https://wa.me/254769809911" class="contact-btn">REQUEST TECHNICAL ASSISTANCE</a>
+
+<footer>
+    <p>Adept Orchestrate © 2026 | Technical Command Center</p>
+</footer>
+
+</body>
+</html>
