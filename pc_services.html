@@ -152,6 +152,57 @@
             transform: scale(1.05);
         }
 
+
+            .cta-container {
+        text-align: center;
+        margin: 80px 0;
+    }
+
+    .button-housing {
+        display: inline-block;
+        padding: 15px;
+        border: 2px dashed rgba(0, 234, 255, 0.3);
+        border-radius: 10px;
+    }
+
+    .launch-btn {
+        position: relative;
+        display: inline-block;
+        padding: 20px 50px;
+        background: #900; /* Dark red base */
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.2rem;
+        border: 4px solid #f00;
+        box-shadow: 0 0 15px #f00, inset 0 0 10px #000;
+        transition: 0.2s;
+        text-transform: uppercase;
+    }
+
+    .launch-btn:hover {
+        background: #f00;
+        box-shadow: 0 0 40px #f00, inset 0 0 10px #fff;
+        transform: scale(0.95); /* Simulates a physical press */
+    }
+
+    .launch-btn:active {
+        transform: scale(0.9);
+    }
+
+    .btn-glow {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: radial-gradient(circle, rgba(255,0,0,0.4) 0%, transparent 70%);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { opacity: 0.4; }
+        50% { opacity: 1; }
+        100% { opacity: 0.4; }
+    }
+
         footer {
             text-align: center;
             padding: 40px;
@@ -212,18 +263,43 @@
             <li>External Drive Repair</li>
         </ul>
     </div>
-
+<div class="service-card server-card">
+        <div><span class="tag">Infrastructure</span><span class="tag">Self-Hosted</span></div>
+        <h2>Private Cloud & Home Servers</h2>
+        <p>Turn hardware into a powerhouse. Host your own files, websites, and apps locally with enterprise-grade security.</p>
+        
+        <ul class="service-list">
+            <li>**Ubuntu Server** & Debian Deployment</li>
+            <li>**Nextcloud** (Your own private Google Drive)</li>
+            <li>**Docker & Portainer** Containerization</li>
+            <li>**TrueNAS / Unraid** Storage Solutions</li>
+            <li>Dynamic DNS & Reverse Proxy (Secure Remote Access)</li>
+        </ul>
+    </div>
     <div class="service-card">
         <div><span class="tag">Admin</span><span class="tag">Encryption</span></div>
         <h2>Access & Encryption</h2>
         <p>Bypassing security hurdles and recovering encrypted volumes.</p>
         <ul>
-            <li>**BitLocker** Recovery</li>
+            <li>BitLocker Recovery</li>
             <li>Windows Local/MS Account Recovery</li>
             <li>Password Reset Services</li>
             <li>BIOS/UEFI Password Removal</li>
         </ul>
+    </div
+        
+     <div class="service-card">
+        <div><span class="tag">Artificial Intelligence</span><span class="tag">Local-Host</span></div>
+        <h2>Local AI & Agent Setup</h2>
+        <p>Run powerful Large Language Models (LLMs) 100% offline on your own hardware. No subscriptions, total privacy.</p>
+        <ul>
+            <li>Ollama & GPT4All Deployment</li>
+            <li>OpenClaw & Multi-Agent System configuration</li>
+            <li>Custom RDB (Retrieval Augmented Generation) for your docs</li>
+            <li>GPU Acceleration (CUDA/ROCm) Optimization</li>
+        </ul>
     </div>
+
 
     <div class="service-card">
         <div><span class="tag">Enterprise</span><span class="tag">Testing</span></div>
@@ -238,6 +314,18 @@
     </div>
 
 </div>
+    <div class="cta-container">
+    <div class="button-housing">
+        <a href="https://wa.me/254769809911" class="launch-btn">
+            <span class="btn-text">INITIALIZE PROJECT</span>
+            <span class="btn-glow"></span>
+        </a>
+    </div>
+    <p style="font-size: 0.7rem; margin-top: 15px; color: var(--parrot-green); letter-spacing: 2px;">
+        WARNING: ESTABLISHING DIRECT LINK TO TECHNICIAN...
+    </p>
+</div>
+
 
 <a href="https://wa.me/254769809911" class="contact-btn">REQUEST TECHNICAL ASSISTANCE</a>
 
