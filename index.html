@@ -133,7 +133,7 @@
         <div class="card">
             <h2>⚙️ PC Services</h2>
             <p>Windows Upgrade, Dual Boot, Blue Screen Fix</p>
-            <a href="https://wa.me/254769809911" class="btn">WhatsApp</a>
+            <a href="pc_services.html" class="btn boot-link">View Services</a>
         </div>
 
         <div class="card">
@@ -201,11 +201,11 @@
     }
     typeLine();
 
-    // 3. THE 10-SECOND LOCK
+    // 3. THE 7-SECOND LOCK
     setTimeout(() => {
         bootSequenceComplete = true;
         prompt.style.opacity = "1";
-    }, 9000);
+    }, 7000);
 
     // 4. ENTER INTERACTION
     const enterSystem = () => {
@@ -239,7 +239,7 @@
             // Short 2-second "Processing" delay before navigating
             setTimeout(() => {
                 window.location.href = target;
-            }, 2000);
+            }, 1000);
         });
     });
 </script>
