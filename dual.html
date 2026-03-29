@@ -1,129 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>OS OPTIONS|OPTIMIZATION</title>
-        <style>
-            :root {
-            --parrot-cyan: #00eaff;
-            --parrot-green: #00ff88;
-            --bg-dark: #050505;
-            --card-bg: rgba(0, 234, 255, 0.05);
-                }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adept Orchestrate | OS Engineering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark-bg: #0a0a0a;
+            --card-bg: #161616;
+            --glow: rgba(212, 175, 55, 0.3);
+        }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Consolas', 'Courier New', monospace;
-            background: radial-gradient(circle at top, #0f2027, #000);
-            color: var(--parrot-cyan);
-            line-height: 1.6;
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
 
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            border-bottom: 1px solid rgba(0, 234, 255, 0.2);
+        /* --- Animated Shine Effect --- */
+        .service-card-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255, 255, 255, 0.08),
+                transparent
+            );
+            transform: skewX(-20deg);
+            transition: 0.8s;
+            z-index: 5;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            letter-spacing: 5px;
-            text-shadow: 0 0 20px var(--parrot-cyan);
-            margin-bottom: 10px;
+        .service-card:hover .service-card-inner::before {
+            left: 150%;
         }
 
-        .status-bar {
-            color: var(--parrot-green);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-                .contact-btn {
-            display: block;
-            width: fit-content;
-            margin: 40px auto;
-            padding: 15px 40px;
-            background: var(--parrot-cyan);
-            color: #000;
-            text-decoration: none;
-            font-weight: bold;
-            letter-spacing: 2px;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .contact-btn:hover {
-            box-shadow: 0 0 30px var(--parrot-cyan);
-            transform: scale(1.05);
-        }
-                /* SERVICES GRID */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            padding: 0 40px 60px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        /* --- 3D Flip Logic --- */
         .service-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 234, 255, 0.1);
-            padding: 25px;
-            border-radius: 10px;
-            transition: 0.3s;
+            background: transparent;
+            height: 420px;
+            perspective: 1200px;
+        }
+
+        .service-card-inner {
             position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+        }
+
+        .service-card.flipped .service-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
         }
 
-        .service-card:hover {
-            border-color: var(--parrot-cyan);
-            box-shadow: 0 0 20px rgba(0, 234, 255, 0.15);
-            transform: translateY(-5px);
+        .card-front { background: var(--card-bg); }
+        .card-back { 
+            background: #111; 
+            transform: rotateY(180deg); 
+            border: 2px solid var(--gold);
+            box-shadow: inset 0 0 15px var(--glow);
         }
 
-        .service-card h2 {
-            font-size: 1.4rem;
-            margin-top: 0;
-            color: var(--parrot-green);
-            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
-            padding-bottom: 10px;
+        .boot-image-preview {
+            width: 100%;
+            height: 160px;
+            background: #000;
+            border-radius: 12px;
+            margin-top: auto;
+            border: 1px solid #333;
+            object-fit: cover;
+            transition: 0.3s;
         }
 
+        .tag {
+            background: rgba(212, 175, 55, 0.08);
+            color: var(--gold);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin-right: 5px;
+        }
 
-        </style>
-    </head>
-    </head>
-<body>
+        .price-tag {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
 
-<header>
-    <div class="status-bar">Welcome to your OS expert</div>
-    <h1>PC SERVICES & RECOVERY</h1>
-    <p>Advanced Technical Solutions by Adept Orchestrate</p>
-</header>
-<div class="services-grid">
-    
-  <div class="service-card">
-        <div><span class="tag"> Dual </span><span class="tag">Boot</span></div>
-        <h2>Windows 11 & Ubuntu</h2>
-        <p>Involves partitioning disk and setting up 2 operating systems such that you choose which os to boot on upon powering on the pc .</p>
-        <p>Both operating system are indipendent from the other and cannot work simultaneously</p>
+        .btn-premium {
+            background: white;
+            color: black;
+            transition: all 0.3s ease;
+        }
+
+        .btn-premium:hover {
+            background: var(--gold);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--glow);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+
+    <header class="text-center mb-20">
+        <div class="inline-block px-4 py-1 border border-blue-500 text-blue-400 text-xs rounded-full mb-6 uppercase tracking-widest">
+            Level Up Your Hardware
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-4">PC SERVICES & RECOVERY</h1>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">Advanced OS Engineering by <span class="text-white font-bold underline decoration-gold">Adept Orchestrate</span>. Clean partitions. Zero data loss.</p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        
+        <div class="service-card" onclick="this.classList.toggle('flipped')">
+            <div class="service-card-inner">
+                <div class="card-front">
+                    <div class="mb-4"><span class="tag">Hybrid</span><span class="tag">Daily</span></div>
+                    <h2 class="text-2xl font-bold mb-3">Windows 11 + Ubuntu</h2>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">Perfect for developers. Keep your gaming/office apps on Windows and your dev environment on Ubuntu.</p>
+                    <ul class="text-xs text-gray-500 space-y-2 mb-6">
+                        <li>✔ Automated Partitioning</li>
+                        <li>✔ GRUB Customization</li>
+                        <li>✔ Full Hardware Driver Support</li>
+                    </ul>
+                    <div class="mt-auto flex justify-between items-end">
+                        <div>
+                            <p class="text-[10px] uppercase text-gray-500">Starts at</p>
+                        </div>
+                        <span class="text-gold text-xs underline">View Setup</span>
+                    </div>
+                </div>
+                <div class="card-back text-center">
+                    <h3 class="text-gold font-bold mb-4">Boot Selector Screen</h3>
+                    <img src="dual2.png" class="boot-image-preview" alt="Windows/Ubuntu Boot">
+                    <p class="mt-auto text-xs text-gray-400 leading-relaxed italic">The GRUB interface allows you to choose your OS in 5 seconds upon power-on.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card" onclick="this.classList.toggle('flipped')">
+            <div class="service-card-inner">
+                <div class="card-front">
+                    <div class="mb-4"><span class="tag">Cyber</span><span class="tag">Sec</span></div>
+                    <h2 class="text-2xl font-bold mb-3">Windows + Kali Linux</h2>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">The Penetration Tester’s choice. Bare-metal Kali performance without the lag of a Virtual Machine.</p>
+                    <ul class="text-xs text-gray-500 space-y-2 mb-6">
+                        <li>✔ GPU Passthrough Optimization</li>
+                        <li>✔ Secure Boot Config</li>
+                        <li>✔ WiFi Injection Support Setup</li>
+                    </ul>
+                    <div class="mt-auto flex justify-between items-end">
+                        <span class="text-gold text-xs underline">View Setup</span>
+                    </div>
+                </div>
+                <div class="card-back text-center">
+                    <h3 class="text-gold font-bold mb-4">The Lab Setup</h3>
+                    <img src="dual3.png" class="boot-image-preview" alt="Kali Setup">
+                    <p class="mt-auto text-xs text-gray-400 italic">Full hardware access for auditing and networking tools.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card" onclick="this.classList.toggle('flipped')">
+            <div class="service-card-inner">
+                <div class="card-front">
+                    <div class="mb-4"><span class="tag">Linux</span><span class="tag">Only</span></div>
+                    <h2 class="text-2xl font-bold mb-3">Ubuntu + Kali Linux</h2>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">For the purists. Fast, secure, and lightweight. Use Ubuntu for work and Kali for the field.</p>
+                    <ul class="text-xs text-gray-500 space-y-2 mb-6">
+                        <li>✔ Shared Data Partition</li>
+                        <li>✔ Swap File Optimization</li>
+                        <li>✔ Zero Windows Bloat</li>
+                    </ul>
+                    <div class="mt-auto flex justify-between items-end">                        <span class="text-gold text-xs underline">View Setup</span>
+                    </div>
+                </div>
+                <div class="card-back text-center">
+                    <h3 class="text-gold font-bold mb-4">Dual-Linux Menu</h3>
+                    <img src="dual1.png" class="boot-image-preview" alt="Linux Duo">
+                    <p class="mt-auto text-xs text-gray-400 italic">Fastest boot times across both systems.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card" onclick="this.classList.toggle('flipped')">
+            <div class="service-card-inner">
+                <div class="card-front">
+                    <div class="mb-4"><span class="tag">Extreme</span><span class="tag">Triple</span></div>
+                    <h2 class="text-2xl font-bold mb-3">Win + Ubuntu + Kali</h2>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">The ultimate engineering workstation. Every tool, every environment, one machine.</p>
+                    <ul class="text-xs text-gray-500 space-y-2 mb-6">
+                        <li>✔ Triple-Layer Partitioning</li>
+                        <li>✔ UEFI BIOS Hardening</li>
+                        <li>✔ High-Efficiency SSD Layout</li>
+                    </ul>
+                    <div class="mt-auto flex justify-between items-end">                        <span class="text-gold text-xs underline">View Setup</span>
+                    </div>
+                </div>
+                <div class="card-back text-center">
+                    <h3 class="text-gold font-bold mb-4">Master Boot Selector</h3>
+                    <img src="dual4.png" class="boot-image-preview" alt="Triple Boot">
+                    <p class="mt-auto text-xs text-gray-400 italic">Requires 512GB+ SSD recommended.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card" onclick="this.classList.toggle('flipped')">
+            <div class="service-card-inner">
+                <div class="card-front">
+                    <div class="mb-4"><span class="tag">Privacy</span><span class="tag">Isolated</span></div>
+                    <h2 class="text-2xl font-bold mb-3">Win 11 + Win 11</h2>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">Isolate Corporate tracking software from your Personal gaming and banking environment.</p>
+                    <ul class="text-xs text-gray-500 space-y-2 mb-6">
+                        <li>✔ BitLocker Isolation</li>
+                        <li>✔ No Data Inter-Leakage</li>
+                        <li>✔ Independent Registry Files</li>
+                    </ul>
+                    <div class="mt-auto flex justify-between items-end">
+                        <div><p class="price-tag">KSh 4,000</p></div>
+                        <span class="text-gold text-xs underline">View Setup</span>
+                    </div>
+                </div>
+                <div class="card-back text-center">
+                    <h3 class="text-gold font-bold mb-4">Windows Dual Selector</h3>
+                    <img src="dual5.png" class="boot-image-preview" alt="Dual Windows">
+                    <p class="mt-auto text-xs text-gray-400 italic">Complete separation of Work and Personal lives.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card" onclick="this.classList.toggle('flipped')">
+            <div class="service-card-inner">
+                <div class="card-front">
+                    <div class="mb-4"><span class="tag">Custom</span><span class="tag">Bespoke</span></div>
+                    <h2 class="text-2xl font-bold mb-3">Custom Distribution</h2>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">Need Fedora, Arch, Parrot, or Mint? We engineer custom dual-boot paths for any OS.</p>
+                    <ul class="text-xs text-gray-500 space-y-2 mb-6">
+                        <li>✔ Manual Bootloader Entry</li>
+                        <li>✔ XFCE/KDE Customization</li>
+                        <li>✔ Tiling Window Manager Setup</li>
+                    </ul>
+                    <div class="mt-auto flex justify-between items-end">
+                        <div><p class="price-tag">Contact</p></div>
+                        <span class="text-gold text-xs underline">Inquire</span>
+                    </div>
+                </div>
+                <div class="card-back text-center">
+                    <h3 class="text-gold font-bold mb-4">Technical Consultancy</h3>
+                    <div class="p-6 bg-gray-800 rounded-lg">
+                        <p class="text-xs text-gray-300">Tell us your preferred OS and we will handle the kernel optimization and partitioning logic.</p>
+                <img src="dual.png" class="boot-image-preview" alt="Dual Windows">
+                       
+                    </div>
+                    <p class="mt-auto text-xs text-gray-400 italic">Price varies by complexity.</p>
+                </div>
+            </div>
+        </div>
 
     </div>
-    <div class="service-card">
-        <div><span class="tag"></span>Dual <span class="tag"> Boot</span></div>
-        <h2> Windows 11 & Kali Linux</h2>
-        <p>Involves partitioning disk and setting up 2 operating systems such that you choose which os to boot on upon powering on the pc .</p>
-        <p>Both operating system are indipendent from the other and cannot work simultaneously</p>
-    </div>
-</div>
+
+    <footer class="mt-32 text-center pb-20">
+        <h2 class="text-3xl font-bold mb-6">Ready to upgrade your system?</h2>
+        <a href="https://wa.me/254769809911" class="btn-premium inline-block px-12 py-5 font-black rounded-full tracking-tighter">
+          CONTACT TECHNICAL SUPPORT
+        </a>
+        <p class="mt-12 text-gray-600 text-sm tracking-widest">© 2026 ADEPT ORCHESTRATE | NAIROBI, KENYA</p>
+    </footer>
+
 </body>
-<footer>
-<a href="https://wa.me/254769809911" class="contact-btn">REQUEST TECHNICAL ASSISTANCE</a>
-
-</footer>
-<script>
-
-</script>
 </html>
