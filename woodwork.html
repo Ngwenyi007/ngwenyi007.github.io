@@ -152,44 +152,77 @@
       margin: 1rem auto;
       display: block;
     }
+/* Center the container gracefully */
+.portrait-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
 
-    .gold-oval-container {
-      width: 240px;
-      height: 260px;
-      padding: 8px;
-      border: 6px solid #d4af37;
-      border-radius: 50% / 60%;
-      background: radial-gradient(circle at center, #fffaf0, #fef6dc);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      overflow: hidden;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      position: relative;
-      transition: box-shadow 0.3s, transform 0.3s;
-    }
+.gold-oval-container {
+  width: 240px;
+  height: 280px; /* Slightly taller for a classic portrait ratio */
+  border-radius: 50%; /* Perfect ellipse */
+  
+  /* The Sleek Gold Frame Effect */
+  padding: 4px; /* Frame thickness */
+  background: linear-gradient(135deg, #f9d976 0%, #e9b646 50%, #f9d976 100%);
+  
+  /* Soft, modern layered shadows */
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.25), /* Outer drop shadow */
+    inset 0 2px 4px rgba(255, 255, 255, 0.5); /* Inner highlight on the frame */
+    
+  position: relative;
+  cursor: pointer;
+  
+  /* Premium animation easing */
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+}
 
-    .gold-oval-container:hover {
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      transform: scale(1.02);
-    }
+/* Make the picture element act as the clipping mask */
+.gold-oval-container picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background: radial-gradient(circle at center, #fffaf0, #fef6dc); /* Your original background */
+}
 
-    .gold-oval-container img {
-      width: auto;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      display: block;
-    }
+/* Glass/Lighting Sheen Overlay */
+.gold-oval-container picture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 40%);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+  pointer-events: none; /* Ensures the sheen doesn't block hover events */
+}
 
-    .gold-oval-container::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 50% / 60%;
-      box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.2);
-      pointer-events: none;
-    }
+.gold-oval-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- THE HOVER EFFECTS --- */
+.gold-oval-container:hover {
+  transform: translateY(-6px); /* Elevate instead of just scaling */
+  box-shadow: 
+    0 20px 40px -15px rgba(212, 175, 55, 0.4), /* Gold-tinted glow */
+    0 15px 25px -10px rgba(0, 0, 0, 0.15);
+}
+
+.gold-oval-container:hover img {
+  transform: scale(1.06); /* Gentle internal zoom */
+}
 
     @media (max-width: 600px) {
       .site-header {
@@ -228,17 +261,6 @@
     <h3>👨‍🔧 About Me</h3>
     <p>I'm Francis Kabue Matu, a passionate woodworker creating efficient, modern furniture for compact living spaces in Kenya. My goal is to promote DIY solutions and local manufacturing.</p>
   </section>
-
-  <div style="text-align: center;">
-    <div class="full-body-portrait-frame">
-      <div class="gold-oval-container">
-        <picture>
-          <source srcset="assets/optimized/portrait.webp" type="image/webp">
-          <img src="IMG_20250504_113932_MP~2.jpg" alt="Francis portrait" loading="lazy">
-        </picture>
-      </div>
-    </div>
-  </div>
 
   <section id="services">
     <h3>🛠️ Services Offered</h3>
@@ -411,6 +433,16 @@
     <button type="submit" class="buy-button">Subscribe</button>  
   </form>  
 </section>  
+
+<div class="portrait-wrapper">
+  <div class="gold-oval-container">
+    <picture>
+      <source srcset="assets/optimized/portrait.webp" type="image/webp">
+      <img src="IMG_20250504_113932_MP~2.jpg" alt="Francis portrait" loading="lazy">
+    </picture>
+  </div>
+</div>
+  
 <section class="product-card">  
   <h2>🗣️ What Customers Say</h2>  
   <div style="margin-bottom: 20px;">  
