@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Inquiry | Developer Name</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 p-6">
+
+    <div class="max-w-2xl mx-auto bg-gray-800 p-8 rounded-xl shadow-2xl">
+        <h1 class="text-3xl font-bold mb-2 text-blue-400">Let's Build Your MVP</h1>
+        <p class="mb-8 text-gray-400">Answer these questions to get a detailed quote and timeline.</p>
+
+        <form id="mvp-form" class="space-y-6">
+            <div>
+                <label class="block mb-2 font-medium">1. Main purpose of the app?</label>
+                <textarea id="purpose" required class="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 outline-none"></textarea>
+            </div>
+
+            <div>
+                <label class="block mb-2 font-medium">2. Who are the users?</label>
+                <input type="text" id="users" placeholder="e.g. Students, Admins" required class="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block mb-2 font-medium">3. Top 3-5 MVP features?</label>
+                <textarea id="features" required class="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 outline-none"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block mb-2 font-medium">4. User Login? (Yes/No)</label>
+                    <input type="text" id="login" class="w-full p-3 rounded bg-gray-700 border border-gray-600 outline-none">
+                </div>
+                <div>
+                    <label class="block mb-2 font-medium">5. Payments/APIs?</label>
+                    <input type="text" id="integrations" placeholder="e.g. M-Pesa" class="w-full p-3 rounded bg-gray-700 border border-gray-600 outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block mb-2 font-medium">7. Preferred Platform?</label>
+                <select id="platform" class="w-full p-3 rounded bg-gray-700 border border-gray-600 outline-none">
+                    <option value="Web App">Web App</option>
+                    <option value="Mobile App">Mobile App</option>
+                    <option value="Both">Both</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block mb-2 font-medium">8. Deadline?</label>
+                    <input type="text" id="deadline" class="w-full p-3 rounded bg-gray-700 border border-gray-600 outline-none">
+                </div>
+                <div>
+                    <label class="block mb-2 font-medium">9. Budget (Optional)?</label>
+                    <input type="text" id="budget" class="w-full p-3 rounded bg-gray-700 border border-gray-600 outline-none">
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-lg transition duration-300">
+                Submit & Open WhatsApp
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Initialize EmailJS (Get your Public Key from emailjs.com)
+        (function() {
+            emailjs.init("DLT8PkMxRi8wHMpRT");
+        })();
+
+        document.getElementById('mvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 1. Collect Data
+            const data = {
+                purpose: document.getElementById('purpose').value,
+                users: document.getElementById('users').value,
+                features: document.getElementById('features').value,
+                login: document.getElementById('login').value,
+                integrations: document.getElementById('integrations').value,
+                platform: document.getElementById('platform').value,
+                deadline: document.getElementById('deadline').value,
+                budget: document.getElementById('budget').value,
+            };
+
+            // 2. Send Email via EmailJS
+            emailjs.send("service_ygkznfr", "template_j94z7iv", data)
+                .then(() => console.log("Email Sent!"))
+                .catch(err => console.error("Email Failed", err));
+
+            // 3. Prepare WhatsApp Message
+            const phone = "254769809911"; // Your phone number in international format
+            const message = `*New MVP Inquiry*%0A%0A` +
+                            `*Purpose:* ${data.purpose}%0A` +
+                            `*Users:* ${data.users}%0A` +
+                            `*Features:* ${data.features}%0A` +
+                            `*Platform:* ${data.platform}%0A` +
+                            `*Budget:* ${data.budget}`;
+
+            // 4. Redirect to WhatsApp
+            window.location.href = `https://wa.me/${phone}?text=${message}`;
+        });
+    </script>
+</body>
+</html>
