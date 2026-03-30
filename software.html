@@ -3,106 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Inquiry | Developer Name</title>
+    <title>Inquiry Terminal | Dev Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'Fira Code', monospace; }
+        .glass { background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(10px); }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-100 p-6">
+<body class="bg-black text-gray-100 min-h-screen p-4 md:p-10">
 
-    <div class="max-w-2xl mx-auto bg-gray-800 p-8 rounded-xl shadow-2xl">
-        <h1 class="text-3xl font-bold mb-2 text-blue-400">Let's Build Your MVP</h1>
-        <p class="mb-8 text-gray-400">Answer these questions to get a detailed quote and timeline.</p>
+    <div class="max-w-3xl mx-auto glass border border-gray-800 p-8 rounded-2xl shadow-2xl">
+        <div class="mb-10 border-b border-gray-800 pb-6">
+            <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+                New Project Request
+            </h1>
+            <p class="mt-2 text-gray-500 mono text-sm">// Status: Ready to build something epic.</p>
+        </div>
 
-        <form id="mvp-form" class="space-y-6">
-            <div>
-                <label class="block mb-2 font-medium">1. Main purpose of the app?</label>
-                <textarea id="purpose" required class="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 outline-none"></textarea>
-            </div>
-
-            <div>
-                <label class="block mb-2 font-medium">2. Who are the users?</label>
-                <input type="text" id="users" placeholder="e.g. Students, Admins" required class="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 outline-none">
-            </div>
-
-            <div>
-                <label class="block mb-2 font-medium">3. Top 3-5 MVP features?</label>
-                <textarea id="features" required class="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 outline-none"></textarea>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form id="mvp-form" class="space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block mb-2 font-medium">4. User Login? (Yes/No)</label>
-                    <input type="text" id="login" class="w-full p-3 rounded bg-gray-700 border border-gray-600 outline-none">
+                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">01. Name / GitHub</label>
+                    <input type="text" id="user_name" placeholder="e.g. @dev_master" required 
+                        class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none transition-all duration-300">
                 </div>
                 <div>
-                    <label class="block mb-2 font-medium">5. Payments/APIs?</label>
-                    <input type="text" id="integrations" placeholder="e.g. M-Pesa" class="w-full p-3 rounded bg-gray-700 border border-gray-600 outline-none">
+                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">02. Return Email</label>
+                    <input type="email" id="user_email" placeholder="client@backend.com" required 
+                        class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none transition-all duration-300">
                 </div>
             </div>
 
             <div>
-                <label class="block mb-2 font-medium">7. Preferred Platform?</label>
-                <select id="platform" class="w-full p-3 rounded bg-gray-700 border border-gray-600 outline-none">
-                    <option value="Web App">Web App</option>
-                    <option value="Mobile App">Mobile App</option>
-                    <option value="Both">Both</option>
-                </select>
+                <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">03. Project Objective (The "Why")</label>
+                <textarea id="purpose" placeholder="Describe the problem we are solving..." required 
+                    class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none h-28 transition-all duration-300"></textarea>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">04. Feature Set</label>
+                <textarea id="features" placeholder="1. OAuth Login&#10;2. Stripe Payment Gateway&#10;3. Real-time Dashboard" required 
+                    class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none h-28 transition-all duration-300"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block mb-2 font-medium">8. Deadline?</label>
-                    <input type="text" id="deadline" class="w-full p-3 rounded bg-gray-700 border border-gray-600 outline-none">
+                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">05. Tech Stack</label>
+                    <select id="stack" class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none appearance-none">
+                        <option value="Expert Choice">Expert Choice (Surprise me)</option>
+                        <option value="Next.js / Supabase">Next.js / Supabase</option>
+                        <option value="MERN Stack">MERN (React/Node)</option>
+                        <option value="Python / Django">Python / Django</option>
+                        <option value="Mobile / Flutter">Mobile (Flutter)</option>
+                    </select>
                 </div>
                 <div>
-                    <label class="block mb-2 font-medium">9. Budget (Optional)?</label>
-                    <input type="text" id="budget" class="w-full p-3 rounded bg-gray-700 border border-gray-600 outline-none">
+                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">06. Visual Reference</label>
+                    <input type="url" id="reference" placeholder="https://dribbble.com/..." 
+                        class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none transition-all duration-300">
                 </div>
             </div>
 
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-lg transition duration-300">
-                Submit & Open WhatsApp
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">07. Timeline</label>
+                    <input type="text" id="deadline" placeholder="e.g. 4 Weeks" required
+                        class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none">
+                </div>
+                <div>
+                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">08. Budget Range</label>
+                    <input type="text" id="budget" placeholder="e.g. $2k - $5k" 
+                        class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none">
+                </div>
+            </div>
+
+            <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-5 rounded-xl shadow-lg transform hover:-translate-y-1 transition duration-300 uppercase tracking-widest mono">
+                Execute Build_Request();
             </button>
         </form>
     </div>
 
     <script>
-        // Initialize EmailJS (Get your Public Key from emailjs.com)
+        // 1. Initialize EmailJS
         (function() {
-            emailjs.init("DLT8PkMxRi8wHMpRT");
+            emailjs.init("DLT8PkMxRi8wHMpRT"); 
         })();
 
         document.getElementById('mvp-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // 1. Collect Data
+            const btn = document.getElementById('submit-btn');
+            btn.innerText = "> INITIALIZING...";
+            btn.disabled = true;
+
+            // 2. Collect Data
             const data = {
+                user_name: document.getElementById('user_name').value,
+                user_email: document.getElementById('user_email').value,
                 purpose: document.getElementById('purpose').value,
-                users: document.getElementById('users').value,
                 features: document.getElementById('features').value,
-                login: document.getElementById('login').value,
-                integrations: document.getElementById('integrations').value,
-                platform: document.getElementById('platform').value,
+                stack: document.getElementById('stack').value,
+                reference: document.getElementById('reference').value,
                 deadline: document.getElementById('deadline').value,
-                budget: document.getElementById('budget').value,
+                budget: document.getElementById('budget').value
             };
 
-            // 2. Send Email via EmailJS
+            // 3. Send Email via EmailJS
             emailjs.send("service_ygkznfr", "template_j94z7iv", data)
-                .then(() => console.log("Email Sent!"))
-                .catch(err => console.error("Email Failed", err));
-
-            // 3. Prepare WhatsApp Message
-            const phone = "254769809911"; // Your phone number in international format
-            const message = `*New MVP Inquiry*%0A%0A` +
-                            `*Purpose:* ${data.purpose}%0A` +
-                            `*Users:* ${data.users}%0A` +
-                            `*Features:* ${data.features}%0A` +
-                            `*Platform:* ${data.platform}%0A` +
-                            `*Budget:* ${data.budget}`;
-
-            // 4. Redirect to WhatsApp
-            window.location.href = `https://wa.me/${phone}?text=${message}`;
+                .then(() => {
+                    btn.innerText = "> DEPLOYED SUCCESSFULLY";
+                    
+                    // 4. Redirect to WhatsApp after 1 second delay for effect
+                    setTimeout(() => {
+                        const phone = "254769809911";
+                        const message = `*🚀 New Build Request*%0A` +
+                                        `*From:* ${data.user_name}%0A` +
+                                        `*Project:* ${encodeURIComponent(data.purpose)}%0A` +
+                                        `*Stack:* ${data.stack}`;
+                        
+                        window.location.href = `https://wa.me/${phone}?text=${message}`;
+                    }, 800);
+                })
+                .catch(err => {
+                    console.error("System Error:", err);
+                    alert("Critical Error in Email Service. Opening WhatsApp directly.");
+                    window.location.href = `https://wa.me/254769809911?text=Fallback Inquiry from ${data.user_name}`;
+                    btn.innerText = "Execute Build_Request();";
+                    btn.disabled = false;
+                });
         });
     </script>
 </body>
