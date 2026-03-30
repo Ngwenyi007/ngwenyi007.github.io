@@ -1,140 +1,311 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inquiry Terminal | Dev Studio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .mono { font-family: 'Fira Code', monospace; }
-        .glass { background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(10px); }
-    </style>
-</head>
-<body class="bg-black text-gray-100 min-h-screen p-4 md:p-10">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>MVP Architect | Smart Questionnaire</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-    <div class="max-w-3xl mx-auto glass border border-gray-800 p-8 rounded-2xl shadow-2xl">
-        <div class="mb-10 border-b border-gray-800 pb-6">
-            <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
-                New Project Request
-            </h1>
-            <p class="mt-2 text-gray-500 mono text-sm">// Status: Ready to build something epic.</p>
+  <style>
+    :root {
+      --primary: #0b2b3b;
+      --secondary: #1b6b85;
+      --accent: #2c7da0;
+      --bg-light: #f0f4fe;
+      --text-main: #1a2634;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: linear-gradient(145deg, var(--bg-light) 0%, #e9eff8 100%);
+      font-family: 'Inter', sans-serif;
+      padding: 2rem 1.5rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .glass-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 2rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      border: 1px solid white;
+    }
+
+    .form-header {
+      background: linear-gradient(135deg, var(--primary), #123e52);
+      padding: 3rem 2.5rem;
+      color: white;
+    }
+
+    .form-header h1 { 
+      font-size: 2rem; 
+      display: flex; 
+      align-items: center; 
+      gap: 15px;
+      letter-spacing: -0.5px;
+    }
+
+    .form-header p { margin-top: 8px; opacity: 0.85; font-size: 1.05rem; }
+
+    .form-body { padding: 3rem 2.5rem; }
+
+    .question-grid { display: flex; flex-direction: column; gap: 2rem; }
+    
+    .input-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    label { 
+      font-weight: 600; 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      margin-bottom: 0.7rem; 
+      color: #1e2f3c; 
+    }
+
+    label i { color: var(--accent); width: 22px; text-align: center; font-size: 1.1rem; }
+    
+    input, textarea, select {
+      width: 100%; 
+      padding: 1rem 1.2rem; 
+      border: 1.8px solid #e2e8f0;
+      border-radius: 14px; 
+      font-family: inherit; 
+      font-size: 1rem;
+      transition: all 0.25s ease; 
+      background: #fff;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none; 
+      border-color: var(--accent); 
+      box-shadow: 0 0 0 4px rgba(44, 125, 160, 0.12);
+    }
+    
+    .radio-group { display: flex; gap: 2.5rem; flex-wrap: wrap; padding: 0.5rem 0; }
+    .radio-group label { font-weight: 500; cursor: pointer; margin: 0; }
+    .radio-group input { width: auto; transform: scale(1.2); cursor: pointer; }
+    
+    .submit-area {
+      margin-top: 3rem; 
+      padding-top: 2rem;
+      display: flex; 
+      justify-content: space-between;
+      align-items: center; 
+      gap: 1.5rem; 
+      border-top: 1px solid #edf2f7;
+    }
+
+    .btn-submit {
+      background: linear-gradient(105deg, var(--primary), var(--secondary));
+      color: white; 
+      border: none; 
+      padding: 1.1rem 2.5rem; 
+      border-radius: 50px;
+      font-weight: 700; 
+      font-size: 1.05rem;
+      cursor: pointer; 
+      transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-flex; 
+      align-items: center; 
+      gap: 12px;
+    }
+
+    .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(11, 43, 59, 0.25); }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .status-msg { 
+      font-size: 0.9rem; 
+      padding: 0.7rem 1.4rem; 
+      border-radius: 50px; 
+      background: #f1f5f9;
+      color: #475569;
+      font-weight: 500;
+    }
+
+    .loader {
+      width: 20px; height: 20px; border: 2.5px solid rgba(255,255,255,0.3); 
+      border-top-color: white; border-radius: 50%; 
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 650px) {
+      .form-header, .form-body { padding: 2rem 1.5rem; }
+      .submit-area { flex-direction: column; text-align: center; }
+      .btn-submit { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glass-card">
+  <div class="form-header">
+    <h1><i class="fas fa-rocket"></i> MVP Blueprint Studio</h1>
+    <p>Submit your requirements. Receive a tailored architecture.</p>
+  </div>
+
+  <div class="form-body">
+    <form id="mvpForm">
+      <div class="question-grid">
+        
+        <div class="input-row">
+          <div>
+            <label><i class="fas fa-user"></i> Full Name</label>
+            <input type="text" id="user_name" placeholder="Enter your name" required>
+          </div>
+          <div>
+            <label><i class="fas fa-envelope"></i> Email Address</label>
+            <input type="email" id="user_email" placeholder="email@example.com" required>
+          </div>
         </div>
 
-        <form id="mvp-form" class="space-y-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">01. Name / GitHub</label>
-                    <input type="text" id="user_name" placeholder="e.g. @dev_master" required 
-                        class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none transition-all duration-300">
-                </div>
-                <div>
-                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">02. Return Email</label>
-                    <input type="email" id="user_email" placeholder="client@backend.com" required 
-                        class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none transition-all duration-300">
-                </div>
+        <div>
+          <label><i class="fas fa-bullseye"></i> 1. Main purpose of your app?</label>
+          <input type="text" id="purpose" placeholder="e.g. AI-driven marketplace for creative freelancers" required>
+        </div>
+
+        <div>
+          <label><i class="fas fa-users"></i> 2. Who is the target audience?</label>
+          <input type="text" id="audience" placeholder="e.g. Small business owners in East Africa">
+        </div>
+
+        <div>
+          <label><i class="fas fa-list-check"></i> 3. Top 3 MVP Features</label>
+          <textarea id="features" rows="4" placeholder="1. User Authentication&#10;2. M-Pesa Payment Integration&#10;3. Real-time Notifications" required></textarea>
+        </div>
+
+        <div class="input-row">
+          <div>
+            <label><i class="fas fa-code"></i> 4. Preferred Tech Stack</label>
+            <select id="stack">
+              <option value="Next.js / Supabase">Next.js + Supabase </option>
+              <option value="MERN Stack">MERN Stack (React, Node.js)</option>
+              <option value="Flutter / Firebase">Flutter + Firebase (Mobile)</option>
+              <option value="Laravel / MySQL">Laravel + MySQL</option>
+              <option value="Expert Recommendation">Let the expert decide</option>
+            </select>
+          </div>
+          <div>
+            <label><i class="fas fa-mobile-alt"></i> 5. Platform Type</label>
+            <div class="radio-group">
+              <label><input type="radio" name="platform" value="Web" checked> Web</label>
+              <label><input type="radio" name="platform" value="Mobile"> Mobile</label>
+              <label><input type="radio" name="platform" value="Both"> Both/Hybrid</label>
             </div>
+          </div>
+        </div>
 
-            <div>
-                <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">03. Project Objective (The "Why")</label>
-                <textarea id="purpose" placeholder="Describe the problem we are solving..." required 
-                    class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none h-28 transition-all duration-300"></textarea>
-            </div>
+        <div class="input-row">
+          <div>
+            <label><i class="fas fa-calendar-alt"></i> 6. Desired Deadline</label>
+            <input type="text" id="deadline" placeholder="e.g. 4-6 weeks" required>
+          </div>
+          <div>
+            <label><i class="fas fa-wallet"></i> 7. Budget Estimate (Optional)</label>
+            <input type="text" id="budget" placeholder="e.g. $1,500 - $3,000">
+          </div>
+        </div>
 
-            <div>
-                <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">04. Feature Set</label>
-                <textarea id="features" placeholder="1. OAuth Login&#10;2. Stripe Payment Gateway&#10;3. Real-time Dashboard" required 
-                    class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none h-28 transition-all duration-300"></textarea>
-            </div>
+      </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">05. Tech Stack</label>
-                    <select id="stack" class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none appearance-none">
-                        <option value="Expert Choice">Expert Choice (Surprise me)</option>
-                        <option value="Next.js / Supabase">Next.js / Supabase</option>
-                        <option value="MERN Stack">MERN (React/Node)</option>
-                        <option value="Python / Django">Python / Django</option>
-                        <option value="Mobile / Flutter">Mobile (Flutter)</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">06. Visual Reference</label>
-                    <input type="url" id="reference" placeholder="https://dribbble.com/..." 
-                        class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none transition-all duration-300">
-                </div>
-            </div>
+      <div class="submit-area">
+        <div class="status-msg" id="statusMsg">Ready to sync with architect...</div>
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <i class="fas fa-paper-plane"></i> Initialize Build
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">07. Timeline</label>
-                    <input type="text" id="deadline" placeholder="e.g. 4 Weeks" required
-                        class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none">
-                </div>
-                <div>
-                    <label class="block mb-2 text-xs mono text-blue-400 uppercase tracking-widest">08. Budget Range</label>
-                    <input type="text" id="budget" placeholder="e.g. $2k - $5k" 
-                        class="w-full p-4 rounded-lg bg-gray-900 border border-gray-800 focus:border-blue-500 outline-none">
-                </div>
-            </div>
+<script>
+  // Initialize EmailJS with your Public Key
+  (function() {
+    emailjs.init("DLT8PkMxRi8wHMpRT"); 
+  })();
 
-            <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-5 rounded-xl shadow-lg transform hover:-translate-y-1 transition duration-300 uppercase tracking-widest mono">
-                Execute Build_Request();
-            </button>
-        </form>
-    </div>
+  const form = document.getElementById('mvpForm');
+  const btn = document.getElementById('submitBtn');
+  const statusMsg = document.getElementById('statusMsg');
 
-    <script>
-        // 1. Initialize EmailJS
-        (function() {
-            emailjs.init("DLT8PkMxRi8wHMpRT"); 
-        })();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // UI State
+    btn.disabled = true;
+    btn.innerHTML = '<div class="loader"></div> Syncing...';
+    statusMsg.innerText = "Deploying project data...";
 
-        document.getElementById('mvp-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+    // Collect Data Payload
+    const payload = {
+      user_name: document.getElementById('user_name').value,
+      user_email: document.getElementById('user_email').value,
+      purpose: document.getElementById('purpose').value,
+      audience: document.getElementById('audience').value,
+      features: document.getElementById('features').value,
+      stack: document.getElementById('stack').value,
+      platform: document.querySelector('input[name="platform"]:checked').value,
+      deadline: document.getElementById('deadline').value,
+      budget: document.getElementById('budget').value || "To be discussed"
+    };
 
-            const btn = document.getElementById('submit-btn');
-            btn.innerText = "> INITIALIZING...";
-            btn.disabled = true;
+    try {
+      // Parallel Execution: Notification to YOU + Auto-Reply to CLIENT
+      const emailTasks = [
+        emailjs.send("service_ygkznfr", "template_j94z7iv", payload), // Notification
+        emailjs.send("service_ygkznfr", "template_023fuha", payload)  // Auto-Reply
+      ];
 
-            // 2. Collect Data
-            const data = {
-                user_name: document.getElementById('user_name').value,
-                user_email: document.getElementById('user_email').value,
-                purpose: document.getElementById('purpose').value,
-                features: document.getElementById('features').value,
-                stack: document.getElementById('stack').value,
-                reference: document.getElementById('reference').value,
-                deadline: document.getElementById('deadline').value,
-                budget: document.getElementById('budget').value
-            };
+      const results = await Promise.allSettled(emailTasks);
+      
+      // Check if your notification went through
+      const adminSuccess = results[0].status === 'fulfilled';
+      
+      if (adminSuccess) {
+        statusMsg.style.color = "#1f7840";
+        statusMsg.innerText = "✅ Intake complete! Redirecting...";
+      } else {
+        console.error("EmailJS Error:", results[0].reason);
+        statusMsg.innerText = "⚠️ Email delayed. Redirecting to WhatsApp...";
+      }
 
-            // 3. Send Email via EmailJS
-            emailjs.send("service_ygkznfr", "template_j94z7iv", data)
-                .then(() => {
-                    btn.innerText = "> DEPLOYED SUCCESSFULLY";
-                    
-                    // 4. Redirect to WhatsApp after 1 second delay for effect
-                    setTimeout(() => {
-                        const phone = "254769809911";
-                        const message = `*🚀 New Build Request*%0A` +
-                                        `*From:* ${data.user_name}%0A` +
-                                        `*Project:* ${encodeURIComponent(data.purpose)}%0A` +
-                                        `*Stack:* ${data.stack}`;
-                        
-                        window.location.href = `https://wa.me/${phone}?text=${message}`;
-                    }, 800);
-                })
-                .catch(err => {
-                    console.error("System Error:", err);
-                    alert("Critical Error in Email Service. Opening WhatsApp directly.");
-                    window.location.href = `https://wa.me/254769809911?text=Fallback Inquiry from ${data.user_name}`;
-                    btn.innerText = "Execute Build_Request();";
-                    btn.disabled = false;
-                });
-        });
-    </script>
+      // WhatsApp Summary Formatting
+      const waText = `🚀 *NEW MVP BUILD REQUEST*%0A` +
+                     `*Client:* ${encodeURIComponent(payload.user_name)}%0A` +
+                     `*Project:* ${encodeURIComponent(payload.purpose)}%0A` +
+                     `*Platform:* ${payload.platform}%0A` +
+                     `*Deadline:* ${payload.deadline}`;
+
+      // Redirect after brief pause
+      setTimeout(() => {
+        window.location.href = `https://wa.me/254769809911?text=${waText}`;
+      }, 1500);
+
+    } catch (error) {
+      console.error("Critical Error:", error);
+      statusMsg.innerText = "❌ Connection error. Opening WhatsApp fallback...";
+      
+      setTimeout(() => {
+        window.location.href = `https://wa.me/254769809911?text=Hi Francis, I just submitted a project brief for ${encodeURIComponent(payload.purpose)}`;
+      }, 1500);
+    }
+  });
+</script>
+
 </body>
 </html>
