@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Dennis 🎉</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-top: 20px;
+}
+
+.typing {
+    font-size: 1.2rem;
+    margin: 20px auto;
+    width: 80%;
+    border-right: 2px solid white;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+img {
+    width: 250px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: red;
+    top: -10px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #22c55e;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🎂 Happy Birthday Dennis 🎂</h1>
+
+    <div class="typing" id="typing"></div>
+
+    <img src="dennis.jpg" alt="Dennis">
+
+    <br>
+    <button onclick="showMessage()">Tap for a Surprise 🎁</button>
+
+    <p id="hiddenMsg" style="display:none; margin-top:20px; font-size:1.2rem;">
+        Bro Dennis,  
+        Another year, another upgrade unlocked 🔓  
+        May your journey load with success, joy, and big wins ahead.  
+        Stay sharp, stay real, and keep shining 🌟  
+        <br><br>
+        Enjoy your day legend 🎉🔥
+    </p>
+</div>
+
+<script>
+// Typing effect
+const text = "A special day for a real one... loading celebration 🎉";
+let i = 0;
+
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+    }
+}
+
+typeWriter();
+
+// Reveal message
+function showMessage() {
+    document.getElementById("hiddenMsg").style.display = "block";
+}
+
+// Confetti generator
+for (let i = 0; i < 50; i++) {
+    let confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    confetti.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+    document.body.appendChild(confetti);
+}
+</script>
+
+</body>
+</html>
