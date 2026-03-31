@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Gitu 🎉</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #0f172a, #1e293b, #020617);
+        font-family: 'Segoe UI', sans-serif;
+        color: white;
+        overflow: hidden;
+    }
+
+    .card {
+        text-align: center;
+        padding: 30px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 30px rgba(255, 182, 255, 0.2);
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: #ff9ff3;
+        animation: glow 2s infinite alternate;
+    }
+
+    p {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        color: #e2e8f0;
+    }
+
+    .late {
+        margin-top: 15px;
+        font-size: 0.9rem;
+        color: #94a3b8;
+        font-style: italic;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        background: #ff9ff3;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #f368e0;
+        transform: scale(1.1);
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 10px #ff9ff3; }
+        to { text-shadow: 0 0 25px #f368e0, 0 0 40px #ff9ff3; }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #ff9ff3;
+        animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(100vh) rotate(360deg);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>🎉 Happy Birthday Gitu 🎉</h1>
+    <p>
+        Even if I’m a little late…  
+        the wishes are still fresh, loud, and full of love 💖  
+    </p>
+
+    <p>
+        May your days be brighter, your dreams bigger,  
+        and your smile unstoppable 🌟
+    </p>
+
+    <div class="late">Some surprises just arrive fashionably late 😉</div>
+
+    <button onclick="showMessage()">Tap Me 🎁</button>
+</div>
+
+<script>
+function showMessage() {
+    alert("You are amazing, Gitu! Keep shining and chasing everything you deserve 💫🎂");
+}
+
+// Confetti generator
+for (let i = 0; i < 50; i++) {
+    let confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    confetti.style.opacity = Math.random();
+    document.body.appendChild(confetti);
+}
+</script>
+
+</body>
+</html>
