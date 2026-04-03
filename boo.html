@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>SurpriseSpark · Create magical surprises for your beloved</title>
+  <title>SurpriseSpark · Choose Your Journey</title>
   <style>
     * {
       margin: 0;
@@ -12,650 +13,229 @@
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #fff5f0 0%, #ffe6f0 100%);
-      color: #2d2a2e;
-      scroll-behavior: smooth;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #0f0c29;
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      min-height: 100vh;
+      color: white;
     }
-
-    @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap');
 
     .container {
-      max-width: 1280px;
+      max-width: 1300px;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
-    }
-
-    /* loader animation */
-    .loader {
-      width: 18px;
-      height: 18px;
-      border: 2px solid #fff;
-      border-bottom-color: transparent;
-      border-radius: 50%;
-      display: inline-block;
-      box-sizing: border-box;
-      animation: rotation 0.6s linear infinite;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
-    @keyframes rotation {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .navbar {
+      padding: 2rem;
+      min-height: 100vh;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 800;
-      background: linear-gradient(120deg, #E85D04, #FFB347);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      letter-spacing: -0.5px;
-    }
-    .logo span {
-      font-size: 1.9rem;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-    }
-    .nav-links a {
-      text-decoration: none;
-      font-weight: 600;
-      color: #a34e2c;
-      transition: 0.2s;
-    }
-    .nav-links a:hover {
-      color: #e85d04;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.9rem 2rem;
-      border-radius: 60px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      text-align: center;
-    }
-    .btn-primary {
-      background: #e85d04;
-      color: white;
-      box-shadow: 0 8px 20px rgba(232, 93, 4, 0.3);
-    }
-    .btn-primary:hover:not(:disabled) {
-      background: #c24b00;
-      transform: translateY(-3px);
-      box-shadow: 0 15px 25px rgba(232, 93, 4, 0.4);
-    }
-    .btn-primary:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-    .btn-outline {
-      background: transparent;
-      border: 2px solid #e85d04;
-      color: #e85d04;
-    }
-    .btn-outline:hover {
-      background: #e85d0410;
-      transform: translateY(-2px);
-    }
-    .btn-large {
-      padding: 1rem 2.5rem;
-      font-size: 1.2rem;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .hero {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 3rem;
-      margin: 2rem 0 4rem;
+      text-align: center;
+      animation: fadeUp 0.8s ease;
+      margin-bottom: 3rem;
     }
-    .hero-content {
-      flex: 1;
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    .hero-badge {
-      background: #ffecd6;
+
+    .badge {
       display: inline-block;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #c25d2e;
-      margin-bottom: 1.2rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
     }
-    .hero h1 {
-      font-size: 3.2rem;
-      line-height: 1.2;
-      font-weight: 800;
-      background: linear-gradient(145deg, #2c1a0f, #b95f1a);
+
+    h1 {
+      font-size: 3.8rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #FFB347, #FF6B6B, #f093fb);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      margin-bottom: 1.2rem;
+      font-weight: 800;
     }
-    .hero p {
-      font-size: 1.2rem;
-      color: #4a3b32;
+
+    .subhead {
+      font-size: 1.3rem;
       margin-bottom: 2rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* two option cards */
+    .choice-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0 3rem;
+    }
+
+    .choice-card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 2rem 2rem 2rem;
+      width: 320px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+    }
+
+    .choice-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,180,70,0.6);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.3);
+    }
+
+    .card-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .choice-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #FFB347, #FF8C5A);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .choice-card p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 1.5rem;
       line-height: 1.4;
     }
-    .hero-image {
-      flex: 1;
-      text-align: center;
-      font-size: 8rem;
-      background: rgba(255,225,200,0.5);
-      border-radius: 3rem;
-      padding: 2rem;
-      backdrop-filter: blur(4px);
-    }
-    @media (max-width: 800px) {
-      .hero h1 { font-size: 2.2rem; }
-      .hero-image { font-size: 5rem; }
-    }
 
-    .section-title {
-      text-align: center;
-      font-size: 2.3rem;
-      font-weight: 800;
-      margin-bottom: 2rem;
-      color: #341c0e;
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    .feature-card {
-      background: white;
-      border-radius: 2rem;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.05);
-      transition: all 0.2s;
-    }
-    .feature-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 35px rgba(0,0,0,0.1);
-    }
-    .feature-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-    .feature-card h3 {
-      font-size: 1.6rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .steps {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    .step {
-      background: #fffaf5;
-      border-radius: 2rem;
-      padding: 1.5rem;
-      flex: 1;
-      min-width: 200px;
-      text-align: center;
-    }
-    .step-number {
-      background: #e85d04;
-      color: white;
-      width: 40px;
-      height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .card-btn {
+      background: linear-gradient(135deg, #e85d04, #ffb347);
+      border: none;
+      padding: 0.7rem 1.5rem;
       border-radius: 60px;
-      font-weight: 800;
-      margin-bottom: 1rem;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+      display: inline-block;
     }
 
-    .form-section {
-      background: white;
-      border-radius: 3rem;
-      padding: 2.5rem;
-      margin: 4rem 0 2rem;
-      box-shadow: 0 20px 35px rgba(0,0,0,0.08);
-      border: 1px solid #ffe1c6;
+    .card-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(232,93,4,0.4);
     }
-    .form-title {
-      font-size: 2rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-    .form-desc {
-      text-align: center;
-      color: #a16238;
-      margin-bottom: 2rem;
-    }
-    .input-group {
-      margin-bottom: 1.5rem;
-    }
-    label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #2d2a2e;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.9rem 1.2rem;
-      border-radius: 2rem;
-      border: 1px solid #ffd8bd;
-      background: #fffbf7;
-      font-size: 1rem;
-      transition: 0.2s;
-    }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: #e85d04;
-      box-shadow: 0 0 0 3px rgba(232,93,4,0.2);
-    }
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    @media (max-width: 600px) {
-      .form-row { grid-template-columns: 1fr; }
-      .form-section { padding: 1.5rem; }
-    }
-    .submit-btn {
-      background: #e85d04;
-      width: 100%;
-      font-size: 1.2rem;
-      padding: 1rem;
-      margin-top: 1rem;
-    }
-    .status-msg {
-      text-align: center;
-      margin-top: 1rem;
-      padding: 0.8rem;
-      border-radius: 2rem;
-      font-weight: 500;
-    }
-    .testimonial {
-      background: #fff0e6;
-      border-radius: 1.5rem;
-      padding: 1.8rem;
-      margin: 2rem 0;
-      font-style: italic;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem 0 1rem;
-      color: #a5714c;
-      border-top: 1px solid #ffe0cd;
-      margin-top: 2rem;
-    }
-    .radio-group {
+
+    .features-row {
       display: flex;
-      gap: 1.5rem;
-      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
       flex-wrap: wrap;
     }
-    .radio-group label {
+
+    .feature-pill {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-weight: normal;
-      cursor: pointer;
     }
-    .radio-group input[type="radio"] {
-      width: auto;
-      transform: scale(1.1);
-      cursor: pointer;
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 750px) {
+      .container { padding: 1.5rem; }
+      h1 { font-size: 2.4rem; }
+      .subhead { font-size: 1rem; }
+      .choice-card { width: 280px; padding: 1.5rem; }
+      .card-icon { font-size: 3rem; }
     }
   </style>
 </head>
 <body>
-
 <div class="container">
-  <div class="navbar">
-    <div class="logo">
-      <span>✨</span> SurpriseSpark
-    </div>
-    <div class="nav-links">
-      <a href="#how-it-works">How it works</a>
-      <a href="#request-form">Request surprise</a>
-      <a href="#features">Magic tools</a>
-    </div>
-  </div>
-
   <div class="hero">
-    <div class="hero-content">
-      <div class="hero-badge">❤️ for the ones you love ❤️</div>
-      <h1>Turn any moment into an unforgettable surprise</h1>
-      <p>Custom‑built software, interactive love letters, birthday games, and digital wonders — designed exclusively for your beloved. Make them feel truly special.</p>
-      <a href="#request-form" class="btn btn-primary btn-large">✨ Create a surprise now ✨</a>
-    </div>
-    <div class="hero-image">
-      🎁💖🎂✨ <br>🎈💌🎉
+    <div class="badge">✨ One platform, two kinds of magic ✨</div>
+    <h1>What would you like to create today?</h1>
+    <div class="subhead">
+      Choose your path — whether it's a heartwarming surprise for someone special<br>
+      or a powerful app to bring your vision to life.
     </div>
   </div>
 
-  <div id="features">
-    <h2 class="section-title">Magical surprises, tailored just for them</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">💻🎨</div>
-        <h3>Custom software</h3>
-        <p>From birthday countdown apps to interactive memory albums — fully personalized.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎮✨</div>
-        <h3>Playful experiences</h3>
-        <p>Love quizzes, treasure hunt games, "reasons why I love you" generators and more.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📸💌</div>
-        <h3>Digital keepsakes</h3>
-        <p>Interactive cards, video collages, time capsules — surprises that last forever.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎁⚡</div>
-        <h3>Fast turnaround</h3>
-        <p>Tell us your idea, and we'll craft a ready-to-share surprise within days.</p>
-      </div>
+  <div class="choice-container">
+    <!-- Option 1: Surprise for beloved -->
+    <div class="choice-card" onclick="goToSurprise()">
+      <div class="card-icon">🎁💖✨</div>
+      <h2>Surprise Your Beloved</h2>
+      <p>Custom interactive love letters, birthday games, memory timelines, and digital wonders — designed to make them cry tears of joy.</p>
+      <div class="card-btn">✨ Start a surprise ✨</div>
+    </div>
+
+    <!-- Option 2: Build an App / MVP -->
+    <div class="choice-card" onclick="goToMVP()">
+      <div class="card-icon">🚀⚙️💻</div>
+      <h2>Build Your App / MVP</h2>
+      <p>From AI tools to marketplaces, SaaS dashboards to mobile apps — share your idea and get a full blueprint + WhatsApp follow‑up.</p>
+      <div class="card-btn">🚀 Launch your MVP 🚀</div>
     </div>
   </div>
 
-  <div id="how-it-works">
-    <h2 class="section-title">How to surprise your beloved in 3 simple steps</h2>
-    <div class="steps">
-      <div class="step"><div class="step-number">1</div><h3>Tell us your vision</h3><p>Fill the form below: describe the surprise, the person, and your ideas.</p></div>
-      <div class="step"><div class="step-number">2</div><h3>We craft the magic</h3><p>Our team builds the custom software / interactive experience just for them.</p></div>
-      <div class="step"><div class="step-number">3</div><h3>Deliver & celebrate</h3><p>You receive a link to share — watch your loved one smile!</p></div>
-    </div>
-  </div>
-
-  <div class="testimonial">
-    💬 “I ordered a secret birthday web app for my girlfriend — she cried happy tears! It had all our inside jokes and a love letter that popped up. Best decision ever.” — <strong>Alex, NY</strong>
-  </div>
-
-  <!-- REQUEST FORM with EmailJS Integration -->
-  <div id="request-form" class="form-section">
-    <div class="form-title">🎈 Design the perfect surprise 🎈</div>
-    <div class="form-desc">Fill out the form below — we'll email you a custom quote and start crafting magic for your beloved!</div>
-    
-    <form id="surpriseRequestForm">
-      <div class="form-row">
-        <div class="input-group">
-          <label>👤 Your full name *</label>
-          <input type="text" id="user_name" placeholder="e.g., Jamie Rodriguez" required>
-        </div>
-        <div class="input-group">
-          <label>📧 Your email *</label>
-          <input type="email" id="user_email" placeholder="hello@example.com" required>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="input-group">
-          <label>💖 Beloved's name *</label>
-          <input type="text" id="beloved_name" placeholder="Who is this surprise for?" required>
-        </div>
-        <div class="input-group">
-          <label>🎂 Special occasion *</label>
-          <select id="occasion">
-            <option value="Birthday">🎉 Birthday</option>
-            <option value="Anniversary">💍 Anniversary</option>
-            <option value="Just because">💕 Just because / Surprise</option>
-            <option value="Valentine's Day">🌹 Valentine's Day</option>
-            <option value="Other">✨ Other special moment</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="input-group">
-        <label>🎁 What type of software / surprise do you desire? *</label>
-        <select id="surprise_type">
-          <option value="Interactive love letter">💌 Interactive love letter / digital card</option>
-          <option value="Birthday game">🎂 Birthday trivia or quiz game</option>
-          <option value="Memory timeline">📸 Memory timeline with photos & music</option>
-          <option value="Custom gift revealer">🎁 Surprise gift revealer / countdown</option>
-          <option value="Personalized web app">✨ Unique web app (describe below)</option>
-          <option value="Other">🌈 Other / mixed surprises</option>
-        </select>
-      </div>
-
-      <div class="input-group">
-        <label>📝 Describe your vision in detail *</label>
-        <textarea id="description" placeholder="Example: 'I want a webpage that starts with a romantic poem, then reveals a hidden video message from me, and ends with a button that says 'open your gift' — she loves sunflowers and cats.'" required></textarea>
-      </div>
-
-      <div class="form-row">
-        <div class="input-group">
-          <label>🎨 Preferred style / colors / vibe</label>
-          <input type="text" id="vibe" placeholder="pastel, romantic, vintage, playful, elegant...">
-        </div>
-        <div class="input-group">
-          <label>⏰ Deadline (when do you need it?)</label>
-          <input type="text" id="deadline" placeholder="e.g., In 5 days, Next Friday, April 20th" required>
-        </div>
-      </div>
-
-      <div class="input-group">
-        <label>🌐 Preferred platform *</label>
-        <div class="radio-group">
-          <label><input type="radio" name="platform" value="Web (any browser)" required> Web (any browser)</label>
-          <label><input type="radio" name="platform" value="Mobile-friendly web app"> Mobile-friendly web app</label>
-          <label><input type="radio" name="platform" value="Desktop only"> Desktop only</label>
-          <label><input type="radio" name="platform" value="WhatsApp/Telegram bot"> WhatsApp/Telegram bot</label>
-        </div>
-      </div>
-
-      <div class="input-group">
-        <label>💰 Budget range (optional)</label>
-        <select id="budget">
-          <option value="To be discussed">💬 To be discussed</option>
-          <option value="$50 - $100">$50 - $100</option>
-          <option value="$100 - $200">$100 - $200</option>
-          <option value="$200 - $400">$200 - $400</option>
-          <option value="$400+">$400+ (Premium surprise)</option>
-        </select>
-      </div>
-
-      <button type="submit" id="submitBtn" class="btn btn-primary submit-btn">💝 Send my surprise request → 💝</button>
-      <div id="statusMsg" class="status-msg"></div>
-      <p style="font-size: 0.8rem; text-align: center; margin-top: 1rem;">🌟 We'll email you within 24 hours with a custom proposal. Your beloved deserves magic!</p>
-    </form>
-  </div>
-
-  <div class="cta-mini" style="text-align: center; margin: 2rem 0;">
-    <p style="font-size: 1.2rem;">✨ Every relationship deserves a spark of wonder ✨</p>
+  <div class="features-row">
+    <div class="feature-pill">🎨 100% custom</div>
+    <div class="feature-pill">⚡ Fast turnaround</div>
+    <div class="feature-pill">💌 Emotional impact</div>
+    <div class="feature-pill">📱 Web + mobile ready</div>
   </div>
 
   <footer>
-    <p>❤️ SurpriseSpark — handmade surprises for the hearts that matter most. ❤️</p>
-    <p style="font-size: 0.75rem;">Once you submit, you'll receive a confirmation email + we'll reach out within 24 hours.</p>
+    ✨ Both paths include EmailJS confirmation & direct WhatsApp follow‑up ✨<br>
+    Click on any card to continue — your journey starts here.
   </footer>
 </div>
 
-<!-- EmailJS Library -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <script>
-  // Initialize EmailJS with your Public Key
-  (function() {
-    emailjs.init("DLT8PkMxRi8wHMpRT");
-  })();
+  // Redirect to the Surprise Form page (the one with birthday wishes & EmailJS)
+  function goToSurprise() {
+    window.location.href = "boot.html";
+  }
 
-  const form = document.getElementById('surpriseRequestForm');
-  const btn = document.getElementById('submitBtn');
-  const statusMsg = document.getElementById('statusMsg');
+  // Redirect to the MVP Architect Questionnaire page
+  function goToMVP() {
+    window.location.href = "software.html";
+  }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    // Get form values
-    const userName = document.getElementById('user_name').value.trim();
-    const userEmail = document.getElementById('user_email').value.trim();
-    const belovedName = document.getElementById('beloved_name').value.trim();
-    const occasion = document.getElementById('occasion').value;
-    const surpriseType = document.getElementById('surprise_type').value;
-    const description = document.getElementById('description').value.trim();
-    const vibe = document.getElementById('vibe').value.trim() || "Not specified";
-    const deadline = document.getElementById('deadline').value.trim();
-    const budget = document.getElementById('budget').value;
-    
-    // Get selected platform
-    let platform = "Web (any browser)";
-    const platformRadios = document.querySelectorAll('input[name="platform"]');
-    for (let radio of platformRadios) {
-      if (radio.checked) {
-        platform = radio.value;
-        break;
-      }
-    }
-
-    // Validation
-    if (!userName || !userEmail || !belovedName || !description || !deadline) {
-      statusMsg.style.color = "#c24b00";
-      statusMsg.style.background = "#fff0e0";
-      statusMsg.innerText = "💛 Please fill in all required fields (name, email, beloved's name, description, deadline) 💛";
-      setTimeout(() => {
-        statusMsg.style.background = "transparent";
-        statusMsg.innerText = "";
-      }, 4000);
-      return;
-    }
-
-    if (!userEmail.includes('@') || !userEmail.includes('.')) {
-      statusMsg.style.color = "#c24b00";
-      statusMsg.style.background = "#fff0e0";
-      statusMsg.innerText = "📧 Please enter a valid email address so we can send your surprise proposal!";
-      setTimeout(() => {
-        statusMsg.style.background = "transparent";
-        statusMsg.innerText = "";
-      }, 4000);
-      return;
-    }
-
-    if (!platform) {
-      statusMsg.style.color = "#c24b00";
-      statusMsg.innerText = "🌐 Please select a preferred platform";
-      setTimeout(() => { statusMsg.innerText = ""; }, 3000);
-      return;
-    }
-
-    // UI State - loading
-    btn.disabled = true;
-    btn.innerHTML = '<div class="loader"></div> Sending your surprise request...';
-    statusMsg.style.color = "#e85d04";
-    statusMsg.style.background = "#fff3e8";
-    statusMsg.innerText = "✨ Preparing your magical surprise request...";
-
-    // Build payload for EmailJS templates
-    // Template for YOU (admin notification)
-    const adminPayload = {
-      user_name: userName,
-      user_email: userEmail,
-      beloved_name: belovedName,
-      occasion: occasion,
-      surprise_type: surpriseType,
-      description: description,
-      vibe: vibe,
-      platform: platform,
-      deadline: deadline,
-      budget: budget
-    };
-
-    // Template for CLIENT (auto-reply confirmation)
-    const clientPayload = {
-      to_name: userName,
-      to_email: userEmail,
-      beloved_name: belovedName,
-      occasion: occasion,
-      surprise_type: surpriseType,
-      deadline: deadline,
-      reply_message: `Thank you ${userName} for trusting SurpriseSpark! We've received your request to create a ${surpriseType} for ${belovedName} on ${occasion}. We'll review your vision and get back to you within 24 hours with a custom proposal and timeline. Get ready to make their day magical! ✨`
-    };
-
-    try {
-      // Parallel Execution: Notification to YOU + Auto-Reply to CLIENT
-      const emailTasks = [
-        emailjs.send("service_ygkznfr", "template_j94z7iv", adminPayload), // Admin notification
-        emailjs.send("service_ygkznfr", "template_023fuha", clientPayload)  // Auto-reply to client
-      ];
-
-      const results = await Promise.allSettled(emailTasks);
-      
-      // Check if admin notification went through
-      const adminSuccess = results[0].status === 'fulfilled';
-      const clientSuccess = results[1].status === 'fulfilled';
-      
-      if (adminSuccess && clientSuccess) {
-        statusMsg.style.color = "#1f7840";
-        statusMsg.style.background = "#e6f4ea";
-        statusMsg.innerText = "✅ Request sent! You'll receive a confirmation email shortly. Redirecting to WhatsApp for faster communication...";
-      } else if (adminSuccess) {
-        statusMsg.style.color = "#e68a2e";
-        statusMsg.style.background = "#fff3e8";
-        statusMsg.innerText = "⚠️ Your request was received, but auto-reply delayed. Redirecting to WhatsApp...";
-      } else {
-        console.error("EmailJS Error:", results[0].reason);
-        statusMsg.style.color = "#c24b00";
-        statusMsg.style.background = "#fff0e0";
-        statusMsg.innerText = "⚠️ Email service busy. Redirecting to WhatsApp so we don't miss your request!";
-      }
-
-      // Prepare WhatsApp summary (rich text for easy follow-up)
-      const waText = `🎉 *NEW SURPRISE REQUEST*%0A%0A` +
-                     `*From:* ${encodeURIComponent(userName)}%0A` +
-                     `*Email:* ${encodeURIComponent(userEmail)}%0A` +
-                     `*For:* ${encodeURIComponent(belovedName)}%0A` +
-                     `*Occasion:* ${encodeURIComponent(occasion)}%0A` +
-                     `*Surprise Type:* ${encodeURIComponent(surpriseType)}%0A` +
-                     `*Platform:* ${encodeURIComponent(platform)}%0A` +
-                     `*Deadline:* ${encodeURIComponent(deadline)}%0A` +
-                     `*Budget:* ${encodeURIComponent(budget)}%0A%0A` +
-                     `*Description:* ${encodeURIComponent(description.substring(0, 200))}${description.length > 200 ? '…' : ''}%0A%0A` +
-                     `*Vibe:* ${encodeURIComponent(vibe)}`;
-
-      // Redirect to WhatsApp after brief pause
-      setTimeout(() => {
-        window.location.href = `https://wa.me/254769809911?text=${waText}`;
-      }, 1800);
-
-    } catch (error) {
-      console.error("Critical Error:", error);
-      statusMsg.style.color = "#c24b00";
-      statusMsg.style.background = "#fff0e0";
-      statusMsg.innerText = "❌ Connection error. Opening WhatsApp fallback...";
-      
-      // Fallback WhatsApp message
-      const fallbackText = `Hi Francis, I just submitted a surprise request for ${encodeURIComponent(belovedName)} (${encodeURIComponent(occasion)}). Please check your email for ${encodeURIComponent(userEmail)}. Thanks!`;
-      setTimeout(() => {
-        window.location.href = `https://wa.me/254769809911?text=${fallbackText}`;
-      }, 1500);
-    }
+  // Allow keyboard navigation (optional)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '1') goToSurprise();
+    if (e.key === '2') goToMVP();
   });
 </script>
 </body>
