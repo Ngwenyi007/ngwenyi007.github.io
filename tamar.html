@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>✨ Behlly Tamar · Blazing Birthday Magic ✨</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none; /* keeps it slick, no accidental text-selection distractions */
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 30%, #0a0f1e, #03060c);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, 'Inter', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      cursor: crosshair;
+    }
+
+    /* main card — dynamic glassmorphism with reactive glow */
+    .birthday-universe {
+      position: relative;
+      width: 90%;
+      max-width: 780px;
+      margin: 2rem auto;
+      perspective: 1200px;
+    }
+
+    .core-card {
+      background: rgba(20, 25, 45, 0.45);
+      backdrop-filter: blur(16px) saturate(180%);
+      border-radius: 64px;
+      border: 1px solid rgba(255, 215, 150, 0.4);
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 210, 90, 0.2) inset, 0 0 30px rgba(255, 100, 150, 0.2);
+      padding: 2rem 2rem 2.6rem;
+      text-align: center;
+      transition: all 0.2s ease;
+      animation: floatGlow 3s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatGlow {
+      0% {
+        transform: translateY(0px);
+        box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 150, 0.3) inset, 0 0 20px rgba(255, 100, 150, 0.2);
+      }
+      100% {
+        transform: translateY(-8px);
+        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(255, 220, 130, 0.6) inset, 0 0 45px rgba(255, 120, 180, 0.5);
+      }
+    }
+
+    /* dynamic name burst */
+    .dynamic-name {
+      font-size: clamp(2.6rem, 12vw, 5.2rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFDAA6, #FFA07A, #FF6A88, #F9C9B6);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmerMove 5s ease infinite, textPop 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 15px rgba(255, 160, 100, 0.4);
+      margin-bottom: 0.25rem;
+    }
+
+    @keyframes shimmerMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes textPop {
+      0% { transform: scale(0.92); opacity: 0; letter-spacing: -0.08em; filter: blur(2px);}
+      100% { transform: scale(1); opacity: 1; letter-spacing: -0.02em; filter: blur(0);}
+    }
+
+    .greeting-headline {
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-weight: 500;
+      color: #FFEFD0;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      margin: 0.5rem 0 0.25rem;
+      letter-spacing: -0.2px;
+      background: linear-gradient(120deg, #fff2df, #ffdbb5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 600;
+    }
+
+    /* dynamic countdown / age reveal with realtime flair */
+    .dynamic-clock {
+      margin: 1.2rem 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(4px);
+      display: inline-block;
+      padding: 0.5rem 1.4rem;
+      border-radius: 60px;
+      color: #ffeaC8;
+      border: 1px solid rgba(255, 200, 130, 0.5);
+      font-family: monospace;
+      letter-spacing: 0.5px;
+    }
+
+    .dynamic-clock span {
+      font-weight: 700;
+      color: #FFBF7A;
+      font-size: 1.2rem;
+    }
+
+    /* inspirational quote carousel (blazing / dynamic) */
+    .quote-zone {
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 48px;
+      padding: 1rem 1.2rem;
+      margin: 1.8rem 0;
+      transition: all 0.2s;
+      border-left: 3px solid #FFB347;
+      border-right: 3px solid #FF8A5C;
+    }
+
+    .quote-text {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #FFECD6;
+      line-height: 1.4;
+      transition: opacity 0.25s ease;
+      min-height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .quote-author {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      letter-spacing: 1px;
+      color: #ffcb8e;
+    }
+
+    /* blazing interactive button & particle response */
+    .blazing-btn {
+      background: linear-gradient(95deg, #FF4D6D, #FF8C42);
+      border: none;
+      padding: 0.9rem 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 60px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 1.2, 0.8, 1);
+      box-shadow: 0 0 12px rgba(255, 70, 100, 0.6);
+      margin-top: 0.6rem;
+      width: 100%;
+      max-width: 260px;
+      letter-spacing: 1px;
+      backdrop-filter: blur(4px);
+    }
+
+    .blazing-btn:active {
+      transform: scale(0.96);
+      background: linear-gradient(95deg, #FF2E55, #FF6A2E);
+      box-shadow: 0 0 25px rgba(255, 50, 80, 0.9);
+    }
+
+    /* floating animation particles canvas */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .footer-note {
+      margin-top: 1.4rem;
+      font-size: 0.75rem;
+      color: #c0b9a8;
+      opacity: 0.7;
+    }
+
+    /* confetti layer (dynamic js trigger) */
+    .confetti-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    @media (max-width: 560px) {
+      .core-card {
+        padding: 1.6rem;
+        border-radius: 48px;
+      }
+      .quote-text {
+        font-size: 1rem;
+      }
+      .blazing-btn {
+        font-size: 1rem;
+        padding: 0.7rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- background canvas for dynamic particle system (blazing sparkles that follow cursor & burst) -->
+  <canvas id="particle-canvas"></canvas>
+  <div class="confetti-layer" id="confetti-layer"></div>
+
+  <div class="birthday-universe">
+    <div class="core-card">
+      <!-- explosive dynamic name + headline -->
+      <div class="dynamic-name" id="behllyName">✨ Behlly Tamar ✨</div>
+      <div class="greeting-headline" id="mainGreeting">⚡Happy Birthday, Blazing star⚡</div>
+      
+      <!-- live ticking age & birthday countdown: dynamic with real date (current year birthday context) -->
+      <div class="dynamic-clock" id="liveClockDisplay">
+        🎂 <span id="ageValue">--</span> years · today is YOUR cosmic day 🎈
+      </div>
+      
+      <!-- quote rotator that changes with heartbeat effect -->
+      <div class="quote-zone">
+        <div class="quote-text" id="dynamicQuote">
+          <span id="quoteContent">"Love is the closest thing we have to magic."</span>
+          <span class="quote-author" id="quoteAuthor">— the universe for you</span>
+        </div>
+      </div>
+      
+      <!-- blazing action button: triggers firework + confetti + updates quote magic & dynamic energy -->
+      <button class="blazing-btn" id="birthdayBlaster">💥 IGNITE BIRTHDAY MAGIC 💥</button>
+      <div class="footer-note">
+        🌟 every tap = more love, more sparkles, more Tamar magic
+      </div>
+    </div>
+  </div>
+
+  <script>
+// --------------------------------------------------------------
+// STABLE BLAZING BIRTHDAY SCRIPT WITH AUTO-QUOTE CYCLE
+// --------------------------------------------------------------
+
+const BIRTH_DATE = { year: 2006, month: 4, day: 5 }; 
+const quoteLibrary = [
+  { text: "You set my world on fire in the best possible way — Happy Birthday, Behlly Tamar.", author: "— your universe" },
+  { text: "Every day with you is a spark, but today? Today is a supernova.", author: "🔥 for Tamar" },
+  { text: "Your smile rewires my gravity. Happy birthday to the girl who makes ordinary feel electric.", author: "— madly yours" },
+  { text: "Behlly, you are the melody that makes chaos become symphony. Keep shining, birthday queen.", author: "✨ soul note" },
+  { text: "To the most magnetic soul I know: may your year be as dazzling as your heart.", author: "💖 forever fan" },
+  { text: "You + birthday + starlight = infinite magic. Let's paint the sky with dreams.", author: "Behlly's flame" },
+  { text: "Another revolution around the sun, and I'm still grateful you exist. Happy Birthday, my favorite person.", author: "— love, me" },
+  { text: "Radiant, fearless, beautiful Behlly Tamar. Today the whole world celebrates YOU.", author: "🌹⭐" }
+];
+
+// --- CORE LOGIC ---
+function getAgeAndStatus() {
+  const today = new Date();
+  const birthThisYear = new Date(today.getFullYear(), BIRTH_DATE.month, BIRTH_DATE.day);
+  let age = today.getFullYear() - BIRTH_DATE.year;
+  if (today < birthThisYear) age--;
+  let isExactlyBirthday = (today.getDate() === BIRTH_DATE.day && today.getMonth() === BIRTH_DATE.month);
+  return { age, isExactlyBirthday, today };
+}
+
+function updateDynamicAge() {
+  const { age, isExactlyBirthday, today } = getAgeAndStatus();
+  const clockParent = document.getElementById('liveClockDisplay');
+  if (!clockParent) return;
+
+  if (isExactlyBirthday) {
+    clockParent.innerHTML = `🎉🎂 <span id="ageValue">${age} 🎂</span> · TODAY IS YOUR BLAZING DAY! 🎉🎈`;
+    clockParent.style.background = "rgba(255, 100, 80, 0.6)";
+  } else {
+    const nextBirthday = new Date(today.getFullYear(), BIRTH_DATE.month, BIRTH_DATE.day);
+    if (today > nextBirthday) nextBirthday.setFullYear(today.getFullYear() + 1);
+    const diffDays = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
+    clockParent.innerHTML = `🎂 <span id="ageValue">${age}</span> years · next orbit in ${diffDays} days 🎈`;
+  }
+}
+
+// --- QUOTE ROTATION LOGIC ---
+let currentQuoteIndex = 0;
+
+function updateQuoteDisplay() {
+  const quoteContent = document.getElementById('quoteContent');
+  const quoteAuthor = document.getElementById('quoteAuthor');
+  
+  // Start Fade Out
+  quoteContent.style.opacity = 0;
+  quoteAuthor.style.opacity = 0;
+
+  setTimeout(() => {
+    currentQuoteIndex = (currentQuoteIndex + 1) % quoteLibrary.length;
+    const q = quoteLibrary[currentQuoteIndex];
+    
+    quoteContent.innerText = `“${q.text}”`;
+    quoteAuthor.innerText = q.author;
+    
+    // Fade In
+    quoteContent.style.opacity = 1;
+    quoteAuthor.style.opacity = 1;
+  }, 400); // Wait for fade out to finish
+}
+
+// Set the 2-second interval
+setInterval(updateQuoteDisplay, 2000);
+
+// --- OPTIMIZED PARTICLE SYSTEM ---
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d', { alpha: true });
+let particlesArray = [];
+let mouse = { x: null, y: null, active: false };
+let throttle = 0; 
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+class Spark {
+  constructor(x, y, isConfetti = false) {
+    this.x = x;
+    this.y = y;
+    this.isConfetti = isConfetti;
+    this.size = isConfetti ? Math.random() * 6 + 4 : Math.random() * 3 + 1;
+    this.speedX = (Math.random() - 0.5) * (isConfetti ? 10 : 3);
+    this.speedY = isConfetti ? Math.random() * 8 + 2 : (Math.random() - 0.5) * 3;
+    this.color = isConfetti ? 
+      ['#FF5E7E', '#FFB347', '#FAC05E', '#FF9F4A'][Math.floor(Math.random() * 4)] : 
+      `hsl(${Math.random() * 30 + 15}, 100%, 70%)`;
+    this.life = 1.0;
+    this.decay = isConfetti ? 0.01 : 0.02;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.isConfetti) this.speedY += 0.1; 
+    this.life -= this.decay;
+  }
+  draw() {
+    ctx.globalAlpha = this.life;
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    if (this.isConfetti) {
+      ctx.fillRect(this.x, this.y, this.size, this.size);
+    } else {
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  if (mouse.active && throttle++ % 2 === 0) {
+    particlesArray.push(new Spark(mouse.x, mouse.y));
+  }
+
+  for (let i = particlesArray.length - 1; i >= 0; i--) {
+    particlesArray[i].update();
+    particlesArray[i].draw();
+    if (particlesArray[i].life <= 0) particlesArray.splice(i, 1);
+  }
+  
+  if (particlesArray.length > 250) particlesArray.shift();
+  requestAnimationFrame(animate);
+}
+
+// --- INTERACTION HANDLERS ---
+function superBlast() {
+  // Launch Confetti from top
+  for (let i = 0; i < 80; i++) {
+    particlesArray.push(new Spark(Math.random() * canvas.width, -20, true));
+  }
+  
+  // Force a quote update immediately on click
+  updateQuoteDisplay();
+
+  if (navigator.vibrate) navigator.vibrate(50);
+}
+
+window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
+window.addEventListener('mousedown', () => mouse.active = true);
+window.addEventListener('mouseup', () => mouse.active = false);
+window.addEventListener('touchstart', e => { 
+  mouse.active = true; 
+  mouse.x = e.touches[0].clientX; 
+  mouse.y = e.touches[0].clientY; 
+});
+window.addEventListener('touchend', () => mouse.active = false);
+
+document.getElementById('birthdayBlaster').addEventListener('click', superBlast);
+
+// Init
+updateDynamicAge();
+animate();
+  </script>
+</body>
+</html>
