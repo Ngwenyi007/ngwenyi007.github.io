@@ -213,103 +213,70 @@
   </div>
 
 </div>
-<script type="module">
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-// ==========================
-// SUPABASE CONFIG (YOUR REAL VALUES)
-// ==========================
+<script>
 const SUPABASE_URL = "https://fflpqfnvxmylaxcfdchs.supabase.co";
 const SUPABASE_KEY = "YOUR_ANON_KEY_HERE";
 
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ==========================
-// JOIN CELEBRATION
-// ==========================
 async function joinCelebration() {
+
   const name = document.getElementById("motherName").value.trim();
   const status = document.getElementById("motherStatus").value.trim();
 
-  if (name.length < 3) {
-    alert("Enter a valid mother name 🌸");
+  if (!name) {
+    alert("Enter name");
     return;
   }
 
-  // IMPORTANT FIX: stricter validation (your rule)
-  const isMotherName =
-    /^mama\s+[a-zA-Z]+$/i.test(name) ||
-    /^mom\s+[a-zA-Z]+$/i.test(name) ||
-    /^mother\s+[a-zA-Z]+$/i.test(name);
-
-  if (!isMotherName) {
-    alert("Only valid mother titles allowed (e.g. Mama Grace) 👑");
-    return;
-  }
-
-  const { error } = await supabaseClient
+  const { data, error } = await supabaseClient
     .from("mothers")
-    .insert([
-      {
-        name: name,
-        status: status || "Feeling blessed 💖"
-      }
-    ]);
+    .insert([{ name, status }])
+    .select();
 
   if (error) {
-    console.log("INSERT ERROR:", error);
-    alert("Insert failed — check console");
+    alert("Insert failed");
+    console.log(error);
     return;
   }
 
-  document.getElementById("entryScreen").classList.add("hidden");
-  document.getElementById("mainScreen").classList.remove("hidden");
-
+  alert("Success 🌸");
   loadMothers();
 }
 
-// ==========================
-// LOAD MOTHERS
-// ==========================
 async function loadMothers() {
+
   const { data, error } = await supabaseClient
     .from("mothers")
     .select("*")
     .order("id", { ascending: false });
 
   if (error) {
-    console.log("SELECT ERROR:", error);
-    alert("Fetch failed — check console");
+    console.log(error);
+    alert("Fetch failed");
     return;
   }
 
   const wall = document.getElementById("mothersWall");
   wall.innerHTML = "";
 
-  document.getElementById("onlineCount").innerText =
-    `💖 ${data.length} mothers celebrating`;
-
   data.forEach(m => {
     const div = document.createElement("div");
     div.className = "mother-card";
-
     div.innerHTML = `
       <div class="mother-name">${m.name}</div>
       <div class="status">${m.status}</div>
-      <div class="time">just joined ✨</div>
     `;
-
     wall.appendChild(div);
   });
 }
 
-// expose function to HTML buttons
 window.joinCelebration = joinCelebration;
 window.loadMothers = loadMothers;
 
-// auto load when page opens
 loadMothers();
 </script>
-
 </body>
 </html>
