@@ -1,415 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mothers Celebration Portal 🌸</title>
-
-  <!-- SUPABASE -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌸 Mothers Inspiration Wall · Working Version</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family: Arial, Helvetica, sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, 'Segoe UI', Arial, sans-serif;
     }
-
-    body{
-      background: linear-gradient(135deg,#ffd6e7,#ffc2d1);
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding:20px;
-      overflow-x:hidden;
+    body {
+      background: linear-gradient(135deg, #ffd6e7, #ffc2d1);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
-
-    .container{
-      width:100%;
-      max-width:850px;
-      background:white;
-      border-radius:25px;
-      padding:35px;
-      box-shadow:0 10px 40px rgba(0,0,0,0.15);
-      text-align:center;
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: white;
+      border-radius: 2rem;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     }
-
-    h1{
-      color:#d63384;
-      margin-bottom:15px;
-      font-size:2.5rem;
+    h1 { color: #d63384; margin-bottom: 1rem; }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border: 2px solid #ffe2ec;
+      border-radius: 60px;
+      font-size: 1rem;
     }
-
-    p{
-      color:#444;
-      margin-bottom:20px;
-      line-height:1.6;
+    textarea { border-radius: 24px; resize: vertical; }
+    button {
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #d63384;
+      color: white;
+      border: none;
+      border-radius: 60px;
+      font-weight: bold;
+      cursor: pointer;
     }
-
-    input{
-      width:100%;
-      padding:15px;
-      border-radius:12px;
-      border:2px solid #eee;
-      margin-top:15px;
-      font-size:1rem;
-      outline:none;
+    .wall {
+      background: #fff0f5;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      max-height: 400px;
+      overflow-y: auto;
     }
-
-    input:focus{
-      border-color:#d63384;
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f1a9c0;
     }
-
-    button{
-      margin-top:20px;
-      padding:15px 25px;
-      border:none;
-      border-radius:12px;
-      background:#d63384;
-      color:white;
-      font-size:1rem;
-      cursor:pointer;
-      transition:0.3s;
-      font-weight:bold;
+    .name { font-weight: bold; color: #d63384; }
+    .status { margin-top: 6px; font-style: italic; }
+    .time { font-size: 0.7rem; color: gray; margin-top: 8px; text-align: right; }
+    .error-box {
+      background: #ffe0e0;
+      color: #c00;
+      padding: 8px;
+      border-radius: 12px;
+      margin: 10px 0;
     }
-
-    button:hover{
-      background:#b0256d;
-      transform:scale(1.05);
-    }
-
-    .hidden{
-      display:none;
-    }
-
-    .mothers-wall{
-      margin-top:30px;
-      background:#fff0f5;
-      border-radius:20px;
-      padding:20px;
-      max-height:350px;
-      overflow-y:auto;
-      text-align:left;
-    }
-
-    .mother-card{
-      background:white;
-      padding:15px;
-      border-radius:12px;
-      margin-bottom:12px;
-      animation:fadeIn 0.5s ease;
-      box-shadow:0 3px 10px rgba(0,0,0,0.08);
-    }
-
-    @keyframes fadeIn{
-      from{
-        opacity:0;
-        transform:translateY(10px);
-      }
-      to{
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-
-    .mother-name{
-      font-weight:bold;
-      color:#d63384;
-      font-size:1.1rem;
-    }
-
-    .status{
-      color:#555;
-      margin-top:5px;
-    }
-
-    .time{
-      font-size:0.8rem;
-      color:#999;
-      margin-top:8px;
-    }
-
-    .online-count{
-      margin-top:20px;
-      font-size:1.2rem;
-      color:#b0256d;
-      font-weight:bold;
-    }
-
-    .floating{
-      position:fixed;
-      bottom:-50px;
-      animation:floatUp 10s linear infinite;
-      color:#d63384;
-      font-weight:bold;
-      pointer-events:none;
-      opacity:0.8;
-    }
-
-    @keyframes floatUp{
-      from{
-        transform:translateY(0);
-        opacity:1;
-      }
-      to{
-        transform:translateY(-120vh);
-        opacity:0;
-      }
-    }
-
   </style>
 </head>
 <body>
-
 <div class="container">
+  <h1>🌸 Mothers Inspiration Wall</h1>
+  <p>Leave a message to inspire other mothers around the world 💖</p>
 
-  <!-- ENTRY SCREEN -->
-  <div id="entryScreen">
+  <input type="text" id="motherName" placeholder="Your name (must include 'mama', 'mom', or 'mother')">
+  <textarea id="motherMessage" rows="2" placeholder="Your message of hope, joy, or wisdom..."></textarea>
+  <button id="postBtn">✨ Post to Wall ✨</button>
 
-    <h1>🌸 Mothers Celebration Portal 👑</h1>
-
-    <p>
-      Welcome beautiful mothers.<br>
-      Enter your mother title to celebrate with fellow queens today 💖
-    </p>
-
-    <input
-      type="text"
-      id="motherName"
-      placeholder="Example: Mama Francis"
-    />
-
-    <input
-      type="text"
-      id="motherStatus"
-      placeholder="How are you feeling today?"
-    />
-
-    <button onclick="joinCelebration()">
-      Enter Celebration ✨
-    </button>
-
+  <div id="wall" class="wall">
+    <div style="text-align:center; padding:1rem;">Loading messages...</div>
   </div>
-
-  <!-- MAIN SCREEN -->
-  <div id="mainScreen" class="hidden">
-
-    <h1>🌷 Mothers Celebrating Right Now 🌷</h1>
-
-    <p>
-      A digital gathering of appreciation, strength, and love 💖
-    </p>
-
-    <div class="online-count" id="onlineCount">
-      Loading mothers...
-    </div>
-
-    <div class="mothers-wall" id="mothersWall">
-    </div>
-
-  </div>
-
+  <div style="margin-top: 1rem; font-size:0.7rem; color:#777;">❤️ Every mother’s voice shared here.</div>
 </div>
 
 <script>
-
-  // ==========================
-  // SUPABASE CONFIG
-  // ==========================
-
-  const SUPABASE_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+  // ==================== YOUR SUPABASE CREDENTIALS ====================
+  const SUPABASE_URL = "https://fflpqfnvxmylaxcfdchs.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmbHBxZm52eG15bGF4Y2ZkY2hzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMzU3ODEsImV4cCI6MjA5MzkxMTc4MX0.JJA7jPfyvzgrbzKMbtJZdIoAMY7Wj0Tc3Y_cRmpG6EU";
+  // ====================================================================
 
-  const client = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  // ==========================
-  // JOIN CELEBRATION
-  // ==========================
-
-  async function joinCelebration(){
-
-    const name =
-      document.getElementById("motherName")
-      .value
-      .trim();
-
-    const status =
-      document.getElementById("motherStatus")
-      .value
-      .trim();
-
-    // validation
-
-    if(name.length < 3){
-      alert("Please enter your mother title 🌸");
-      return;
-    }
-
-    const lowered = name.toLowerCase();
-
-    if(
-      !lowered.includes("mama") &&
-      !lowered.includes("mom") &&
-      !lowered.includes("mother")
-    ){
-      alert("Access reserved for mothers only 👑");
-      return;
-    }
-
-    // anti spam
-
-    if(localStorage.getItem("joinedToday")){
-      alert("You already joined today 🌸");
-      return;
-    }
-
-    // insert into database
-
-    const { error } = await client
-      .from("mothers")
-      .insert([
-        {
-          name:name,
-          status:status || "Feeling blessed 💖"
-        }
-      ]);
-
-    if(error){
-      alert("Something went wrong.");
-      console.log(error);
-      return;
-    }
-
-    localStorage.setItem("joinedToday","yes");
-
-    document
-      .getElementById("entryScreen")
-      .classList.add("hidden");
-
-    document
-      .getElementById("mainScreen")
-      .classList.remove("hidden");
-
-    loadMothers();
-
-    floatingMessage(
-      `🌸 ${name} joined the celebration`
-    );
-
+  // Helper: show error in the wall area
+  function showError(msg) {
+    const wallDiv = document.getElementById('wall');
+    wallDiv.innerHTML = `<div class="error-box">⚠️ ${msg}</div>${wallDiv.innerHTML}`;
+    console.error(msg);
   }
 
-  // ==========================
-  // LOAD MOTHERS
-  // ==========================
+  // Load all messages (newest first)
+  async function loadMessages() {
+    const { data, error } = await supabase
+      .from('mothers')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-  async function loadMothers(){
-
-    const { data, error } = await client
-      .from("mothers")
-      .select("*")
-      .order("id",{ascending:false});
-
-    if(error){
-      console.log(error);
+    if (error) {
+      showError('Failed to load: ' + error.message);
       return;
     }
 
-    const wall =
-      document.getElementById("mothersWall");
+    const wallDiv = document.getElementById('wall');
+    if (!data || data.length === 0) {
+      wallDiv.innerHTML = '<div style="text-align:center;">✨ Be the first mother to leave a message ✨</div>';
+      return;
+    }
 
-    wall.innerHTML = "";
-
-    document.getElementById(
-      "onlineCount"
-    ).innerHTML =
-      `💖 ${data.length} mothers celebrating today`;
-
-    data.forEach((mother)=>{
-
-      const card =
-      `
-      <div class="mother-card">
-
-        <div class="mother-name">
-          ${mother.name}
-        </div>
-
-        <div class="status">
-          ${mother.status}
-        </div>
-
-        <div class="time">
-          Recently joined ✨
-        </div>
-
+    wallDiv.innerHTML = data.map(row => `
+      <div class="card">
+        <div class="name">🌸 ${escapeHtml(row.name)}</div>
+        <div class="status">💬 ${escapeHtml(row.status)}</div>
+        <div class="time">${new Date(row.created_at).toLocaleString()}</div>
       </div>
-      `;
-
-      wall.innerHTML += card;
-
-    });
-
+    `).join('');
   }
 
-  // ==========================
-  // REALTIME LISTENER
-  // ==========================
+  // Post a new message
+  async function postMessage() {
+    const nameInput = document.getElementById('motherName');
+    const msgInput = document.getElementById('motherMessage');
+    const name = nameInput.value.trim();
+    const status = msgInput.value.trim() || "Feeling blessed 💖";
 
-  client
-    .channel("mothers-channel")
-    .on(
-      "postgres_changes",
-      {
-        event:"INSERT",
-        schema:"public",
-        table:"mothers"
-      },
-      (payload)=>{
+    if (name.length < 2) {
+      alert("Please enter your mother name.");
+      return;
+    }
+    const lowerName = name.toLowerCase();
+    if (!lowerName.includes('mama') && !lowerName.includes('mom') && !lowerName.includes('mother')) {
+      alert("Only mothers can post. Please include 'mama', 'mom', or 'mother' in your name.");
+      return;
+    }
 
-        loadMothers();
+    // optional: prevent duplicate today (using localStorage)
+    const today = new Date().toDateString();
+    if (localStorage.getItem('lastPostDate') === today) {
+      alert("You have already posted today. Come back tomorrow to share more 💐");
+      return;
+    }
 
-        floatingMessage(
-          `💖 ${payload.new.name} says hello to fellow mothers`
-        );
+    const { error } = await supabase
+      .from('mothers')
+      .insert([{ name: name, status: status }]);
 
-      }
-    )
-    .subscribe();
+    if (error) {
+      // Show detailed error in both alert and console
+      alert(`❌ Something went wrong:\n${error.message}\n\nCheck console for details.`);
+      console.error("Supabase insert error:", error);
+      return;
+    }
 
-  // ==========================
-  // FLOATING MESSAGE
-  // ==========================
-
-  function floatingMessage(text){
-
-    const div =
-      document.createElement("div");
-
-    div.className = "floating";
-
-    div.innerText = text;
-
-    div.style.left =
-      Math.random() * 80 + "%";
-
-    div.style.fontSize =
-      (Math.random() * 10 + 16) + "px";
-
+    // success
+    localStorage.setItem('lastPostDate', today);
+    nameInput.value = '';
+    msgInput.value = '';
+    await loadMessages();
+    // make a little floating notification
+    const div = document.createElement('div');
+    div.innerText = `🌸 ${name} shared a message! 🌸`;
+    div.style.position = 'fixed'; div.style.bottom = '20px'; div.style.left = '20px';
+    div.style.background = '#d63384'; div.style.color = 'white'; div.style.padding = '6px 16px';
+    div.style.borderRadius = '40px'; div.style.zIndex = '9999';
     document.body.appendChild(div);
-
-    setTimeout(()=>{
-      div.remove();
-    },10000);
-
+    setTimeout(() => div.remove(), 3000);
   }
 
-</script>
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
 
+  // Real-time listener: new messages appear automatically
+  function subscribeToInserts() {
+    supabase
+      .channel('mothers-wall')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mothers' }, () => {
+        loadMessages();
+      })
+      .subscribe();
+  }
+
+  // Initial load
+  loadMessages();
+  subscribeToInserts();
+
+  document.getElementById('postBtn').addEventListener('click', postMessage);
+</script>
 </body>
 </html>
