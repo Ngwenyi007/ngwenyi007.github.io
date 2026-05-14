@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Birthday Celebration</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:#000;
+  overflow:hidden;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+/* cinematic background */
+body::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at center,
+  rgba(255,140,0,0.15),
+  transparent 45%),
+  #000;
+
+  animation:bgMove 7s infinite alternate;
+}
+
+@keyframes bgMove{
+  from{
+    transform:scale(1);
+  }
+
+  to{
+    transform:scale(1.1);
+  }
+}
+
+/* TEXT AREA */
+
+.container{
+  position:relative;
+  z-index:5;
+  width:100%;
+  text-align:center;
+}
+
+.word{
+  position:absolute;
+  width:100%;
+  top:50%;
+  left:0;
+
+  transform:translateY(-50%) scale(.5);
+  opacity:0;
+
+  font-size:clamp(2rem,8vw,6rem);
+  font-weight:900;
+  letter-spacing:4px;
+  text-transform:uppercase;
+
+  color:#ffcc70;
+
+  text-shadow:
+  0 0 5px #ffb300,
+  0 0 10px #ff9500,
+  0 0 20px #ff7b00,
+  0 0 40px #ff5e00,
+  0 0 80px #ff3c00;
+
+  animation:splashWords 12s forwards;
+}
+
+.word:nth-child(1){ animation-delay:0s; }
+.word:nth-child(2){ animation-delay:3s; }
+.word:nth-child(3){ animation-delay:6s; }
+.word:nth-child(4){ animation-delay:9s; }
+
+@keyframes splashWords{
+
+  0%{
+    opacity:0;
+    transform:translateY(-50%) scale(.3);
+    filter:blur(20px);
+  }
+
+  10%{
+    opacity:1;
+    transform:translateY(-50%) scale(1.15);
+    filter:blur(0px);
+  }
+
+  22%{
+    opacity:1;
+    transform:translateY(-50%) scale(1);
+  }
+
+  30%{
+    opacity:0;
+    transform:translateY(-50%) scale(1.5);
+    filter:blur(15px);
+  }
+
+  100%{
+    opacity:0;
+  }
+}
+
+/* FINAL CELEBRATION SCREEN */
+
+.celebration{
+  position:absolute;
+  inset:0;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+
+  opacity:0;
+  z-index:10;
+
+  animation:showCelebration 2s forwards;
+  animation-delay:12s;
+}
+
+@keyframes showCelebration{
+  to{
+    opacity:1;
+  }
+}
+
+.birthday{
+  font-size:clamp(2rem,9vw,7rem);
+  font-weight:900;
+  text-align:center;
+  color:white;
+
+  animation:glowPulse 1.5s infinite alternate;
+}
+
+@keyframes glowPulse{
+
+  from{
+    transform:scale(1);
+    text-shadow:
+    0 0 10px #ff00aa,
+    0 0 20px #ff0080,
+    0 0 40px #ff0055;
+  }
+
+  to{
+    transform:scale(1.08);
+    text-shadow:
+    0 0 20px #00e5ff,
+    0 0 40px #00c3ff,
+    0 0 70px #008cff;
+  }
+}
+
+.sub{
+  margin-top:20px;
+  color:#fff;
+  font-size:1.2rem;
+  letter-spacing:2px;
+
+  opacity:.8;
+}
+
+/* confetti */
+
+.confetti{
+  position:absolute;
+  width:10px;
+  height:10px;
+  top:-20px;
+  opacity:.9;
+
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+
+  to{
+    transform:
+    translateY(110vh)
+    rotate(720deg);
+
+    opacity:0;
+  }
+}
+
+/* fireworks */
+
+.firework{
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:white;
+
+  box-shadow:
+  0 0 10px white,
+  0 0 20px white;
+
+  animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+
+  from{
+    transform:scale(0);
+    opacity:1;
+  }
+
+  to{
+    transform:scale(12);
+    opacity:0;
+  }
+}
+
+/* particles */
+
+.particles span{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#ff9500;
+  box-shadow:0 0 10px #ff9500;
+
+  bottom:-20px;
+
+  animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+
+  from{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(-110vh) scale(0);
+    opacity:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="particles"></div>
+
+<div class="container">
+  <div class="word">Gîtungati</div>
+  <div class="word">ti</div>
+  <div class="word">Mark</div>
+  <div class="word">Macharia</div>
+</div>
+
+<!-- celebration screen -->
+<div class="celebration">
+
+  <div class="birthday">
+    🎉 HAPPY BIRTHDAY 🎂
+  </div>
+
+  <div class="sub">
+    MARK MACHARIA
+  </div>
+
+</div>
+
+<script>
+
+/* floating ember particles */
+
+const particles = document.querySelector('.particles');
+
+for(let i=0;i<70;i++){
+
+  const dot = document.createElement('span');
+
+  dot.style.left = Math.random()*100 + "vw";
+
+  dot.style.animationDuration =
+  (Math.random()*6+4)+"s";
+
+  dot.style.animationDelay =
+  Math.random()*5+"s";
+
+  particles.appendChild(dot);
+}
+
+/* confetti explosion after intro */
+
+setTimeout(()=>{
+
+  for(let i=0;i<150;i++){
+
+    const confetti =
+    document.createElement("div");
+
+    confetti.classList.add("confetti");
+
+    confetti.style.left =
+    Math.random()*100+"vw";
+
+    confetti.style.background =
+    `hsl(${Math.random()*360},
+    100%,50%)`;
+
+    confetti.style.width =
+    Math.random()*10+5+"px";
+
+    confetti.style.height =
+    Math.random()*10+5+"px";
+
+    confetti.style.animationDuration =
+    Math.random()*3+3+"s";
+
+    document.body.appendChild(confetti);
+
+    setTimeout(()=>{
+      confetti.remove();
+    },6000);
+  }
+
+},12000);
+
+/* fireworks */
+
+function createFirework(){
+
+  const firework =
+  document.createElement("div");
+
+  firework.classList.add("firework");
+
+  firework.style.left =
+  Math.random()*100+"vw";
+
+  firework.style.top =
+  Math.random()*100+"vh";
+
+  firework.style.background =
+  `hsl(${Math.random()*360},
+  100%,70%)`;
+
+  document.body.appendChild(firework);
+
+  setTimeout(()=>{
+    firework.remove();
+  },1000);
+}
+
+/* repeat fireworks */
+
+setTimeout(()=>{
+
+  setInterval(()=>{
+    createFirework();
+  },300);
+
+},12000);
+
+</script>
+
+</body>
+</html>
