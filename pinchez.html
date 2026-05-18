@@ -119,6 +119,25 @@ body::before{
     opacity:0;
   }
 }
+  .typewriter{
+      font-size:1.5rem;
+      border-right:3px solid #fff;
+      white-space:nowrap;
+      overflow:hidden;
+      width:0;
+      animation:
+        typing 7s steps(95, end) forwards,
+        blink 0.7s infinite;
+    }
+
+    @keyframes typing{
+      from { width:0 }
+      to { width:95ch }
+    }
+
+    @keyframes blink{
+      50% { border-color:transparent }
+    }
 
 /* FINAL CELEBRATION SCREEN */
 
@@ -284,6 +303,9 @@ body::before{
 
   <div class="sub">
     Peter Gîchero Thûmbi
+    <div class="typewriter">
+    Happy Birthday bro 🎂⚽ Hope your day is more legendary than a last minute winner at the Emirates!
+  </div>
   </div>
 
 </div>
